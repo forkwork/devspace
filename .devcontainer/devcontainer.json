@@ -1,5 +1,5 @@
 {
-  "name": "DevPod Development",
+  "name": "DevSpace Development",
   "image": "ghcr.io/khulnasoftdevspace:dev-6b64450abdb0ebc2ce7f663f9ff935c56679f8b6",
   "remoteUser": "devspace",
   "postCreateCommand": "bash ./.devcontainer/post_create.sh",

@@ -37,8 +37,8 @@ func NewDeleteCmd(flags *flags.GlobalFlags) *cobra.Command {
 			return cmd.Run(context.Background())
 		},
 	}
-	deleteCmd.Flags().BoolVar(&cmd.Container, "container", true, "If enabled, cleans up the DevPod container")
-	deleteCmd.Flags().BoolVar(&cmd.Daemon, "daemon", false, "If enabled, cleans up the DevPod daemon")
+	deleteCmd.Flags().BoolVar(&cmd.Container, "container", true, "If enabled, cleans up the DevSpace container")
+	deleteCmd.Flags().BoolVar(&cmd.Daemon, "daemon", false, "If enabled, cleans up the DevSpace daemon")
 
 	deleteCmd.Flags().StringVar(&cmd.WorkspaceInfo, "workspace-info", "", "The workspace info")
 	_ = deleteCmd.MarkFlagRequired("workspace-info")
@@ -76,20 +76,20 @@ func (cmd *DeleteCmd) Run(ctx context.Context) error {
 }
 
 func removeContainer(ctx context.Context, workspaceInfo *provider2.AgentWorkspaceInfo, log log.Logger) error {
-	log.Debugf("Removing DevPod container from server...")
+	log.Debugf("Removing DevSpace container from server...")
 	runner, err := CreateRunner(workspaceInfo, log)
 	if err != nil {
 		return err
 	}
 
 	if workspaceInfo.Workspace.Source.Container != "" {
-		log.Infof("Skipping container deletion, since it was not created by DevPod")
+		log.Infof("Skipping container deletion, since it was not created by DevSpace")
 	} else {
 		err = runner.Delete(ctx)
 		if err != nil {
 			return err
 		}
-		log.Debugf("Successfully removed DevPod container from server")
+		log.Debugf("Successfully removed DevSpace container from server")
 	}
 
 	return nil
@@ -100,12 +100,12 @@ func removeDaemon(workspaceInfo *provider2.AgentWorkspaceInfo, log log.Logger) e
 		return nil
 	}
 
-	log.Debugf("Removing DevPod daemon from server...")
+	log.Debugf("Removing DevSpace daemon from server...")
 	err := agentdaemon.RemoveDaemon()
 	if err != nil {
 		return errors.Wrap(err, "remove daemon")
 	}
-	log.Debugf("Successfully removed DevPod daemon from server")
+	log.Debugf("Successfully removed DevSpace daemon from server")
 
 	return nil
 }

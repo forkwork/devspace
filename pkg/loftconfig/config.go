@@ -8,7 +8,7 @@ import (
 	"dev.khulnasoft.com/log"
 )
 
-func AuthDevpodCliToPlatform(config *client.Config, logger log.Logger) error {
+func AuthDevspaceCliToPlatform(config *client.Config, logger log.Logger) error {
 	cmd := exec.Command("devspace", "pro", "login", "--access-key", config.AccessKey, config.Host)
 	out, err := cmd.CombinedOutput()
 	if err != nil {

@@ -11,14 +11,14 @@ import (
 // based on the current product.Product().
 //
 // It replaces "loft" with the specific product name:
-//   - "devspace pro" for product.DevPodPro
+//   - "devspace pro" for product.DevSpacePro
 //   - "vcluster platform" for product.VClusterPro
 //   - No replacement for product.Loft
 //
 // This handles case insensitive replaces like "loft" -> "devspace pro".
 //
 // It also handles case sensitive replaces:
-//   - "Loft" -> "DevPod.Pro" for product.DevPodPro
+//   - "Loft" -> "DevSpace.Pro" for product.DevSpacePro
 //   - "Loft" -> "vCluster Platform" for product.VClusterPro
 //
 // This allows customizing command usage text for different products.
@@ -30,12 +30,12 @@ import (
 //   - The updated string with product name replaced if needed.
 func Replace(content string) string {
 	switch Name() {
-	case licenseapi.DevPodPro:
+	case licenseapi.DevSpacePro:
 		content = strings.Replace(content, "loft.sh", "devspace.pro", -1)
 		content = strings.Replace(content, "loft.host", "devspace.host", -1)
 
 		content = strings.Replace(content, "loft", "devspace pro", -1)
-		content = strings.Replace(content, "Loft", "DevPod.Pro", -1)
+		content = strings.Replace(content, "Loft", "DevSpace.Pro", -1)
 	case licenseapi.VClusterPro:
 		content = strings.Replace(content, "loft.sh", "vcluster.pro", -1)
 		content = strings.Replace(content, "loft.host", "vcluster.host", -1)
@@ -54,14 +54,14 @@ func Replace(content string) string {
 //
 // The product name replacements are:
 //
-//   - "devspace pro" for product.DevPodPro
+//   - "devspace pro" for product.DevSpacePro
 //   - "vcluster platform" for product.VClusterPro
 //   - No replacement for product.Loft
 //
 // This handles case insensitive replaces like "loft" -> "devspace pro".
 //
 // It also handles case sensitive replaces:
-//   - "Loft" -> "DevPod.Pro" for product.DevPodPro
+//   - "Loft" -> "DevSpace.Pro" for product.DevSpacePro
 //   - "Loft" -> "vCluster Platform" for product.VClusterPro
 //
 // Parameters:
@@ -76,7 +76,7 @@ func ReplaceWithHeader(use, content string) string {
 	productName := licenseapi.Loft
 
 	switch Name() {
-	case licenseapi.DevPodPro:
+	case licenseapi.DevSpacePro:
 		productName = "devspace pro"
 	case licenseapi.VClusterPro:
 		productName = "vcluster platform"

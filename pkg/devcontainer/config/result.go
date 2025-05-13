@@ -42,18 +42,18 @@ func GetRemoteUser(result *Result) string {
 	return user
 }
 
-func GetDevPodCustomizations(parsedConfig *DevContainerConfig) *DevPodCustomizations {
+func GetDevSpaceCustomizations(parsedConfig *DevContainerConfig) *DevSpaceCustomizations {
 	if parsedConfig.Customizations == nil || parsedConfig.Customizations["devspace"] == nil {
-		return &DevPodCustomizations{}
+		return &DevSpaceCustomizations{}
 	}
 
-	devPod := &DevPodCustomizations{}
-	err := Convert(parsedConfig.Customizations["devspace"], devPod)
+	devSpace := &DevSpaceCustomizations{}
+	err := Convert(parsedConfig.Customizations["devspace"], devSpace)
 	if err != nil {
-		return &DevPodCustomizations{}
+		return &DevSpaceCustomizations{}
 	}
 
-	return devPod
+	return devSpace
 }
 
 func GetVSCodeConfiguration(mergedConfig *MergedDevContainerConfig) *VSCodeCustomizations {

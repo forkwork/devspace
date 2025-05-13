@@ -11,7 +11,7 @@ import (
 func NewUseCmd(flags *flags.GlobalFlags) *cobra.Command {
 	useCmd := &cobra.Command{
 		Use:   "use",
-		Short: "Use DevPod resources",
+		Short: "Use DevSpace resources",
 	}
 
 	// use provider

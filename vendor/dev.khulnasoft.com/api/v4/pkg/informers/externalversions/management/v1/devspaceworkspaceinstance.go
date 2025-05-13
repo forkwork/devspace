@@ -16,59 +16,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// DevPodWorkspaceInstanceInformer provides access to a shared informer and lister for
-// DevPodWorkspaceInstances.
-type DevPodWorkspaceInstanceInformer interface {
+// DevSpaceWorkspaceInstanceInformer provides access to a shared informer and lister for
+// DevSpaceWorkspaceInstances.
+type DevSpaceWorkspaceInstanceInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1.DevPodWorkspaceInstanceLister
+	Lister() v1.DevSpaceWorkspaceInstanceLister
 }
 
-type devPodWorkspaceInstanceInformer struct {
+type devSpaceWorkspaceInstanceInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewDevPodWorkspaceInstanceInformer constructs a new informer for DevPodWorkspaceInstance type.
+// NewDevSpaceWorkspaceInstanceInformer constructs a new informer for DevSpaceWorkspaceInstance type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewDevPodWorkspaceInstanceInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredDevPodWorkspaceInstanceInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewDevSpaceWorkspaceInstanceInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredDevSpaceWorkspaceInstanceInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredDevPodWorkspaceInstanceInformer constructs a new informer for DevPodWorkspaceInstance type.
+// NewFilteredDevSpaceWorkspaceInstanceInformer constructs a new informer for DevSpaceWorkspaceInstance type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredDevPodWorkspaceInstanceInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredDevSpaceWorkspaceInstanceInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ManagementV1().DevPodWorkspaceInstances(namespace).List(context.TODO(), options)
+				return client.ManagementV1().DevSpaceWorkspaceInstances(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ManagementV1().DevPodWorkspaceInstances(namespace).Watch(context.TODO(), options)
+				return client.ManagementV1().DevSpaceWorkspaceInstances(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&managementv1.DevPodWorkspaceInstance{},
+		&managementv1.DevSpaceWorkspaceInstance{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *devPodWorkspaceInstanceInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredDevPodWorkspaceInstanceInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *devSpaceWorkspaceInstanceInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredDevSpaceWorkspaceInstanceInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *devPodWorkspaceInstanceInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&managementv1.DevPodWorkspaceInstance{}, f.defaultInformer)
+func (f *devSpaceWorkspaceInstanceInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&managementv1.DevSpaceWorkspaceInstance{}, f.defaultInformer)
 }
 
-func (f *devPodWorkspaceInstanceInformer) Lister() v1.DevPodWorkspaceInstanceLister {
-	return v1.NewDevPodWorkspaceInstanceLister(f.Informer().GetIndexer())
+func (f *devSpaceWorkspaceInstanceInformer) Lister() v1.DevSpaceWorkspaceInstanceLister {
+	return v1.NewDevSpaceWorkspaceInstanceLister(f.Informer().GetIndexer())
 }

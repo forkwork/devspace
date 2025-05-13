@@ -65,8 +65,8 @@ func (cmd *ImportCmd) Run(ctx context.Context, args []string) error {
 		return fmt.Errorf("usage: devspace pro import-workspace <devspace-pro-host>")
 	}
 
-	devPodProHost := args[0]
-	devPodConfig, err := config.LoadConfig(cmd.Context, "")
+	devSpaceProHost := args[0]
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, "")
 	if err != nil {
 		return err
 	}
@@ -77,8 +77,8 @@ func (cmd *ImportCmd) Run(ctx context.Context, args []string) error {
 	}
 
 	// check if workspace already exists
-	if provider2.WorkspaceExists(devPodConfig.DefaultContext, cmd.WorkspaceId) {
-		workspaceConfig, err := provider2.LoadWorkspaceConfig(devPodConfig.DefaultContext, cmd.WorkspaceId)
+	if provider2.WorkspaceExists(devSpaceConfig.DefaultContext, cmd.WorkspaceId) {
+		workspaceConfig, err := provider2.LoadWorkspaceConfig(devSpaceConfig.DefaultContext, cmd.WorkspaceId)
 		if err != nil {
 			return fmt.Errorf("load workspace: %w", err)
 		} else if workspaceConfig.UID == cmd.WorkspaceUid {
@@ -87,7 +87,7 @@ func (cmd *ImportCmd) Run(ctx context.Context, args []string) error {
 		}
 
 		newWorkspaceId := cmd.WorkspaceId + "-" + random.String(5)
-		if provider2.WorkspaceExists(devPodConfig.DefaultContext, newWorkspaceId) {
+		if provider2.WorkspaceExists(devSpaceConfig.DefaultContext, newWorkspaceId) {
 			return fmt.Errorf("workspace %s already exists", cmd.WorkspaceId)
 		}
 
@@ -95,12 +95,12 @@ func (cmd *ImportCmd) Run(ctx context.Context, args []string) error {
 		cmd.WorkspaceId = newWorkspaceId
 	}
 
-	provider, err := workspace.ProviderFromHost(ctx, devPodConfig, devPodProHost, cmd.log)
+	provider, err := workspace.ProviderFromHost(ctx, devSpaceConfig, devSpaceProHost, cmd.log)
 	if err != nil {
 		return fmt.Errorf("resolve provider: %w", err)
 	}
 
-	baseClient, err := platform.InitClientFromProvider(ctx, devPodConfig, provider.Name, cmd.log)
+	baseClient, err := platform.InitClientFromProvider(ctx, devSpaceConfig, provider.Name, cmd.log)
 	if err != nil {
 		return fmt.Errorf("base client: %w", err)
 	}
@@ -119,7 +119,7 @@ func (cmd *ImportCmd) Run(ctx context.Context, args []string) error {
 			return fmt.Errorf("resolve instance options: %w", err)
 		}
 
-		err = cmd.writeWorkspaceDefinition(devPodConfig, provider, instanceOpts, instance)
+		err = cmd.writeWorkspaceDefinition(devSpaceConfig, provider, instanceOpts, instance)
 		if err != nil {
 			return errors.Wrap(err, "prepare workspace to import definition")
 		}
@@ -128,7 +128,7 @@ func (cmd *ImportCmd) Run(ctx context.Context, args []string) error {
 	}
 
 	// new pro provider
-	err = cmd.writeNewWorkspaceDefinition(devPodConfig, instance, provider.Name)
+	err = cmd.writeNewWorkspaceDefinition(devSpaceConfig, instance, provider.Name)
 	if err != nil {
 		return errors.Wrap(err, "prepare workspace to import definition")
 	}
@@ -137,12 +137,12 @@ func (cmd *ImportCmd) Run(ctx context.Context, args []string) error {
 	return nil
 }
 
-func (cmd *ImportCmd) writeNewWorkspaceDefinition(devPodConfig *config.Config, instance *managementv1.DevPodWorkspaceInstance, providerName string) error {
+func (cmd *ImportCmd) writeNewWorkspaceDefinition(devSpaceConfig *config.Config, instance *managementv1.DevSpaceWorkspaceInstance, providerName string) error {
 	workspaceObj := &provider2.Workspace{
 		ID:       cmd.WorkspaceId,
 		UID:      cmd.WorkspaceUid,
 		Provider: provider2.WorkspaceProviderConfig{Name: providerName},
-		Context:  devPodConfig.DefaultContext,
+		Context:  devSpaceConfig.DefaultContext,
 		Imported: !cmd.Own,
 		Pro: &provider2.ProMetadata{
 			InstanceName: instance.GetName(),
@@ -154,7 +154,7 @@ func (cmd *ImportCmd) writeNewWorkspaceDefinition(devPodConfig *config.Config, i
 	return provider2.SaveWorkspaceConfig(workspaceObj)
 }
 
-func (cmd *ImportCmd) writeWorkspaceDefinition(devPodConfig *config.Config, provider *provider2.ProviderConfig, instanceOpts map[string]string, instance *managementv1.DevPodWorkspaceInstance) error {
+func (cmd *ImportCmd) writeWorkspaceDefinition(devSpaceConfig *config.Config, provider *provider2.ProviderConfig, instanceOpts map[string]string, instance *managementv1.DevSpaceWorkspaceInstance) error {
 	workspaceObj := &provider2.Workspace{
 		ID:  cmd.WorkspaceId,
 		UID: cmd.WorkspaceUid,
@@ -162,7 +162,7 @@ func (cmd *ImportCmd) writeWorkspaceDefinition(devPodConfig *config.Config, prov
 			Name:    provider.Name,
 			Options: map[string]config.OptionValue{},
 		},
-		Context:  devPodConfig.DefaultContext,
+		Context:  devSpaceConfig.DefaultContext,
 		Imported: !cmd.Own,
 		Pro: &provider2.ProMetadata{
 			InstanceName: instance.GetName(),
@@ -171,14 +171,14 @@ func (cmd *ImportCmd) writeWorkspaceDefinition(devPodConfig *config.Config, prov
 		},
 	}
 
-	devPodConfig, err := options.ResolveOptions(context.Background(), devPodConfig, provider, instanceOpts, false, false, nil, cmd.log)
+	devSpaceConfig, err := options.ResolveOptions(context.Background(), devSpaceConfig, provider, instanceOpts, false, false, nil, cmd.log)
 	if err != nil {
 		return fmt.Errorf("resolve options: %w", err)
 	}
-	if devPodConfig.Current() == nil || devPodConfig.Current().Providers[provider.Name] == nil {
+	if devSpaceConfig.Current() == nil || devSpaceConfig.Current().Providers[provider.Name] == nil {
 		return fmt.Errorf("unable to resolve provider config for provider %s", provider.Name)
 	}
-	workspaceObj.Provider.Options = devPodConfig.Current().Providers[provider.Name].Options
+	workspaceObj.Provider.Options = devSpaceConfig.Current().Providers[provider.Name].Options
 
 	err = provider2.SaveWorkspaceConfig(workspaceObj)
 	if err != nil {
@@ -188,7 +188,7 @@ func (cmd *ImportCmd) writeWorkspaceDefinition(devPodConfig *config.Config, prov
 	return nil
 }
 
-func resolveInstanceOptions(ctx context.Context, instance *managementv1.DevPodWorkspaceInstance, baseClient client.Client) (map[string]string, error) {
+func resolveInstanceOptions(ctx context.Context, instance *managementv1.DevSpaceWorkspaceInstance, baseClient client.Client) (map[string]string, error) {
 	opts := map[string]string{}
 	projectName := project.ProjectFromNamespace(instance.Namespace)
 

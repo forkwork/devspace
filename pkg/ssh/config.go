@@ -20,19 +20,19 @@ import (
 var configLock sync.Mutex
 
 var (
-	MarkerStartPrefix = "# DevPod Start "
-	MarkerEndPrefix   = "# DevPod End "
+	MarkerStartPrefix = "# DevSpace Start "
+	MarkerEndPrefix   = "# DevSpace End "
 )
 
-func ConfigureSSHConfig(sshConfigPath, context, workspace, user, workdir string, gpgagent bool, devPodHome string, log log.Logger) error {
-	return configureSSHConfigSameFile(sshConfigPath, context, workspace, user, workdir, "", gpgagent, devPodHome, log)
+func ConfigureSSHConfig(sshConfigPath, context, workspace, user, workdir string, gpgagent bool, devSpaceHome string, log log.Logger) error {
+	return configureSSHConfigSameFile(sshConfigPath, context, workspace, user, workdir, "", gpgagent, devSpaceHome, log)
 }
 
-func configureSSHConfigSameFile(sshConfigPath, context, workspace, user, workdir, command string, gpgagent bool, devPodHome string, log log.Logger) error {
+func configureSSHConfigSameFile(sshConfigPath, context, workspace, user, workdir, command string, gpgagent bool, devSpaceHome string, log log.Logger) error {
 	configLock.Lock()
 	defer configLock.Unlock()
 
-	newFile, err := addHost(sshConfigPath, workspace+"."+"devspace", user, context, workspace, workdir, command, gpgagent, devPodHome)
+	newFile, err := addHost(sshConfigPath, workspace+"."+"devspace", user, context, workspace, workdir, command, gpgagent, devSpaceHome)
 	if err != nil {
 		return errors.Wrap(err, "parse ssh config")
 	}
@@ -40,13 +40,13 @@ func configureSSHConfigSameFile(sshConfigPath, context, workspace, user, workdir
 	return writeSSHConfig(sshConfigPath, newFile, log)
 }
 
-type DevPodSSHEntry struct {
+type DevSpaceSSHEntry struct {
 	Host      string
 	User      string
 	Workspace string
 }
 
-func addHost(path, host, user, context, workspace, workdir, command string, gpgagent bool, devPodHome string) (string, error) {
+func addHost(path, host, user, context, workspace, workdir, command string, gpgagent bool, devSpaceHome string) (string, error) {
 	newConfig, err := removeFromConfig(path, host)
 	if err != nil {
 		return "", err
@@ -58,10 +58,10 @@ func addHost(path, host, user, context, workspace, workdir, command string, gpga
 		return "", err
 	}
 
-	return addHostSection(newConfig, execPath, host, user, context, workspace, workdir, command, gpgagent, devPodHome)
+	return addHostSection(newConfig, execPath, host, user, context, workspace, workdir, command, gpgagent, devSpaceHome)
 }
 
-func addHostSection(config, execPath, host, user, context, workspace, workdir, command string, gpgagent bool, devPodHome string) (string, error) {
+func addHostSection(config, execPath, host, user, context, workspace, workdir, command string, gpgagent bool, devSpaceHome string) (string, error) {
 	newLines := []string{}
 	// add new section
 	startMarker := MarkerStartPrefix + host
@@ -81,8 +81,8 @@ func addHostSection(config, execPath, host, user, context, workspace, workdir, c
 		proxyCommand = fmt.Sprintf("  ProxyCommand \"%s\" ssh --stdio --context %s --user %s %s", execPath, context, user, workspace)
 	}
 
-	if devPodHome != "" {
-		proxyCommand = fmt.Sprintf("%s --devspace-home \"%s\"", proxyCommand, devPodHome)
+	if devSpaceHome != "" {
+		proxyCommand = fmt.Sprintf("%s --devspace-home \"%s\"", proxyCommand, devSpaceHome)
 	}
 	if workdir != "" {
 		proxyCommand = fmt.Sprintf("%s --workdir \"%s\"", proxyCommand, workdir)

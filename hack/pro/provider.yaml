@@ -1,7 +1,7 @@
 name: devspace-pro
 version: ##VERSION##
 icon: https://dev.khulnasoft.com/assets/devspace.svg
-description: DevPod Pro
+description: DevSpace Pro
 options:
   LOFT_CONFIG:
     global: true

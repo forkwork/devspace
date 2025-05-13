@@ -39,7 +39,7 @@ const (
 var Options = ide.Options{
 	ForwardPortsOption: {
 		Name:        ForwardPortsOption,
-		Description: "If DevPod should automatically do port-forwarding",
+		Description: "If DevSpace should automatically do port-forwarding",
 		Default:     "true",
 		Enum: []string{
 			"true",
@@ -58,7 +58,7 @@ var Options = ide.Options{
 	},
 	OpenOption: {
 		Name:        OpenOption,
-		Description: "If DevPod should automatically open the browser",
+		Description: "If DevSpace should automatically open the browser",
 		Default:     "true",
 		Enum: []string{
 			"true",

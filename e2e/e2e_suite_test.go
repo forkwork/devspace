@@ -36,11 +36,11 @@ func TestRunE2ETests(t *testing.T) {
 		// wait for http server to be up and running
 		for {
 			time.Sleep(time.Second)
-			if os.Getenv("DEVPOD_AGENT_URL") != "" {
+			if os.Getenv("DEVSPACE_AGENT_URL") != "" {
 				break
 			}
 		}
 	}
 	gomega.RegisterFailHandler(ginkgo.Fail)
-	ginkgo.RunSpecs(t, "DevPod e2e suite")
+	ginkgo.RunSpecs(t, "DevSpace e2e suite")
 }

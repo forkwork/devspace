@@ -93,7 +93,7 @@ type ProjectSpec struct {
 	AllowedClusters []AllowedCluster `json:"allowedClusters,omitempty"`
 
 	// AllowedRunners are target runners that are allowed to target with
-	// DevPod environments.
+	// DevSpace environments.
 	// +optional
 	AllowedRunners []AllowedRunner `json:"allowedRunners,omitempty"`
 
@@ -134,9 +134,9 @@ type ProjectSpec struct {
 	// +optional
 	RancherIntegration *RancherIntegrationSpec `json:"rancher,omitempty"`
 
-	// DevPod holds DevPod specific configuration for project
+	// DevSpace holds DevSpace specific configuration for project
 	// +optional
-	DevPod *DevPodProjectSpec `json:"devPod,omitempty"`
+	DevSpace *DevSpaceProjectSpec `json:"devSpace,omitempty"`
 }
 
 type RequireTemplate struct {
@@ -175,12 +175,12 @@ type Quotas struct {
 var (
 	SpaceTemplateKind           = "SpaceTemplate"
 	VirtualClusterTemplateKind  = "VirtualClusterTemplate"
-	DevPodWorkspaceTemplateKind = "DevPodWorkspaceTemplate"
-	DevPodWorkspacePresetKind   = "DevPodWorkspacePreset"
+	DevSpaceWorkspaceTemplateKind = "DevSpaceWorkspaceTemplate"
+	DevSpaceWorkspacePresetKind   = "DevSpaceWorkspacePreset"
 )
 
 type AllowedTemplate struct {
-	// Kind of the template that is allowed. Currently only supports DevPodWorkspaceTemplate, VirtualClusterTemplate & SpaceTemplate
+	// Kind of the template that is allowed. Currently only supports DevSpaceWorkspaceTemplate, VirtualClusterTemplate & SpaceTemplate
 	// +optional
 	Kind string `json:"kind,omitempty"`
 
@@ -511,7 +511,7 @@ type SyncMembersSpec struct {
 	RoleMapping map[string]string `json:"roleMapping,omitempty"`
 }
 
-type DevPodProjectSpec struct {
+type DevSpaceProjectSpec struct {
 	// Git defines additional git related settings like credentials
 	// +optional
 	Git *GitProjectSpec `json:"git,omitempty"`

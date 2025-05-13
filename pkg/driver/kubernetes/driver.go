@@ -67,13 +67,13 @@ func (k *KubernetesDriver) getDevContainerPvc(ctx context.Context, id string) (*
 		}
 
 		return nil, nil, err
-	} else if pvc.Annotations == nil || pvc.Annotations[DevPodInfoAnnotation] == "" {
+	} else if pvc.Annotations == nil || pvc.Annotations[DevSpaceInfoAnnotation] == "" {
 		return nil, nil, fmt.Errorf("pvc is missing dev container info annotation")
 	}
 
 	// get container info
 	containerInfo := &DevContainerInfo{}
-	err = json.Unmarshal([]byte(pvc.GetAnnotations()[DevPodInfoAnnotation]), containerInfo)
+	err = json.Unmarshal([]byte(pvc.GetAnnotations()[DevSpaceInfoAnnotation]), containerInfo)
 	if err != nil {
 		return nil, nil, perrors.Wrap(err, "decode dev container info")
 	}

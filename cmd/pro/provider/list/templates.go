@@ -81,24 +81,24 @@ func Templates(ctx context.Context, client client.Client, projectName string) (*
 	templateList, err := managementClient.Loft().ManagementV1().Projects().ListTemplates(ctx, projectName, metav1.GetOptions{})
 	if err != nil {
 		return templateList, fmt.Errorf("list templates: %w", err)
-	} else if len(templateList.DevPodWorkspaceTemplates) == 0 {
+	} else if len(templateList.DevSpaceWorkspaceTemplates) == 0 {
 		return templateList, fmt.Errorf("seems like there is no template allowed in project %s, please make sure to at least have a single template available", projectName)
 	}
 
 	return templateList, nil
 }
 
-func FindTemplate(ctx context.Context, managementClient kube.Interface, projectName, templateName string) (*managementv1.DevPodWorkspaceTemplate, error) {
+func FindTemplate(ctx context.Context, managementClient kube.Interface, projectName, templateName string) (*managementv1.DevSpaceWorkspaceTemplate, error) {
 	templateList, err := managementClient.Loft().ManagementV1().Projects().ListTemplates(ctx, projectName, metav1.GetOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("list templates: %w", err)
-	} else if len(templateList.DevPodWorkspaceTemplates) == 0 {
-		return nil, fmt.Errorf("seems like there is no DevPod template allowed in project %s, please make sure to at least have a single template available", projectName)
+	} else if len(templateList.DevSpaceWorkspaceTemplates) == 0 {
+		return nil, fmt.Errorf("seems like there is no DevSpace template allowed in project %s, please make sure to at least have a single template available", projectName)
 	}
 
 	// find template
-	var template *managementv1.DevPodWorkspaceTemplate
-	for _, workspaceTemplate := range templateList.DevPodWorkspaceTemplates {
+	var template *managementv1.DevSpaceWorkspaceTemplate
+	for _, workspaceTemplate := range templateList.DevSpaceWorkspaceTemplates {
 		if workspaceTemplate.Name == templateName {
 			t := workspaceTemplate
 			template = &t
@@ -112,7 +112,7 @@ func FindTemplate(ctx context.Context, managementClient kube.Interface, projectN
 	return template, nil
 }
 
-func GetTemplateParameters(template *managementv1.DevPodWorkspaceTemplate, templateVersion string) ([]storagev1.AppParameter, error) {
+func GetTemplateParameters(template *managementv1.DevSpaceWorkspaceTemplate, templateVersion string) ([]storagev1.AppParameter, error) {
 	if templateVersion == "latest" {
 		templateVersion = ""
 	}
@@ -123,7 +123,7 @@ func GetTemplateParameters(template *managementv1.DevPodWorkspaceTemplate, templ
 			return nil, fmt.Errorf("couldn't find any version in template")
 		}
 
-		return latestVersion.(*storagev1.DevPodWorkspaceTemplateVersion).Parameters, nil
+		return latestVersion.(*storagev1.DevSpaceWorkspaceTemplateVersion).Parameters, nil
 	}
 
 	_, latestMatched, err := GetLatestMatchedVersion(template, templateVersion)
@@ -133,7 +133,7 @@ func GetTemplateParameters(template *managementv1.DevPodWorkspaceTemplate, templ
 		return nil, fmt.Errorf("couldn't find any matching version to %s", templateVersion)
 	}
 
-	return latestMatched.(*storagev1.DevPodWorkspaceTemplateVersion).Parameters, nil
+	return latestMatched.(*storagev1.DevSpaceWorkspaceTemplateVersion).Parameters, nil
 }
 
 type matchedVersion struct {

@@ -16,58 +16,58 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// DevPodEnvironmentTemplateInformer provides access to a shared informer and lister for
-// DevPodEnvironmentTemplates.
-type DevPodEnvironmentTemplateInformer interface {
+// DevSpaceEnvironmentTemplateInformer provides access to a shared informer and lister for
+// DevSpaceEnvironmentTemplates.
+type DevSpaceEnvironmentTemplateInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1.DevPodEnvironmentTemplateLister
+	Lister() v1.DevSpaceEnvironmentTemplateLister
 }
 
-type devPodEnvironmentTemplateInformer struct {
+type devSpaceEnvironmentTemplateInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 }
 
-// NewDevPodEnvironmentTemplateInformer constructs a new informer for DevPodEnvironmentTemplate type.
+// NewDevSpaceEnvironmentTemplateInformer constructs a new informer for DevSpaceEnvironmentTemplate type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewDevPodEnvironmentTemplateInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredDevPodEnvironmentTemplateInformer(client, resyncPeriod, indexers, nil)
+func NewDevSpaceEnvironmentTemplateInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredDevSpaceEnvironmentTemplateInformer(client, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredDevPodEnvironmentTemplateInformer constructs a new informer for DevPodEnvironmentTemplate type.
+// NewFilteredDevSpaceEnvironmentTemplateInformer constructs a new informer for DevSpaceEnvironmentTemplate type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredDevPodEnvironmentTemplateInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredDevSpaceEnvironmentTemplateInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.StorageV1().DevPodEnvironmentTemplates().List(context.TODO(), options)
+				return client.StorageV1().DevSpaceEnvironmentTemplates().List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.StorageV1().DevPodEnvironmentTemplates().Watch(context.TODO(), options)
+				return client.StorageV1().DevSpaceEnvironmentTemplates().Watch(context.TODO(), options)
 			},
 		},
-		&storagev1.DevPodEnvironmentTemplate{},
+		&storagev1.DevSpaceEnvironmentTemplate{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *devPodEnvironmentTemplateInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredDevPodEnvironmentTemplateInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *devSpaceEnvironmentTemplateInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredDevSpaceEnvironmentTemplateInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *devPodEnvironmentTemplateInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&storagev1.DevPodEnvironmentTemplate{}, f.defaultInformer)
+func (f *devSpaceEnvironmentTemplateInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&storagev1.DevSpaceEnvironmentTemplate{}, f.defaultInformer)
 }
 
-func (f *devPodEnvironmentTemplateInformer) Lister() v1.DevPodEnvironmentTemplateLister {
-	return v1.NewDevPodEnvironmentTemplateLister(f.Informer().GetIndexer())
+func (f *devSpaceEnvironmentTemplateInformer) Lister() v1.DevSpaceEnvironmentTemplateLister {
+	return v1.NewDevSpaceEnvironmentTemplateLister(f.Informer().GetIndexer())
 }

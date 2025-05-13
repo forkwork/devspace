@@ -223,11 +223,11 @@ func (r *runner) buildImage(
 
 	// check if there is a prebuild image
 	if !options.ForceDockerless && !options.ForceBuild {
-		devPodCustomizations := config.GetDevPodCustomizations(parsedConfig.Config)
+		devSpaceCustomizations := config.GetDevSpaceCustomizations(parsedConfig.Config)
 		if options.Repository != "" {
 			options.PrebuildRepositories = append(options.PrebuildRepositories, options.Repository)
 		}
-		options.PrebuildRepositories = append(options.PrebuildRepositories, devPodCustomizations.PrebuildRepository...)
+		options.PrebuildRepositories = append(options.PrebuildRepositories, devSpaceCustomizations.PrebuildRepository...)
 
 		r.Log.Debugf("Try to find prebuild image %s in repositories %s", prebuildHash, strings.Join(options.PrebuildRepositories, ","))
 		for _, prebuildRepo := range options.PrebuildRepositories {
@@ -375,26 +375,26 @@ func dockerlessFallback(
 	options provider.BuildOptions,
 ) (*config.BuildInfo, error) {
 	contextPath := config.GetContextPath(parsedConfig.Config)
-	devPodInternalFolder := filepath.Join(contextPath, config.DevPodContextFeatureFolder)
-	err := os.MkdirAll(devPodInternalFolder, 0755)
+	devSpaceInternalFolder := filepath.Join(contextPath, config.DevSpaceContextFeatureFolder)
+	err := os.MkdirAll(devSpaceInternalFolder, 0755)
 	if err != nil {
 		return nil, fmt.Errorf("create devspace folder: %w", err)
 	}
 
 	// build dockerfile
-	devPodDockerfile, err := build.RewriteDockerfile(dockerfileContent, extendedBuildInfo)
+	devSpaceDockerfile, err := build.RewriteDockerfile(dockerfileContent, extendedBuildInfo)
 	if err != nil {
 		return nil, fmt.Errorf("rewrite dockerfile: %w", err)
-	} else if devPodDockerfile == "" {
-		devPodDockerfile = filepath.Join(devPodInternalFolder, "Dockerfile-without-features")
-		err = os.WriteFile(devPodDockerfile, []byte(dockerfileContent), 0600)
+	} else if devSpaceDockerfile == "" {
+		devSpaceDockerfile = filepath.Join(devSpaceInternalFolder, "Dockerfile-without-features")
+		err = os.WriteFile(devSpaceDockerfile, []byte(dockerfileContent), 0600)
 		if err != nil {
 			return nil, fmt.Errorf("write devspace dockerfile: %w", err)
 		}
 	}
 
 	// get build args and target
-	containerContext, containerDockerfile := getContainerContextAndDockerfile(localWorkspaceFolder, containerWorkspaceFolder, contextPath, devPodDockerfile)
+	containerContext, containerDockerfile := getContainerContextAndDockerfile(localWorkspaceFolder, containerWorkspaceFolder, contextPath, devSpaceDockerfile)
 	buildArgs, target := build.GetBuildArgsAndTarget(parsedConfig, extendedBuildInfo)
 	return &config.BuildInfo{
 		ImageMetadata: extendedBuildInfo.MetadataConfig,
@@ -412,14 +412,14 @@ func dockerlessFallback(
 	}, nil
 }
 
-func getContainerContextAndDockerfile(localWorkspaceFolder, containerWorkspaceFolder, contextPath, devPodDockerfile string) (string, string) {
+func getContainerContextAndDockerfile(localWorkspaceFolder, containerWorkspaceFolder, contextPath, devSpaceDockerfile string) (string, string) {
 	prefixPath := path.Clean(filepath.ToSlash(localWorkspaceFolder))
 	containerContext := path.Join(containerWorkspaceFolder, strings.TrimPrefix(path.Clean(filepath.ToSlash(contextPath)), prefixPath))
-	containerDockerfile := path.Join(containerWorkspaceFolder, strings.TrimPrefix(path.Clean(filepath.ToSlash(devPodDockerfile)), prefixPath))
+	containerDockerfile := path.Join(containerWorkspaceFolder, strings.TrimPrefix(path.Clean(filepath.ToSlash(devSpaceDockerfile)), prefixPath))
 	return containerContext, containerDockerfile
 }
 
 func cleanupBuildInformation(c *config.DevContainerConfig) {
 	contextPath := config.GetContextPath(c)
-	_ = os.RemoveAll(filepath.Join(contextPath, config.DevPodContextFeatureFolder))
+	_ = os.RemoveAll(filepath.Join(contextPath, config.DevSpaceContextFeatureFolder))
 }

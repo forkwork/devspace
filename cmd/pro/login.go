@@ -48,10 +48,10 @@ func NewLoginCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	}
 	loginCmd := &cobra.Command{
 		Use:   "login",
-		Short: "Log into a DevPod Pro instance",
+		Short: "Log into a DevSpace Pro instance",
 		RunE: func(_ *cobra.Command, args []string) error {
 			if len(args) != 1 {
-				return fmt.Errorf("please specify the DevPod Pro host, e.g. devspace pro login my-pro.my-domain.com")
+				return fmt.Errorf("please specify the DevSpace Pro host, e.g. devspace pro login my-pro.my-domain.com")
 			}
 
 			return cmd.Run(context.Background(), args[0], log.Default)
@@ -59,10 +59,10 @@ func NewLoginCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	}
 
 	loginCmd.Flags().StringVar(&cmd.AccessKey, "access-key", "", "If defined will use the given access key to login")
-	loginCmd.Flags().BoolVar(&cmd.Login, "login", true, "If enabled will automatically try to log into the Loft DevPod Pro")
+	loginCmd.Flags().BoolVar(&cmd.Login, "login", true, "If enabled will automatically try to log into the Loft DevSpace Pro")
 	loginCmd.Flags().BoolVar(&cmd.Use, "use", true, "If enabled will automatically activate the provider")
-	loginCmd.Flags().StringVar(&cmd.Provider, "provider", "", "Optional name how the DevPod Pro provider will be named")
-	loginCmd.Flags().StringVar(&cmd.Version, "version", "", "The version to use for the DevPod provider")
+	loginCmd.Flags().StringVar(&cmd.Provider, "provider", "", "Optional name how the DevSpace Pro provider will be named")
+	loginCmd.Flags().StringVar(&cmd.Version, "version", "", "The version to use for the DevSpace provider")
 	loginCmd.Flags().StringArrayVarP(&cmd.Options, "option", "o", []string{}, "Provider option in the form KEY=VALUE")
 	loginCmd.Flags().BoolVar(&cmd.ForceBrowser, "force-browser", false, "Force login through browser")
 
@@ -74,7 +74,7 @@ func NewLoginCmd(flags *proflags.GlobalFlags) *cobra.Command {
 // Run runs the command logic
 func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) error {
 	if strings.HasPrefix(fullURL, "http://") {
-		return fmt.Errorf("http is not supported for DevPod Pro, please use https:// instead")
+		return fmt.Errorf("http is not supported for DevSpace Pro, please use https:// instead")
 	} else if !strings.HasPrefix(fullURL, "https://") {
 		fullURL = "https://" + fullURL
 	} else if cmd.Provider != "" && len(cmd.Provider) > 32 {
@@ -91,13 +91,13 @@ func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) er
 	host := parsedURL.Host
 
 	// load devspace config
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
 	// check if there is already a pro instance with that url
-	proInstances, err := workspace.ListProInstances(devPodConfig, log)
+	proInstances, err := workspace.ListProInstances(devSpaceConfig, log)
 	if err != nil {
 		return err
 	}
@@ -120,7 +120,7 @@ func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) er
 		cmd.Provider = provider.ToProInstanceID(cmd.Provider)
 
 		// check if provider already exists
-		providers, err := workspace.LoadAllProviders(devPodConfig, log)
+		providers, err := workspace.LoadAllProviders(devSpaceConfig, log)
 		if err != nil {
 			return fmt.Errorf("load providers: %w", err)
 		}
@@ -143,7 +143,7 @@ func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) er
 			CreationTimestamp: types.Now(),
 		}
 
-		remoteVersion, err := platform.GetDevPodVersion(fullURL)
+		remoteVersion, err := platform.GetDevSpaceVersion(fullURL)
 		if err != nil {
 			return err
 		}
@@ -155,58 +155,58 @@ func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) er
 			log.Debug("remote version < 0.7.0, installing proxy provider")
 			// proxy providers are deprecated and shouldn't be used
 			// unless explicitly the server version is below 0.7.0
-			err = cmd.addLoftProvider(devPodConfig, fullURL, log)
+			err = cmd.addLoftProvider(devSpaceConfig, fullURL, log)
 			if err != nil {
 				return err
 			}
 		} else {
 			// add built-in pro (daemon) provider
-			_, err = workspace.AddProvider(devPodConfig, cmd.Provider, "pro", log)
+			_, err = workspace.AddProvider(devSpaceConfig, cmd.Provider, "pro", log)
 			if err != nil {
 				return err
 			}
 		}
 
-		err = provider.SaveProInstanceConfig(devPodConfig.DefaultContext, currentInstance)
+		err = provider.SaveProInstanceConfig(devSpaceConfig.DefaultContext, currentInstance)
 		if err != nil {
 			return err
 		}
 
 		// reload devspace config
-		devPodConfig, err = config.LoadConfig(devPodConfig.DefaultContext, cmd.Provider)
+		devSpaceConfig, err = config.LoadConfig(devSpaceConfig.DefaultContext, cmd.Provider)
 		if err != nil {
 			return err
 		}
 	}
 
 	// get provider config
-	providerConfig, err := provider.LoadProviderConfig(devPodConfig.DefaultContext, cmd.Provider)
+	providerConfig, err := provider.LoadProviderConfig(devSpaceConfig.DefaultContext, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
 	// 2. Login to Loft
 	if cmd.Login {
-		err = login(ctx, devPodConfig, fullURL, cmd.Provider, cmd.AccessKey, false, cmd.ForceBrowser, log)
+		err = login(ctx, devSpaceConfig, fullURL, cmd.Provider, cmd.AccessKey, false, cmd.ForceBrowser, log)
 		if err != nil {
 			return err
 		}
-		log.Donef("Successfully logged into DevPod Pro instance %s", ansi.Color(fullURL, "white+b"))
+		log.Donef("Successfully logged into DevSpace Pro instance %s", ansi.Color(fullURL, "white+b"))
 	}
 
 	// 3. Configure provider
 	if cmd.Use {
-		err := providercmd.ConfigureProvider(ctx, providerConfig, devPodConfig.DefaultContext, cmd.Options, false, false, false, nil, log)
+		err := providercmd.ConfigureProvider(ctx, providerConfig, devSpaceConfig.DefaultContext, cmd.Options, false, false, false, nil, log)
 		if err != nil {
 			return errors.Wrap(err, "configure provider")
 		}
 	}
 
-	log.Donef("Successfully configured DevPod Pro")
+	log.Donef("Successfully configured DevSpace Pro")
 	return nil
 }
 
-func (cmd *LoginCmd) addLoftProvider(devPodConfig *config.Config, url string, log log.Logger) error {
+func (cmd *LoginCmd) addLoftProvider(devSpaceConfig *config.Config, url string, log log.Logger) error {
 	// find out loft version
 	err := cmd.resolveProviderSource(url)
 	if err != nil {
@@ -214,17 +214,17 @@ func (cmd *LoginCmd) addLoftProvider(devPodConfig *config.Config, url string, lo
 	}
 
 	// add the provider
-	log.Infof("Add DevPod Pro provider...")
+	log.Infof("Add DevSpace Pro provider...")
 
 	// is development?
 	if cmd.ProviderSource == providerRepo+"@v0.0.0" {
 		log.Debugf("Add development provider")
-		_, err = workspace.AddProviderRaw(devPodConfig, cmd.Provider, &provider.ProviderSource{}, []byte(fallbackProvider), log)
+		_, err = workspace.AddProviderRaw(devSpaceConfig, cmd.Provider, &provider.ProviderSource{}, []byte(fallbackProvider), log)
 		if err != nil {
 			return err
 		}
 	} else {
-		_, err = workspace.AddProvider(devPodConfig, cmd.Provider, cmd.ProviderSource, log)
+		_, err = workspace.AddProvider(devSpaceConfig, cmd.Provider, cmd.ProviderSource, log)
 		if err != nil {
 			return err
 		}
@@ -242,7 +242,7 @@ func (cmd *LoginCmd) resolveProviderSource(url string) error {
 		return nil
 	}
 
-	version, err := platform.GetDevPodVersion(url)
+	version, err := platform.GetDevSpaceVersion(url)
 	if err != nil {
 		return fmt.Errorf("get version: %w", err)
 	}
@@ -251,8 +251,8 @@ func (cmd *LoginCmd) resolveProviderSource(url string) error {
 	return nil
 }
 
-func login(ctx context.Context, devPodConfig *config.Config, url string, providerName string, accessKey string, skipBrowserLogin, forceBrowser bool, log log.Logger) error {
-	configPath, err := platform.LoftConfigPath(devPodConfig.DefaultContext, providerName)
+func login(ctx context.Context, devSpaceConfig *config.Config, url string, providerName string, accessKey string, skipBrowserLogin, forceBrowser bool, log log.Logger) error {
+	configPath, err := platform.LoftConfigPath(devSpaceConfig.DefaultContext, providerName)
 	if err != nil {
 		return err
 	}
@@ -289,7 +289,7 @@ func login(ctx context.Context, devPodConfig *config.Config, url string, provide
 var fallbackProvider = `name: devspace-pro
 version: v0.0.0
 icon: https://dev.khulnasoft.com/assets/devspace.svg
-description: DevPod Pro
+description: DevSpace Pro
 options:
   LOFT_CONFIG:
     global: true

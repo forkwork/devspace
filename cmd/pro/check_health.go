@@ -34,12 +34,12 @@ func NewCheckHealthCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 		Short:  "Check platform health",
 		Hidden: true,
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			root := cmd.Root()
@@ -60,7 +60,7 @@ func NewCheckHealthCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *CheckHealthCmd) Run(ctx context.Context, devPodConfig *config.Config, provider *provider.ProviderConfig) error {
+func (cmd *CheckHealthCmd) Run(ctx context.Context, devSpaceConfig *config.Config, provider *provider.ProviderConfig) error {
 	var buf bytes.Buffer
 	// ignore --debug because we tunnel json through stdio
 	cmd.Log.SetLevel(logrus.InfoLevel)
@@ -69,10 +69,10 @@ func (cmd *CheckHealthCmd) Run(ctx context.Context, devPodConfig *config.Config,
 		ctx,
 		"health",
 		provider.Exec.Proxy.Health,
-		devPodConfig.DefaultContext,
+		devSpaceConfig.DefaultContext,
 		nil,
 		nil,
-		devPodConfig.ProviderOptions(provider.Name),
+		devSpaceConfig.ProviderOptions(provider.Name),
 		provider,
 		nil,
 		nil,

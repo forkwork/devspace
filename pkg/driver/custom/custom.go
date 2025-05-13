@@ -297,7 +297,7 @@ func (c *customDriver) runCommand(
 
 	// set debug level
 	if log.GetLevel() == logrus.DebugLevel {
-		environ = append(environ, clientimplementation.DevPodDebug+"=true")
+		environ = append(environ, clientimplementation.DevSpaceDebug+"=true")
 	}
 
 	// run the command

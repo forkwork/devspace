@@ -49,19 +49,19 @@ func (cmd *UpdateProviderCmd) Run(ctx context.Context, args []string) error {
 	}
 	newVersion := args[0]
 
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	provider, err := workspace.ProviderFromHost(ctx, devPodConfig, cmd.Host, cmd.Log)
+	provider, err := workspace.ProviderFromHost(ctx, devSpaceConfig, cmd.Host, cmd.Log)
 	if err != nil {
 		return fmt.Errorf("load provider: %w", err)
 	}
 	if provider.Source.Internal {
 		return nil
 	}
-	providerSource, err := workspace.ResolveProviderSource(devPodConfig, provider.Name, cmd.Log)
+	providerSource, err := workspace.ResolveProviderSource(devSpaceConfig, provider.Name, cmd.Log)
 	if err != nil {
 		return fmt.Errorf("resolve provider source %s: %w", provider.Name, err)
 	}
@@ -71,12 +71,12 @@ func (cmd *UpdateProviderCmd) Run(ctx context.Context, args []string) error {
 	}
 	providerSource = splitted[0] + "@" + newVersion
 
-	_, err = workspace.UpdateProvider(devPodConfig, provider.Name, providerSource, cmd.Log)
+	_, err = workspace.UpdateProvider(devSpaceConfig, provider.Name, providerSource, cmd.Log)
 	if err != nil {
 		return fmt.Errorf("update provider %s: %w", provider.Name, err)
 	}
 
-	err = providercmd.ConfigureProvider(ctx, provider, devPodConfig.DefaultContext, []string{}, true, true, true, nil, log.Discard)
+	err = providercmd.ConfigureProvider(ctx, provider, devSpaceConfig.DefaultContext, []string{}, true, true, true, nil, log.Discard)
 	if err != nil {
 		return fmt.Errorf("configure provider, please retry with 'devspace provider use %s --reconfigure': %w", provider.Name, err)
 	}

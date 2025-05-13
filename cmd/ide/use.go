@@ -46,7 +46,7 @@ Available IDEs can be listed with 'devspace ide list'`,
 
 // Run runs the command logic
 func (cmd *UseCmd) Run(ctx context.Context, ide string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
@@ -59,14 +59,14 @@ func (cmd *UseCmd) Run(ctx context.Context, ide string) error {
 
 	// check if there are user options set
 	if len(cmd.Options) > 0 {
-		err = setOptions(devPodConfig, ide, cmd.Options, ideOptions)
+		err = setOptions(devSpaceConfig, ide, cmd.Options, ideOptions)
 		if err != nil {
 			return err
 		}
 	}
 
-	devPodConfig.Current().DefaultIDE = ide
-	err = config.SaveConfig(devPodConfig)
+	devSpaceConfig.Current().DefaultIDE = ide
+	err = config.SaveConfig(devSpaceConfig)
 	if err != nil {
 		return errors.Wrap(err, "save config")
 	}
@@ -74,19 +74,19 @@ func (cmd *UseCmd) Run(ctx context.Context, ide string) error {
 	return nil
 }
 
-func setOptions(devPodConfig *config.Config, ide string, options []string, ideOptions ide.Options) error {
+func setOptions(devSpaceConfig *config.Config, ide string, options []string, ideOptions ide.Options) error {
 	optionValues, err := ideparse.ParseOptions(options, ideOptions)
 	if err != nil {
 		return err
 	}
 
-	if devPodConfig.Current().IDEs == nil {
-		devPodConfig.Current().IDEs = map[string]*config.IDEConfig{}
+	if devSpaceConfig.Current().IDEs == nil {
+		devSpaceConfig.Current().IDEs = map[string]*config.IDEConfig{}
 	}
 
 	newValues := map[string]config.OptionValue{}
-	if devPodConfig.Current().IDEs[ide] != nil {
-		for k, v := range devPodConfig.Current().IDEs[ide].Options {
+	if devSpaceConfig.Current().IDEs[ide] != nil {
+		for k, v := range devSpaceConfig.Current().IDEs[ide].Options {
 			newValues[k] = v
 		}
 	}
@@ -94,7 +94,7 @@ func setOptions(devPodConfig *config.Config, ide string, options []string, ideOp
 		newValues[k] = v
 	}
 
-	devPodConfig.Current().IDEs[ide] = &config.IDEConfig{
+	devSpaceConfig.Current().IDEs[ide] = &config.IDEConfig{
 		Options: newValues,
 	}
 	return nil

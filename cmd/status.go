@@ -35,19 +35,19 @@ func NewStatusCmd(flags *flags.GlobalFlags) *cobra.Command {
 		Use:   "status [flags] [workspace-path|workspace-name]",
 		Short: "Shows the status of a workspace",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			_, err := clientimplementation.DecodeOptionsFromEnv(clientimplementation.DevPodFlagsStatus, &cmd.StatusOptions)
+			_, err := clientimplementation.DecodeOptionsFromEnv(clientimplementation.DevSpaceFlagsStatus, &cmd.StatusOptions)
 			if err != nil {
 				return fmt.Errorf("decode status options: %w", err)
 			}
 
 			ctx := cobraCmd.Context()
-			devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 			if err != nil {
 				return err
 			}
 
 			logger := log.Default.ErrorStreamOnly()
-			client, err := workspace2.Get(ctx, devPodConfig, args, false, cmd.Owner, false, logger)
+			client, err := workspace2.Get(ctx, devSpaceConfig, args, false, cmd.Owner, false, logger)
 			if err != nil {
 				return err
 			}

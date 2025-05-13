@@ -32,9 +32,9 @@ type ProviderWithOptions struct {
 }
 
 // LoadProviders loads all known providers for the given context and
-func LoadProviders(devPodConfig *config.Config, log log.Logger) (*ProviderWithOptions, map[string]*ProviderWithOptions, error) {
-	defaultContext := devPodConfig.Current()
-	retProviders, err := LoadAllProviders(devPodConfig, log)
+func LoadProviders(devSpaceConfig *config.Config, log log.Logger) (*ProviderWithOptions, map[string]*ProviderWithOptions, error) {
+	defaultContext := devSpaceConfig.Current()
+	retProviders, err := LoadAllProviders(devSpaceConfig, log)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -49,12 +49,12 @@ func LoadProviders(devPodConfig *config.Config, log log.Logger) (*ProviderWithOp
 	return retProviders[defaultContext.DefaultProvider], retProviders, nil
 }
 
-func CloneProvider(devPodConfig *config.Config, providerName, providerSourceRaw string, log log.Logger) (*ProviderWithOptions, error) {
-	providerWithOptions, err := FindProvider(devPodConfig, providerSourceRaw, log)
+func CloneProvider(devSpaceConfig *config.Config, providerName, providerSourceRaw string, log log.Logger) (*ProviderWithOptions, error) {
+	providerWithOptions, err := FindProvider(devSpaceConfig, providerSourceRaw, log)
 	if err != nil {
 		return nil, err
 	}
-	providerConfig, err := installProvider(devPodConfig, providerWithOptions.Config, providerName, &providerWithOptions.Config.Source, log)
+	providerConfig, err := installProvider(devSpaceConfig, providerWithOptions.Config, providerName, &providerWithOptions.Config.Source, log)
 	if err != nil {
 		return nil, err
 	}
@@ -63,21 +63,21 @@ func CloneProvider(devPodConfig *config.Config, providerName, providerSourceRaw 
 	return providerWithOptions, nil
 }
 
-func AddProviderRaw(devPodConfig *config.Config, providerName string, providerSource *providerpkg.ProviderSource, providerRaw []byte, log log.Logger) (*providerpkg.ProviderConfig, error) {
-	providerConfig, err := installRawProvider(devPodConfig, providerName, providerRaw, providerSource, log)
+func AddProviderRaw(devSpaceConfig *config.Config, providerName string, providerSource *providerpkg.ProviderSource, providerRaw []byte, log log.Logger) (*providerpkg.ProviderConfig, error) {
+	providerConfig, err := installRawProvider(devSpaceConfig, providerName, providerRaw, providerSource, log)
 	if err != nil {
 		return nil, err
 	}
 
-	if devPodConfig.Current().Providers == nil {
-		devPodConfig.Current().Providers = map[string]*config.ProviderConfig{}
+	if devSpaceConfig.Current().Providers == nil {
+		devSpaceConfig.Current().Providers = map[string]*config.ProviderConfig{}
 	}
-	if devPodConfig.Current().Providers[providerConfig.Name] == nil {
-		devPodConfig.Current().Providers[providerConfig.Name] = &config.ProviderConfig{
+	if devSpaceConfig.Current().Providers[providerConfig.Name] == nil {
+		devSpaceConfig.Current().Providers[providerConfig.Name] = &config.ProviderConfig{
 			CreationTimestamp: types.Now(),
 		}
 	}
-	err = config.SaveConfig(devPodConfig)
+	err = config.SaveConfig(devSpaceConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "save config")
 	}
@@ -85,22 +85,22 @@ func AddProviderRaw(devPodConfig *config.Config, providerName string, providerSo
 	return providerConfig, nil
 }
 
-func AddProvider(devPodConfig *config.Config, providerName, providerSourceRaw string, log log.Logger) (*providerpkg.ProviderConfig, error) {
+func AddProvider(devSpaceConfig *config.Config, providerName, providerSourceRaw string, log log.Logger) (*providerpkg.ProviderConfig, error) {
 	providerRaw, providerSource, err := ResolveProvider(providerSourceRaw, log)
 	if err != nil {
 		return nil, err
 	}
 
-	return AddProviderRaw(devPodConfig, providerName, providerSource, providerRaw, log)
+	return AddProviderRaw(devSpaceConfig, providerName, providerSource, providerRaw, log)
 }
 
-func UpdateProvider(devPodConfig *config.Config, providerName, providerSourceRaw string, log log.Logger) (*providerpkg.ProviderConfig, error) {
-	if devPodConfig.Current().Providers[providerName] == nil {
+func UpdateProvider(devSpaceConfig *config.Config, providerName, providerSourceRaw string, log log.Logger) (*providerpkg.ProviderConfig, error) {
+	if devSpaceConfig.Current().Providers[providerName] == nil {
 		return nil, fmt.Errorf("provider %s doesn't exist. Please run 'devspace provider add %s' instead", providerName, providerSourceRaw)
 	}
 
 	if providerSourceRaw == "" {
-		s, err := ResolveProviderSource(devPodConfig, providerName, log)
+		s, err := ResolveProviderSource(devSpaceConfig, providerName, log)
 		if err != nil {
 			return nil, err
 		}
@@ -112,13 +112,13 @@ func UpdateProvider(devPodConfig *config.Config, providerName, providerSourceRaw
 		return nil, err
 	}
 
-	return updateProvider(devPodConfig, providerName, providerRaw, providerSource, log)
+	return updateProvider(devSpaceConfig, providerName, providerRaw, providerSource, log)
 }
 
-func ResolveProviderSource(devPodConfig *config.Config, providerName string, log log.Logger) (string, error) {
+func ResolveProviderSource(devSpaceConfig *config.Config, providerName string, log log.Logger) (string, error) {
 	source := ""
 
-	providerConfig, err := FindProvider(devPodConfig, providerName, log)
+	providerConfig, err := FindProvider(devSpaceConfig, providerName, log)
 	if err != nil {
 		return "", errors.Wrap(err, "find provider")
 	}
@@ -250,7 +250,7 @@ func downloadProvider(url string) ([]byte, error) {
 	return io.ReadAll(resp.Body)
 }
 
-func updateProvider(devPodConfig *config.Config, providerName string, raw []byte, source *providerpkg.ProviderSource, log log.Logger) (*providerpkg.ProviderConfig, error) {
+func updateProvider(devSpaceConfig *config.Config, providerName string, raw []byte, source *providerpkg.ProviderSource, log log.Logger) (*providerpkg.ProviderConfig, error) {
 	providerConfig, err := providerpkg.ParseProvider(bytes.NewReader(raw))
 	if err != nil {
 		return nil, err
@@ -264,19 +264,19 @@ func updateProvider(devPodConfig *config.Config, providerName string, raw []byte
 	}
 
 	// update options
-	for optionName := range devPodConfig.Current().Providers[providerConfig.Name].Options {
+	for optionName := range devSpaceConfig.Current().Providers[providerConfig.Name].Options {
 		_, ok := providerConfig.Options[optionName]
 		if !ok {
-			delete(devPodConfig.Current().Providers[providerConfig.Name].Options, optionName)
+			delete(devSpaceConfig.Current().Providers[providerConfig.Name].Options, optionName)
 		}
 	}
 
-	err = config.SaveConfig(devPodConfig)
+	err = config.SaveConfig(devSpaceConfig)
 	if err != nil {
 		return nil, err
 	}
 
-	binariesDir, err := providerpkg.GetProviderBinariesDir(devPodConfig.DefaultContext, providerConfig.Name)
+	binariesDir, err := providerpkg.GetProviderBinariesDir(devSpaceConfig.DefaultContext, providerConfig.Name)
 	if err != nil {
 		return nil, errors.Wrap(err, "get binaries dir")
 	}
@@ -287,7 +287,7 @@ func updateProvider(devPodConfig *config.Config, providerName string, raw []byte
 		return nil, errors.Wrap(err, "download binaries")
 	}
 
-	err = providerpkg.SaveProviderConfig(devPodConfig.DefaultContext, providerConfig)
+	err = providerpkg.SaveProviderConfig(devSpaceConfig.DefaultContext, providerConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -295,24 +295,24 @@ func updateProvider(devPodConfig *config.Config, providerName string, raw []byte
 	return providerConfig, nil
 }
 
-func installRawProvider(devPodConfig *config.Config, providerName string, raw []byte, source *providerpkg.ProviderSource, log log.Logger) (*providerpkg.ProviderConfig, error) {
+func installRawProvider(devSpaceConfig *config.Config, providerName string, raw []byte, source *providerpkg.ProviderSource, log log.Logger) (*providerpkg.ProviderConfig, error) {
 	providerConfig, err := providerpkg.ParseProvider(bytes.NewReader(raw))
 	if err != nil {
 		return nil, err
 	}
-	return installProvider(devPodConfig, providerConfig, providerName, source, log)
+	return installProvider(devSpaceConfig, providerConfig, providerName, source, log)
 }
 
-func installProvider(devPodConfig *config.Config, providerConfig *providerpkg.ProviderConfig, providerName string, source *providerpkg.ProviderSource, log log.Logger) (*providerpkg.ProviderConfig, error) {
+func installProvider(devSpaceConfig *config.Config, providerConfig *providerpkg.ProviderConfig, providerName string, source *providerpkg.ProviderSource, log log.Logger) (*providerpkg.ProviderConfig, error) {
 	providerConfig.Source = *source
 	if providerName != "" {
 		providerConfig.Name = providerName
 	}
-	if devPodConfig.Current().Providers[providerConfig.Name] != nil {
+	if devSpaceConfig.Current().Providers[providerConfig.Name] != nil {
 		return nil, fmt.Errorf("provider %s already exists. Please run 'devspace provider delete %s' before adding the provider", providerConfig.Name, providerConfig.Name)
 	}
 
-	providerDir, err := providerpkg.GetProviderDir(devPodConfig.DefaultContext, providerConfig.Name)
+	providerDir, err := providerpkg.GetProviderDir(devSpaceConfig.DefaultContext, providerConfig.Name)
 	if err != nil {
 		return nil, err
 	}
@@ -322,7 +322,7 @@ func installProvider(devPodConfig *config.Config, providerConfig *providerpkg.Pr
 		return nil, fmt.Errorf("provider %s already exists. Please run 'devspace provider delete %s' before adding the provider", providerConfig.Name, providerConfig.Name)
 	}
 
-	binariesDir, err := providerpkg.GetProviderBinariesDir(devPodConfig.DefaultContext, providerConfig.Name)
+	binariesDir, err := providerpkg.GetProviderBinariesDir(devSpaceConfig.DefaultContext, providerConfig.Name)
 	if err != nil {
 		return nil, errors.Wrap(err, "get binaries dir")
 	}
@@ -333,7 +333,7 @@ func installProvider(devPodConfig *config.Config, providerConfig *providerpkg.Pr
 		return nil, errors.Wrap(err, "download binaries")
 	}
 
-	err = providerpkg.SaveProviderConfig(devPodConfig.DefaultContext, providerConfig)
+	err = providerpkg.SaveProviderConfig(devSpaceConfig.DefaultContext, providerConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -341,8 +341,8 @@ func installProvider(devPodConfig *config.Config, providerConfig *providerpkg.Pr
 	return providerConfig, nil
 }
 
-func FindProvider(devPodConfig *config.Config, name string, log log.Logger) (*ProviderWithOptions, error) {
-	retProviders, err := LoadAllProviders(devPodConfig, log)
+func FindProvider(devSpaceConfig *config.Config, name string, log log.Logger) (*ProviderWithOptions, error) {
+	retProviders, err := LoadAllProviders(devSpaceConfig, log)
 	if err != nil {
 		return nil, err
 	} else if retProviders[name] == nil {
@@ -352,9 +352,9 @@ func FindProvider(devPodConfig *config.Config, name string, log log.Logger) (*Pr
 	return retProviders[name], nil
 }
 
-func LoadAllProviders(devPodConfig *config.Config, log log.Logger) (map[string]*ProviderWithOptions, error) {
+func LoadAllProviders(devSpaceConfig *config.Config, log log.Logger) (map[string]*ProviderWithOptions, error) {
 	retProviders := map[string]*ProviderWithOptions{}
-	defaultContext := devPodConfig.Current()
+	defaultContext := devSpaceConfig.Current()
 	for providerName, providerState := range defaultContext.Providers {
 		if retProviders[providerName] != nil {
 			retProviders[providerName].State = providerState
@@ -362,7 +362,7 @@ func LoadAllProviders(devPodConfig *config.Config, log log.Logger) (map[string]*
 		}
 
 		// try to load provider config
-		providerConfig, err := providerpkg.LoadProviderConfig(devPodConfig.DefaultContext, providerName)
+		providerConfig, err := providerpkg.LoadProviderConfig(devSpaceConfig.DefaultContext, providerName)
 		if err != nil {
 			log.Warnf("Error loading provider '%s': %v", providerName, err)
 			continue
@@ -375,7 +375,7 @@ func LoadAllProviders(devPodConfig *config.Config, log log.Logger) (map[string]*
 	}
 
 	// list providers from the dir that are currently not configured
-	providerDir, err := providerpkg.GetProvidersDir(devPodConfig.DefaultContext)
+	providerDir, err := providerpkg.GetProvidersDir(devSpaceConfig.DefaultContext)
 	if err != nil {
 		return nil, err
 	}
@@ -390,7 +390,7 @@ func LoadAllProviders(devPodConfig *config.Config, log log.Logger) (map[string]*
 			continue
 		}
 
-		providerConfig, err := providerpkg.LoadProviderConfig(devPodConfig.DefaultContext, entry.Name())
+		providerConfig, err := providerpkg.LoadProviderConfig(devSpaceConfig.DefaultContext, entry.Name())
 		if err != nil {
 			return nil, err
 		}
@@ -403,13 +403,13 @@ func LoadAllProviders(devPodConfig *config.Config, log log.Logger) (map[string]*
 	return retProviders, nil
 }
 
-func ProviderFromHost(ctx context.Context, devPodConfig *config.Config, proHost string, log log.Logger) (*providerpkg.ProviderConfig, error) {
-	proInstanceConfig, err := providerpkg.LoadProInstanceConfig(devPodConfig.DefaultContext, proHost)
+func ProviderFromHost(ctx context.Context, devSpaceConfig *config.Config, proHost string, log log.Logger) (*providerpkg.ProviderConfig, error) {
+	proInstanceConfig, err := providerpkg.LoadProInstanceConfig(devSpaceConfig.DefaultContext, proHost)
 	if err != nil {
 		return nil, fmt.Errorf("load pro instance %s: %w", proHost, err)
 	}
 
-	provider, err := FindProvider(devPodConfig, proInstanceConfig.Provider, log)
+	provider, err := FindProvider(devSpaceConfig, proInstanceConfig.Provider, log)
 	if err != nil {
 		return nil, fmt.Errorf("find provider: %w", err)
 	} else if !provider.Config.IsProxyProvider() && !provider.Config.IsDaemonProvider() {

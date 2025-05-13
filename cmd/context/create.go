@@ -26,7 +26,7 @@ func NewCreateCmd(flags *flags.GlobalFlags) *cobra.Command {
 	}
 	createCmd := &cobra.Command{
 		Use:   "create",
-		Short: "Create a new DevPod context",
+		Short: "Create a new DevSpace context",
 		RunE: func(_ *cobra.Command, args []string) error {
 			if len(args) != 1 {
 				return fmt.Errorf("please specify the context to create")
@@ -42,10 +42,10 @@ func NewCreateCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *CreateCmd) Run(ctx context.Context, context string) error {
-	devPodConfig, err := config.LoadConfig("", cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig("", cmd.Provider)
 	if err != nil {
 		return err
-	} else if devPodConfig.Contexts[context] != nil {
+	} else if devSpaceConfig.Contexts[context] != nil {
 		return fmt.Errorf("context '%s' already exists", context)
 	}
 
@@ -55,18 +55,18 @@ func (cmd *CreateCmd) Run(ctx context.Context, context string) error {
 	} else if len(context) > 48 {
 		return fmt.Errorf("context name cannot be longer than 48 characters")
 	}
-	devPodConfig.Contexts[context] = &config.ContextConfig{}
+	devSpaceConfig.Contexts[context] = &config.ContextConfig{}
 
 	// check if there are create options set
 	if len(cmd.Options) > 0 {
-		err = setOptions(devPodConfig, context, cmd.Options)
+		err = setOptions(devSpaceConfig, context, cmd.Options)
 		if err != nil {
 			return err
 		}
 	}
 
-	devPodConfig.DefaultContext = context
-	err = config.SaveConfig(devPodConfig)
+	devSpaceConfig.DefaultContext = context
+	err = config.SaveConfig(devSpaceConfig)
 	if err != nil {
 		return errors.Wrap(err, "save config")
 	}
@@ -74,17 +74,17 @@ func (cmd *CreateCmd) Run(ctx context.Context, context string) error {
 	return nil
 }
 
-func setOptions(devPodConfig *config.Config, context string, options []string) error {
+func setOptions(devSpaceConfig *config.Config, context string, options []string) error {
 	optionValues, err := parseOptions(options)
 	if err != nil {
 		return err
-	} else if devPodConfig.Contexts[context] == nil {
+	} else if devSpaceConfig.Contexts[context] == nil {
 		return fmt.Errorf("context '%s' doesn't exist", context)
 	}
 
 	newValues := map[string]config.OptionValue{}
-	if devPodConfig.Contexts[context].Options != nil {
-		for k, v := range devPodConfig.Contexts[context].Options {
+	if devSpaceConfig.Contexts[context].Options != nil {
+		for k, v := range devSpaceConfig.Contexts[context].Options {
 			newValues[k] = v
 		}
 	}
@@ -92,7 +92,7 @@ func setOptions(devPodConfig *config.Config, context string, options []string) e
 		newValues[k] = v
 	}
 
-	devPodConfig.Contexts[context].Options = newValues
+	devSpaceConfig.Contexts[context].Options = newValues
 	return nil
 }
 

@@ -13,39 +13,39 @@ import (
 	gentype "k8s.io/client-go/gentype"
 )
 
-// DevPodEnvironmentTemplatesGetter has a method to return a DevPodEnvironmentTemplateInterface.
+// DevSpaceEnvironmentTemplatesGetter has a method to return a DevSpaceEnvironmentTemplateInterface.
 // A group's client should implement this interface.
-type DevPodEnvironmentTemplatesGetter interface {
-	DevPodEnvironmentTemplates() DevPodEnvironmentTemplateInterface
+type DevSpaceEnvironmentTemplatesGetter interface {
+	DevSpaceEnvironmentTemplates() DevSpaceEnvironmentTemplateInterface
 }
 
-// DevPodEnvironmentTemplateInterface has methods to work with DevPodEnvironmentTemplate resources.
-type DevPodEnvironmentTemplateInterface interface {
-	Create(ctx context.Context, devPodEnvironmentTemplate *v1.DevPodEnvironmentTemplate, opts metav1.CreateOptions) (*v1.DevPodEnvironmentTemplate, error)
-	Update(ctx context.Context, devPodEnvironmentTemplate *v1.DevPodEnvironmentTemplate, opts metav1.UpdateOptions) (*v1.DevPodEnvironmentTemplate, error)
+// DevSpaceEnvironmentTemplateInterface has methods to work with DevSpaceEnvironmentTemplate resources.
+type DevSpaceEnvironmentTemplateInterface interface {
+	Create(ctx context.Context, devSpaceEnvironmentTemplate *v1.DevSpaceEnvironmentTemplate, opts metav1.CreateOptions) (*v1.DevSpaceEnvironmentTemplate, error)
+	Update(ctx context.Context, devSpaceEnvironmentTemplate *v1.DevSpaceEnvironmentTemplate, opts metav1.UpdateOptions) (*v1.DevSpaceEnvironmentTemplate, error)
 	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevPodEnvironmentTemplate, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevPodEnvironmentTemplateList, error)
+	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevSpaceEnvironmentTemplate, error)
+	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevSpaceEnvironmentTemplateList, error)
 	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevPodEnvironmentTemplate, err error)
-	DevPodEnvironmentTemplateExpansion
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevSpaceEnvironmentTemplate, err error)
+	DevSpaceEnvironmentTemplateExpansion
 }
 
-// devPodEnvironmentTemplates implements DevPodEnvironmentTemplateInterface
-type devPodEnvironmentTemplates struct {
-	*gentype.ClientWithList[*v1.DevPodEnvironmentTemplate, *v1.DevPodEnvironmentTemplateList]
+// devSpaceEnvironmentTemplates implements DevSpaceEnvironmentTemplateInterface
+type devSpaceEnvironmentTemplates struct {
+	*gentype.ClientWithList[*v1.DevSpaceEnvironmentTemplate, *v1.DevSpaceEnvironmentTemplateList]
 }
 
-// newDevPodEnvironmentTemplates returns a DevPodEnvironmentTemplates
-func newDevPodEnvironmentTemplates(c *StorageV1Client) *devPodEnvironmentTemplates {
-	return &devPodEnvironmentTemplates{
-		gentype.NewClientWithList[*v1.DevPodEnvironmentTemplate, *v1.DevPodEnvironmentTemplateList](
+// newDevSpaceEnvironmentTemplates returns a DevSpaceEnvironmentTemplates
+func newDevSpaceEnvironmentTemplates(c *StorageV1Client) *devSpaceEnvironmentTemplates {
+	return &devSpaceEnvironmentTemplates{
+		gentype.NewClientWithList[*v1.DevSpaceEnvironmentTemplate, *v1.DevSpaceEnvironmentTemplateList](
 			"devspaceenvironmenttemplates",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *v1.DevPodEnvironmentTemplate { return &v1.DevPodEnvironmentTemplate{} },
-			func() *v1.DevPodEnvironmentTemplateList { return &v1.DevPodEnvironmentTemplateList{} }),
+			func() *v1.DevSpaceEnvironmentTemplate { return &v1.DevSpaceEnvironmentTemplate{} },
+			func() *v1.DevSpaceEnvironmentTemplateList { return &v1.DevSpaceEnvironmentTemplateList{} }),
 	}
 }

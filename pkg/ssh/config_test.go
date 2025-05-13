@@ -20,7 +20,7 @@ func TestAddHostSection(t *testing.T) {
 		workdir    string
 		command    string
 		gpgagent   bool
-		devPodHome string
+		devSpaceHome string
 		expected   string
 	}{
 		{
@@ -34,8 +34,8 @@ func TestAddHostSection(t *testing.T) {
 			workdir:    "",
 			command:    "",
 			gpgagent:   false,
-			devPodHome: "",
-			expected: `# DevPod Start testhost
+			devSpaceHome: "",
+			expected: `# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -44,10 +44,10 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace
   User testuser
-# DevPod End testhost`,
+# DevSpace End testhost`,
 		},
 		{
-			name:       "Basic host addition with DEVPOD_HOME",
+			name:       "Basic host addition with DEVSPACE_HOME",
 			config:     "",
 			execPath:   "/path/to/exec",
 			host:       "testhost",
@@ -57,8 +57,8 @@ Host testhost
 			workdir:    "",
 			command:    "",
 			gpgagent:   false,
-			devPodHome: "C:\\\\White Space\\devspace\\test",
-			expected: `# DevPod Start testhost
+			devSpaceHome: "C:\\\\White Space\\devspace\\test",
+			expected: `# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -67,7 +67,7 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace --devspace-home "C:\\White Space\devspace\test"
   User testuser
-# DevPod End testhost`,
+# DevSpace End testhost`,
 		},
 		{
 			name:       "Host addition with workdir",
@@ -80,8 +80,8 @@ Host testhost
 			workdir:    "/path/to/workdir",
 			command:    "",
 			gpgagent:   false,
-			devPodHome: "",
-			expected: `# DevPod Start testhost
+			devSpaceHome: "",
+			expected: `# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -90,7 +90,7 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace --workdir "/path/to/workdir"
   User testuser
-# DevPod End testhost`,
+# DevSpace End testhost`,
 		},
 		{
 			name:       "Host addition with gpg agent",
@@ -103,8 +103,8 @@ Host testhost
 			workdir:    "",
 			command:    "",
 			gpgagent:   true,
-			devPodHome: "",
-			expected: `# DevPod Start testhost
+			devSpaceHome: "",
+			expected: `# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -113,7 +113,7 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace --gpg-agent-forwarding
   User testuser
-# DevPod End testhost`,
+# DevSpace End testhost`,
 		},
 		{
 			name:       "Host addition with custom command",
@@ -126,8 +126,8 @@ Host testhost
 			workdir:    "",
 			command:    "ssh -W %h:%p bastion",
 			gpgagent:   false,
-			devPodHome: "",
-			expected: `# DevPod Start testhost
+			devSpaceHome: "",
+			expected: `# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -136,7 +136,7 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "ssh -W %h:%p bastion"
   User testuser
-# DevPod End testhost`,
+# DevSpace End testhost`,
 		},
 		{
 			name: "Host addition to existing config",
@@ -150,8 +150,8 @@ Host testhost
 			workdir:    "",
 			command:    "",
 			gpgagent:   false,
-			devPodHome: "",
-			expected: `# DevPod Start testhost
+			devSpaceHome: "",
+			expected: `# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -160,13 +160,13 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace
   User testuser
-# DevPod End testhost
+# DevSpace End testhost
 Host existinghost
   User existinguser`,
 		},
 		{
-			name: "Host addition to existing config with DevPod host",
-			config: `# DevPod Start existingtesthost
+			name: "Host addition to existing config with DevSpace host",
+			config: `# DevSpace Start existingtesthost
 Host existingtesthost
   ForwardAgent yes
   LogLevel error
@@ -175,7 +175,7 @@ Host existingtesthost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace
   User testuser
-# DevPod End testhost
+# DevSpace End testhost
 
 Host existinghost
   User existinguser`,
@@ -187,8 +187,8 @@ Host existinghost
 			workdir:    "",
 			command:    "",
 			gpgagent:   false,
-			devPodHome: "",
-			expected: `# DevPod Start testhost
+			devSpaceHome: "",
+			expected: `# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -197,8 +197,8 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace
   User testuser
-# DevPod End testhost
-# DevPod Start existingtesthost
+# DevSpace End testhost
+# DevSpace Start existingtesthost
 Host existingtesthost
   ForwardAgent yes
   LogLevel error
@@ -207,7 +207,7 @@ Host existingtesthost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace
   User testuser
-# DevPod End testhost
+# DevSpace End testhost
 
 Host existinghost
   User existinguser`,
@@ -229,7 +229,7 @@ Include ~/config3`,
 			workdir:    "",
 			command:    "",
 			gpgagent:   false,
-			devPodHome: "",
+			devSpaceHome: "",
 			expected: `Include ~/config1 
 
 Include ~/config2
@@ -237,7 +237,7 @@ Include ~/config2
 
 
 Include ~/config3
-# DevPod Start testhost
+# DevSpace Start testhost
 Host testhost
   ForwardAgent yes
   LogLevel error
@@ -246,13 +246,13 @@ Host testhost
   HostKeyAlgorithms rsa-sha2-256,rsa-sha2-512,ssh-rsa
   ProxyCommand "/path/to/exec" ssh --stdio --context testcontext --user testuser testworkspace
   User testuser
-# DevPod End testhost`,
+# DevSpace End testhost`,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result, err := addHostSection(tt.config, tt.execPath, tt.host, tt.user, tt.context, tt.workspace, tt.workdir, tt.command, tt.gpgagent, tt.devPodHome)
+			result, err := addHostSection(tt.config, tt.execPath, tt.host, tt.user, tt.context, tt.workspace, tt.workdir, tt.command, tt.gpgagent, tt.devSpaceHome)
 			if err != nil {
 				t.Errorf("Failed with err: %v", err)
 			}

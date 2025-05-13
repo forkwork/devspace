@@ -1,5 +1,5 @@
-import { ManagementV1DevPodWorkspacePreset } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspacePreset"
+import { ManagementV1DevSpaceWorkspacePreset } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspacePreset"
 
-export function presetDisplayName(preset: ManagementV1DevPodWorkspacePreset | undefined) {
+export function presetDisplayName(preset: ManagementV1DevSpaceWorkspacePreset | undefined) {
   return preset?.spec?.displayName ?? preset?.metadata?.name
 }

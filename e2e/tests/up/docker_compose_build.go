@@ -15,7 +15,7 @@ import (
 	"github.com/onsi/gomega"
 )
 
-var _ = DevPodDescribe("devspace up test suite", func() {
+var _ = DevSpaceDescribe("devspace up test suite", func() {
 	ginkgo.Context("testing up command", ginkgo.Label("up-docker-compose-build"), ginkgo.Ordered, func() {
 		var dockerHelper *docker.DockerHelper
 		var composeHelper *compose.ComposeHelper
@@ -38,14 +38,14 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 				// Wait for devspace workspace to come online (deadline: 30s)
-				err = f.DevPodUp(ctx, tempDir, "--debug")
+				err = f.DevSpaceUp(ctx, tempDir, "--debug")
 				framework.ExpectNoError(err)
 			}, ginkgo.SpecTimeout(framework.GetTimeout()*3))
 
@@ -56,14 +56,14 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 					ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 					f := framework.NewDefaultFramework(initialDir + "/bin")
-					_ = f.DevPodProviderAdd(ctx, "docker")
-					err = f.DevPodProviderUse(ctx, "docker")
+					_ = f.DevSpaceProviderAdd(ctx, "docker")
+					err = f.DevSpaceProviderUse(ctx, "docker")
 					framework.ExpectNoError(err)
 
-					ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+					ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-					ginkgo.By("Starting DevPod")
-					err = f.DevPodUp(ctx, tempDir)
+					ginkgo.By("Starting DevSpace")
+					err = f.DevSpaceUp(ctx, tempDir)
 					framework.ExpectNoError(err)
 
 					workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -91,8 +91,8 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 					_, err = io.Copy(newConfig, failingConfig)
 					framework.ExpectNoError(err)
 
-					ginkgo.By("Starting DevPod again with --recreate")
-					err = f.DevPodUp(ctx, tempDir, "--debug", "--recreate")
+					ginkgo.By("Starting DevSpace again with --recreate")
+					err = f.DevSpaceUp(ctx, tempDir, "--debug", "--recreate")
 					framework.ExpectError(err)
 
 					ginkgo.By("Should leave original container running")
@@ -110,14 +110,14 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 					ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 					f := framework.NewDefaultFramework(initialDir + "/bin")
-					_ = f.DevPodProviderAdd(ctx, "docker")
-					err = f.DevPodProviderUse(ctx, "docker")
+					_ = f.DevSpaceProviderAdd(ctx, "docker")
+					err = f.DevSpaceProviderUse(ctx, "docker")
 					framework.ExpectNoError(err)
 
-					ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+					ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-					ginkgo.By("Starting DevPod")
-					err = f.DevPodUp(ctx, tempDir)
+					ginkgo.By("Starting DevSpace")
+					err = f.DevSpaceUp(ctx, tempDir)
 					framework.ExpectNoError(err)
 
 					workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -131,8 +131,8 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 					framework.ExpectNoError(err)
 					gomega.Expect(ids).To(gomega.HaveLen(1), "1 compose container to be created")
 
-					ginkgo.By("Starting DevPod again with --recreate")
-					err = f.DevPodUp(ctx, tempDir, "--debug", "--recreate")
+					ginkgo.By("Starting DevSpace again with --recreate")
+					err = f.DevSpaceUp(ctx, tempDir, "--debug", "--recreate")
 					framework.ExpectNoError(err)
 
 					ginkgo.By("Should start a new docker-compose container on rebuild")

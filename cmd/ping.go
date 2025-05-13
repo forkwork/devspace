@@ -24,7 +24,7 @@ func NewPingCmd(flags *flags.GlobalFlags) *cobra.Command {
 	}
 	troubleshootCmd := &cobra.Command{
 		Use:   "ping [workspace-path|workspace-name]",
-		Short: "Pings the DevPod Pro workspace",
+		Short: "Pings the DevSpace Pro workspace",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
 			return cmd.Run(cobraCmd.Context(), args)
 		},
@@ -38,12 +38,12 @@ func NewPingCmd(flags *flags.GlobalFlags) *cobra.Command {
 }
 
 func (cmd *PingCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	client, err := workspace2.Get(ctx, devPodConfig, args, true, cmd.Owner, false, log.Default.ErrorStreamOnly())
+	client, err := workspace2.Get(ctx, devSpaceConfig, args, true, cmd.Owner, false, log.Default.ErrorStreamOnly())
 	if err != nil {
 		return err
 	}

@@ -1,4 +1,4 @@
-use crate::{commands::DevpodCommandError, AppState, UiMessage};
+use crate::{commands::DevspaceCommandError, AppState, UiMessage};
 use log::error;
 
 #[tauri::command]

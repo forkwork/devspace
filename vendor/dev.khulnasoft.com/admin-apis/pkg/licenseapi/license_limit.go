@@ -9,9 +9,9 @@ var Limits = map[ResourceName]*Limit{
 		DisplayName: "Virtual Clusters",
 		Name:        string(VirtualClusterInstanceLimit),
 	},
-	DevPodWorkspaceInstanceLimit: {
+	DevSpaceWorkspaceInstanceLimit: {
 		DisplayName: "Dev Environments",
-		Name:        string(DevPodWorkspaceInstanceLimit),
+		Name:        string(DevSpaceWorkspaceInstanceLimit),
 	},
 	UserLimit: {
 		DisplayName: "Users",

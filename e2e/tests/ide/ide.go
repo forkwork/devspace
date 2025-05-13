@@ -8,7 +8,7 @@ import (
 	"github.com/onsi/ginkgo/v2"
 )
 
-var _ = DevPodDescribe("devspace ide test suite", func() {
+var _ = DevSpaceDescribe("devspace ide test suite", func() {
 	ginkgo.Context("testing ides", ginkgo.Label("ide"), ginkgo.Ordered, func() {
 		var initialDir string
 
@@ -26,28 +26,28 @@ var _ = DevPodDescribe("devspace ide test suite", func() {
 			framework.ExpectNoError(err)
 			ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
-			_ = f.DevPodProviderDelete(ctx, "docker")
-			err = f.DevPodProviderAdd(ctx, "docker")
+			_ = f.DevSpaceProviderDelete(ctx, "docker")
+			err = f.DevSpaceProviderAdd(ctx, "docker")
 			framework.ExpectNoError(err)
-			err = f.DevPodProviderUse(context.Background(), "docker")
-			framework.ExpectNoError(err)
-
-			ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
-
-			err = f.DevPodUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=vscode")
+			err = f.DevSpaceProviderUse(context.Background(), "docker")
 			framework.ExpectNoError(err)
 
-			err = f.DevPodUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=openvscode")
+			ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
+
+			err = f.DevSpaceUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=vscode")
 			framework.ExpectNoError(err)
 
-			err = f.DevPodUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=jupyternotebook")
+			err = f.DevSpaceUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=openvscode")
 			framework.ExpectNoError(err)
 
-			err = f.DevPodUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=fleet")
+			err = f.DevSpaceUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=jupyternotebook")
+			framework.ExpectNoError(err)
+
+			err = f.DevSpaceUpWithIDE(ctx, tempDir, "--open-ide=false", "--ide=fleet")
 			framework.ExpectNoError(err)
 
 			// check if ssh works
-			err = f.DevPodSSHEchoTestString(ctx, tempDir)
+			err = f.DevSpaceSSHEchoTestString(ctx, tempDir)
 			framework.ExpectNoError(err)
 
 			// TODO: test jetbrains ides

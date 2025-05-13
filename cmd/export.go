@@ -30,12 +30,12 @@ func NewExportCmd(flags *flags.GlobalFlags) *cobra.Command {
 		Hidden: true,
 		RunE: func(_ *cobra.Command, args []string) error {
 			ctx := context.Background()
-			devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(ctx, devPodConfig, args)
+			return cmd.Run(ctx, devSpaceConfig, args)
 		},
 		ValidArgsFunction: func(rootCmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			return completion.GetWorkspaceSuggestions(rootCmd, cmd.Context, cmd.Provider, args, toComplete, cmd.Owner, log.Default)
@@ -46,16 +46,16 @@ func NewExportCmd(flags *flags.GlobalFlags) *cobra.Command {
 }
 
 // Run runs the command logic
-func (cmd *ExportCmd) Run(ctx context.Context, devPodConfig *config.Config, args []string) error {
+func (cmd *ExportCmd) Run(ctx context.Context, devSpaceConfig *config.Config, args []string) error {
 	// try to load workspace
 	logger := log.Default.ErrorStreamOnly()
-	client, err := workspace2.Get(ctx, devPodConfig, args, false, cmd.Owner, false, logger)
+	client, err := workspace2.Get(ctx, devSpaceConfig, args, false, cmd.Owner, false, logger)
 	if err != nil {
 		return err
 	}
 
 	// export workspace
-	exportConfig, err := exportWorkspace(devPodConfig, client.WorkspaceConfig())
+	exportConfig, err := exportWorkspace(devSpaceConfig, client.WorkspaceConfig())
 	if err != nil {
 		return err
 	}
@@ -70,7 +70,7 @@ func (cmd *ExportCmd) Run(ctx context.Context, devPodConfig *config.Config, args
 	return nil
 }
 
-func exportWorkspace(devPodConfig *config.Config, workspaceConfig *provider.Workspace) (*provider.ExportConfig, error) {
+func exportWorkspace(devSpaceConfig *config.Config, workspaceConfig *provider.Workspace) (*provider.ExportConfig, error) {
 	var err error
 
 	// create return config
@@ -91,7 +91,7 @@ func exportWorkspace(devPodConfig *config.Config, workspaceConfig *provider.Work
 	}
 
 	// export provider
-	retConfig.Provider, err = provider.ExportProvider(devPodConfig, workspaceConfig.Context, workspaceConfig.Provider.Name)
+	retConfig.Provider, err = provider.ExportProvider(devSpaceConfig, workspaceConfig.Context, workspaceConfig.Provider.Name)
 	if err != nil {
 		return nil, fmt.Errorf("export provider config: %w", err)
 	}

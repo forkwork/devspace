@@ -35,7 +35,7 @@ func ServeAgent() {
 	}
 
 	addr := listener.Addr().String()
-	err = os.Setenv("DEVPOD_AGENT_URL", "http://"+addr+"/files/")
+	err = os.Setenv("DEVSPACE_AGENT_URL", "http://"+addr+"/files/")
 	if err != nil {
 		log.Fatal(err)
 	}

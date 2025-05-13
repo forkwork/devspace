@@ -35,12 +35,12 @@ func NewUpdateWorkspaceCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 		Short:  "Update workspace instance",
 		Hidden: true,
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 	}
 
@@ -52,8 +52,8 @@ func NewUpdateWorkspaceCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *UpdateWorkspaceCmd) Run(ctx context.Context, devPodConfig *config.Config, provider *provider.ProviderConfig) error {
-	opts := devPodConfig.ProviderOptions(provider.Name)
+func (cmd *UpdateWorkspaceCmd) Run(ctx context.Context, devSpaceConfig *config.Config, provider *provider.ProviderConfig) error {
+	opts := devSpaceConfig.ProviderOptions(provider.Name)
 	opts[platform.WorkspaceInstanceEnv] = config.OptionValue{Value: cmd.Instance}
 
 	var buf bytes.Buffer
@@ -64,7 +64,7 @@ func (cmd *UpdateWorkspaceCmd) Run(ctx context.Context, devPodConfig *config.Con
 		ctx,
 		"updateWorkspace",
 		provider.Exec.Proxy.Update.Workspace,
-		devPodConfig.DefaultContext,
+		devSpaceConfig.DefaultContext,
 		nil,
 		nil,
 		opts,

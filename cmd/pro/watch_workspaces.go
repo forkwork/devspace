@@ -37,12 +37,12 @@ func NewWatchWorkspacesCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 		Short:  "Watch workspaces",
 		Hidden: true,
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 	}
 
@@ -55,8 +55,8 @@ func NewWatchWorkspacesCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *WatchWorkspacesCmd) Run(ctx context.Context, devPodConfig *config.Config, providerConfig *provider.ProviderConfig) error {
-	opts := devPodConfig.ProviderOptions(providerConfig.Name)
+func (cmd *WatchWorkspacesCmd) Run(ctx context.Context, devSpaceConfig *config.Config, providerConfig *provider.ProviderConfig) error {
+	opts := devSpaceConfig.ProviderOptions(providerConfig.Name)
 	cancelCtx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
@@ -80,7 +80,7 @@ func (cmd *WatchWorkspacesCmd) Run(ctx context.Context, devPodConfig *config.Con
 		cancelCtx,
 		"watchWorkspaces",
 		providerConfig.Exec.Proxy.Watch.Workspaces,
-		devPodConfig.DefaultContext,
+		devSpaceConfig.DefaultContext,
 		nil,
 		nil,
 		opts,

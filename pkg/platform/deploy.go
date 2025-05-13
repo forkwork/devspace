@@ -35,11 +35,11 @@ func WaitForPodReady(ctx context.Context, kubeClient kubernetes.Interface, names
 			LabelSelector: "app=loft",
 		})
 		if err != nil {
-			log.Warnf("Error trying to retrieve %s pod: %v", "DevPod Pro", err)
+			log.Warnf("Error trying to retrieve %s pod: %v", "DevSpace Pro", err)
 			return false, nil
 		} else if len(pods.Items) == 0 {
 			if time.Now().After(now.Add(time.Second * 10)) {
-				log.Infof("Still waiting for a %s pod...", "DevPod Pro")
+				log.Infof("Still waiting for a %s pod...", "DevSpace Pro")
 				now = time.Now()
 			}
 			return false, nil
@@ -73,20 +73,20 @@ func WaitForPodReady(ctx context.Context, kubeClient kubernetes.Interface, names
 					Container: "manager",
 				}).Do(context.Background()).Raw()
 				if err != nil {
-					return false, fmt.Errorf("there seems to be an issue with %s starting up: %s (%s). Please reach out to our support at https://loft.sh/", "DevPod Pro", message, reason)
+					return false, fmt.Errorf("there seems to be an issue with %s starting up: %s (%s). Please reach out to our support at https://loft.sh/", "DevSpace Pro", message, reason)
 				}
 				if strings.Contains(string(out), "register instance: Post \"https://license.loft.sh/register\": dial tcp") {
-					return false, fmt.Errorf("%[1]s logs: \n%[2]v \nThere seems to be an issue with %[1]s starting up. Looks like you try to install %[1]s into an air-gapped environment, please reach out to our support at https://loft.sh/ for an offline license", "DevPod Pro", string(out))
+					return false, fmt.Errorf("%[1]s logs: \n%[2]v \nThere seems to be an issue with %[1]s starting up. Looks like you try to install %[1]s into an air-gapped environment, please reach out to our support at https://loft.sh/ for an offline license", "DevSpace Pro", string(out))
 				}
 
-				return false, fmt.Errorf("%[1]s logs: \n%v \nThere seems to be an issue with %[1]s starting up: %[2]s (%[3]s). Please reach out to our support at https://loft.sh/", "DevPod Pro", string(out), message, reason)
+				return false, fmt.Errorf("%[1]s logs: \n%v \nThere seems to be an issue with %[1]s starting up: %[2]s (%[3]s). Please reach out to our support at https://loft.sh/", "DevSpace Pro", string(out), message, reason)
 			} else if containerStatus.State.Waiting != nil && time.Now().After(now.Add(time.Second*10)) {
 				if containerStatus.State.Waiting.Message != "" {
-					log.Infof("Please keep waiting, %s container is still starting up: %s (%s)", "DevPod Pro", containerStatus.State.Waiting.Message, containerStatus.State.Waiting.Reason)
+					log.Infof("Please keep waiting, %s container is still starting up: %s (%s)", "DevSpace Pro", containerStatus.State.Waiting.Message, containerStatus.State.Waiting.Reason)
 				} else if containerStatus.State.Waiting.Reason != "" {
-					log.Infof("Please keep waiting, %s container is still starting up: %s", "DevPod Pro", containerStatus.State.Waiting.Reason)
+					log.Infof("Please keep waiting, %s container is still starting up: %s", "DevSpace Pro", containerStatus.State.Waiting.Reason)
 				} else {
-					log.Infof("Please keep waiting, %s container is still starting up...", "DevPod Pro")
+					log.Infof("Please keep waiting, %s container is still starting up...", "DevSpace Pro")
 				}
 
 				now = time.Now()

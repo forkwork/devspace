@@ -3,7 +3,7 @@ title: Provider Binaries
 sidebar_label: Provider Binaries
 ---
 
-The `binaries` section can be used to specify helper binaries DevPod should download that help the provider to accomplish its tasks.
+The `binaries` section can be used to specify helper binaries DevSpace should download that help the provider to accomplish its tasks.
 
 An example of this type of provider are:
 
@@ -25,7 +25,7 @@ binaries:
       archivePath: # If its an archive, the relative path to the binary. Supported archives are .tgz, .tar, .tar.gz, .zip
 ```
 
-When [Adding a provider](../managing-providers/add-provider.mdx), DevPod will
+When [Adding a provider](../managing-providers/add-provider.mdx), DevSpace will
 match the binary for your OS and Arch and download the specific one for it.
 
 Example of the binary section in a `provider.yaml`:
@@ -63,7 +63,7 @@ the machine.
 
 ## Use binaries in commands
 
-DevPod will make the binary path available through an environment variable within the exec section. For example:
+DevSpace will make the binary path available through an environment variable within the exec section. For example:
 
 ```yaml
 binaries:
@@ -91,7 +91,7 @@ You can also use binaries within the option `command` attribute. For example:
 
 ## Use binaries on the agent side
 
-You can also define binaries DevPod should install on the agent side through `agent.binaries`. These binaries can then be used within the `agent.exec` section to automatically stop a virtual machine if inactive.
+You can also define binaries DevSpace should install on the agent side through `agent.binaries`. These binaries can then be used within the `agent.exec` section to automatically stop a virtual machine if inactive.
 For example:
 
 ```yaml

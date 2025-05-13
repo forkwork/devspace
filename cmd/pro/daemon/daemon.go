@@ -16,7 +16,7 @@ import (
 func NewCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	c := &cobra.Command{
 		Use:    "daemon",
-		Short:  "DevPod Pro Provider daemon commands",
+		Short:  "DevSpace Pro Provider daemon commands",
 		Args:   cobra.NoArgs,
 		Hidden: true,
 	}
@@ -29,15 +29,15 @@ func NewCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 }
 
 func findProProvider(ctx context.Context, context, provider, host string, log log.Logger) (*config.Config, *providerpkg.ProviderConfig, error) {
-	devPodConfig, err := config.LoadConfig(context, provider)
+	devSpaceConfig, err := config.LoadConfig(context, provider)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	pCfg, err := workspace.ProviderFromHost(ctx, devPodConfig, host, log)
+	pCfg, err := workspace.ProviderFromHost(ctx, devSpaceConfig, host, log)
 	if err != nil {
-		return devPodConfig, nil, fmt.Errorf("load provider: %w", err)
+		return devSpaceConfig, nil, fmt.Errorf("load provider: %w", err)
 	}
 
-	return devPodConfig, pCfg, nil
+	return devSpaceConfig, pCfg, nil
 }

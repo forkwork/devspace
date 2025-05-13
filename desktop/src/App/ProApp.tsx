@@ -1,5 +1,5 @@
 import { STATUS_BAR_HEIGHT } from "@/constants"
-import { ProviderProvider } from "@/contexts/DevPodContext/DevPodProvider"
+import { ProviderProvider } from "@/contexts/DevSpaceContext/DevSpaceProvider"
 import { BellDuotone, CogDuotone, LockDuotone } from "@/icons"
 import { TConnectionStatus, useConnectionStatus } from "@/lib"
 import { QueryKeys } from "@/queryKeys"

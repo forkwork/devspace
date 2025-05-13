@@ -83,7 +83,7 @@ func InstallDaemon(agentDir string, interval string, log log.Logger) error {
 	}
 
 	// check if admin
-	service, err := daemon.New("devspace", "DevPod Agent Service", daemon.SystemDaemon)
+	service, err := daemon.New("devspace", "DevSpace Agent Service", daemon.SystemDaemon)
 	if err != nil {
 		return err
 	}
@@ -112,14 +112,14 @@ func InstallDaemon(agentDir string, interval string, log log.Logger) error {
 				return nil, err
 			}
 
-			log.Infof("Successfully started DevPod daemon into server")
+			log.Infof("Successfully started DevSpace daemon into server")
 			return exec.Command(executable, args...), nil
 		})
 		if err != nil {
 			return fmt.Errorf("start daemon: %w", err)
 		}
 	} else if err == nil {
-		log.Infof("Successfully installed DevPod daemon into server")
+		log.Infof("Successfully installed DevSpace daemon into server")
 	}
 
 	return nil
@@ -131,7 +131,7 @@ func RemoveDaemon() error {
 	}
 
 	// check if admin
-	service, err := daemon.New("devspace", "DevPod Agent Service", daemon.SystemDaemon)
+	service, err := daemon.New("devspace", "DevSpace Agent Service", daemon.SystemDaemon)
 	if err != nil {
 		return err
 	}

@@ -1,9 +1,9 @@
 use tauri::AppHandle;
 
 use super::{
-    config::{CommandConfig, DevpodCommandConfig, DevpodCommandError},
+    config::{CommandConfig, DevspaceCommandConfig, DevspaceCommandError},
     constants::{
-        DEVPOD_BINARY_NAME, DEVPOD_COMMAND_DELETE, DEVPOD_COMMAND_PRO, FLAG_IGNORE_NOT_FOUND,
+        DEVSPACE_BINARY_NAME, DEVSPACE_COMMAND_DELETE, DEVSPACE_COMMAND_PRO, FLAG_IGNORE_NOT_FOUND,
     },
 };
 
@@ -15,26 +15,26 @@ impl DeleteProInstanceCommand {
         DeleteProInstanceCommand { pro_id }
     }
 }
-impl DevpodCommandConfig<()> for DeleteProInstanceCommand {
+impl DevspaceCommandConfig<()> for DeleteProInstanceCommand {
     fn config(&self) -> CommandConfig {
         CommandConfig {
-            binary_name: DEVPOD_BINARY_NAME,
+            binary_name: DEVSPACE_BINARY_NAME,
             args: vec![
-                DEVPOD_COMMAND_PRO,
-                DEVPOD_COMMAND_DELETE,
+                DEVSPACE_COMMAND_PRO,
+                DEVSPACE_COMMAND_DELETE,
                 &self.pro_id,
                 FLAG_IGNORE_NOT_FOUND,
             ],
         }
     }
 
-    fn exec_blocking(self, app_handle: &AppHandle) -> Result<(), DevpodCommandError> {
+    fn exec_blocking(self, app_handle: &AppHandle) -> Result<(), DevspaceCommandError> {
         let cmd = self.new_command(app_handle)?;
 
         tauri::async_runtime::block_on(async move { cmd.status().await })
-            .map_err(DevpodCommandError::Failed)?
+            .map_err(DevspaceCommandError::Failed)?
             .success()
             .then_some(())
-            .ok_or_else(|| DevpodCommandError::Exit)
+            .ok_or_else(|| DevspaceCommandError::Exit)
     }
 }

@@ -204,13 +204,13 @@ var AllowedIDEs = []AllowedIDE{
 	},
 }
 
-func RefreshIDEOptions(devPodConfig *config.Config, workspace *provider.Workspace, ide string, options []string) (*provider.Workspace, error) {
+func RefreshIDEOptions(devSpaceConfig *config.Config, workspace *provider.Workspace, ide string, options []string) (*provider.Workspace, error) {
 	ide = strings.ToLower(ide)
 	if ide == "" {
 		if workspace.IDE.Name != "" {
 			ide = workspace.IDE.Name
-		} else if devPodConfig.Current().DefaultIDE != "" {
-			ide = devPodConfig.Current().DefaultIDE
+		} else if devSpaceConfig.Current().DefaultIDE != "" {
+			ide = devSpaceConfig.Current().DefaultIDE
 		} else {
 			ide = detect()
 		}
@@ -224,7 +224,7 @@ func RefreshIDEOptions(devPodConfig *config.Config, workspace *provider.Workspac
 
 	// get global options and set them as non user
 	// provided.
-	retValues := devPodConfig.IDEOptions(ide)
+	retValues := devSpaceConfig.IDEOptions(ide)
 	for k, v := range retValues {
 		retValues[k] = config.OptionValue{
 			Value: v.Value,

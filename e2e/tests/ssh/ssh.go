@@ -16,7 +16,7 @@ import (
 	"github.com/onsi/ginkgo/v2"
 )
 
-var _ = DevPodDescribe("devspace ssh test suite", func() {
+var _ = DevSpaceDescribe("devspace ssh test suite", func() {
 	ginkgo.Context("testing ssh command", ginkgo.Label("ssh"), ginkgo.Ordered, func() {
 		ctx := context.Background()
 		initialDir, err := os.Getwd()
@@ -30,23 +30,23 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 			defer framework.CleanupTempDir(initialDir, tempDir)
 
 			f := framework.NewDefaultFramework(initialDir + "/bin")
-			_ = f.DevPodProviderAdd(ctx, "docker")
-			err = f.DevPodProviderUse(context.Background(), "docker")
+			_ = f.DevSpaceProviderAdd(ctx, "docker")
+			err = f.DevSpaceProviderUse(context.Background(), "docker")
 			framework.ExpectNoError(err)
 
-			ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+			ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 			// Start up devspace workspace
 			devspaceUpDeadline := time.Now().Add(5 * time.Minute)
 			devspaceUpCtx, cancel := context.WithDeadline(context.Background(), devspaceUpDeadline)
 			defer cancel()
-			err = f.DevPodUp(devspaceUpCtx, tempDir)
+			err = f.DevSpaceUp(devspaceUpCtx, tempDir)
 			framework.ExpectNoError(err)
 
 			devspaceSSHDeadline := time.Now().Add(20 * time.Second)
 			devspaceSSHCtx, cancelSSH := context.WithDeadline(context.Background(), devspaceSSHDeadline)
 			defer cancelSSH()
-			err = f.DevPodSSHEchoTestString(devspaceSSHCtx, tempDir)
+			err = f.DevSpaceSSHEchoTestString(devspaceSSHCtx, tempDir)
 			framework.ExpectNoError(err)
 		})
 
@@ -61,11 +61,11 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 		// 	defer framework.CleanupTempDir(initialDir, tempDir)
 		//
 		// 	f := framework.NewDefaultFramework(initialDir + "/bin")
-		// 	_ = f.DevPodProviderAdd(ctx, "docker")
-		// 	err = f.DevPodProviderUse(context.Background(), "docker")
+		// 	_ = f.DevSpaceProviderAdd(ctx, "docker")
+		// 	err = f.DevSpaceProviderUse(context.Background(), "docker")
 		// 	framework.ExpectNoError(err)
 		//
-		// 	ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+		// 	ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 		//
 		// 	out, err := exec.Command("gpg", "-k").Output()
 		// 	if err != nil || len(out) == 0 {
@@ -77,7 +77,7 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 		// 	devspaceUpDeadline := time.Now().Add(5 * time.Minute)
 		// 	devspaceUpCtx, cancel := context.WithDeadline(context.Background(), devspaceUpDeadline)
 		// 	defer cancel()
-		// 	err = f.DevPodUp(devspaceUpCtx, tempDir, "--gpg-agent-forwarding")
+		// 	err = f.DevSpaceUp(devspaceUpCtx, tempDir, "--gpg-agent-forwarding")
 		// 	framework.ExpectNoError(err)
 		//
 		// 	devspaceSSHDeadline := time.Now().Add(20 * time.Second)
@@ -87,7 +87,7 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 		// 	// GPG agent might be not ready, let's try 10 times, 1 second each
 		// 	retries := 10
 		// 	for retries > 0 {
-		// 		err = f.DevPodSSHGpgTestKey(devspaceSSHCtx, tempDir)
+		// 		err = f.DevSpaceSSHGpgTestKey(devspaceSSHCtx, tempDir)
 		// 		if err != nil {
 		// 			retries--
 		// 			time.Sleep(time.Second)
@@ -109,11 +109,11 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 			defer framework.CleanupTempDir(initialDir, tempDir)
 
 			f := framework.NewDefaultFramework(initialDir + "/bin")
-			_ = f.DevPodProviderAdd(ctx, "docker")
-			err = f.DevPodProviderUse(context.Background(), "docker")
+			_ = f.DevSpaceProviderAdd(ctx, "docker")
+			err = f.DevSpaceProviderUse(context.Background(), "docker")
 			framework.ExpectNoError(err)
 
-			ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+			ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 			// Create a new random number generator with a custom seed (e.g., current time)
 			source := rand.NewSource(time.Now().UnixNano())
@@ -123,7 +123,7 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 			devspaceUpDeadline := time.Now().Add(5 * time.Minute)
 			devspaceUpCtx, cancel := context.WithDeadline(context.Background(), devspaceUpDeadline)
 			defer cancel()
-			err = f.DevPodUp(devspaceUpCtx, tempDir)
+			err = f.DevSpaceUp(devspaceUpCtx, tempDir)
 			framework.ExpectNoError(err)
 
 			// Generate a random number for the server port between 50000 and 51000
@@ -137,7 +137,7 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 
 			fmt.Println("Starting pong service")
 			// start a ping/pong service on the port
-			cmd := exec.CommandContext(ctx, f.DevpodBinDir+"/"+f.DevpodBinName,
+			cmd := exec.CommandContext(ctx, f.DevspaceBinDir+"/"+f.DevspaceBinName,
 				[]string{
 					"ssh", tempDir, "--command",
 					"sh -c \"while true; do echo PONG | nc -n -lk -p " + strconv.Itoa(port) + "; done\"",
@@ -149,7 +149,7 @@ var _ = DevPodDescribe("devspace ssh test suite", func() {
 			fmt.Println("Forwarding port", port)
 			// start ssh with port forwarding in background
 			go func() {
-				_ = f.DevpodPortTest(devspaceSSHCtx, strconv.Itoa(port), tempDir)
+				_ = f.DevspacePortTest(devspaceSSHCtx, strconv.Itoa(port), tempDir)
 			}()
 
 			fmt.Println("Waiting for port", port, "to be open")

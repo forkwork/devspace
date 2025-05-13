@@ -49,7 +49,7 @@ func BuildRemote(
 		return nil, fmt.Errorf("you cannot build in this mode. Please run 'devspace up' to rebuild the container")
 	}
 	if !options.CLIOptions.Platform.Enabled {
-		return nil, errors.New("remote builds are only supported in DevPod Pro")
+		return nil, errors.New("remote builds are only supported in DevSpace Pro")
 	}
 	if options.CLIOptions.Platform.Build == nil {
 		return nil, errors.New("build options are required for remote builds")

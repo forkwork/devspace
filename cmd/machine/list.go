@@ -44,12 +44,12 @@ func NewListCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *ListCmd) Run(ctx context.Context) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	machineDir, err := provider.GetMachinesDir(devPodConfig.DefaultContext)
+	machineDir, err := provider.GetMachinesDir(devSpaceConfig.DefaultContext)
 	if err != nil {
 		return err
 	}
@@ -62,7 +62,7 @@ func (cmd *ListCmd) Run(ctx context.Context) error {
 	if cmd.Output == "plain" {
 		tableEntries := [][]string{}
 		for _, entry := range entries {
-			machineConfig, err := provider.LoadMachineConfig(devPodConfig.DefaultContext, entry.Name())
+			machineConfig, err := provider.LoadMachineConfig(devSpaceConfig.DefaultContext, entry.Name())
 			if err != nil {
 				return errors.Wrap(err, "load machine config")
 			}
@@ -85,7 +85,7 @@ func (cmd *ListCmd) Run(ctx context.Context) error {
 	} else if cmd.Output == "json" {
 		tableEntries := []*provider.Machine{}
 		for _, entry := range entries {
-			machineConfig, err := provider.LoadMachineConfig(devPodConfig.DefaultContext, entry.Name())
+			machineConfig, err := provider.LoadMachineConfig(devSpaceConfig.DefaultContext, entry.Name())
 			if err != nil {
 				return errors.Wrap(err, "load machine config")
 			}

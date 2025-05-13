@@ -1,6 +1,6 @@
 import { client } from "@/client"
 import { useProInstances, useProviders, useSettings } from "@/contexts"
-import { CheckCircle, CircleWithArrow, DevPodProBadge, ExclamationTriangle } from "@/icons"
+import { CheckCircle, CircleWithArrow, DevSpaceProBadge, ExclamationTriangle } from "@/icons"
 import {
   exists,
   canHealthCheck as isNewProProvider,
@@ -51,15 +51,15 @@ export function ProSwitcher() {
   const handleAnnouncementClicked = () => {
     client.open("https://dev.khulnasoft.com/pro")
   }
-  const { experimental_devPodPro } = useSettings()
+  const { experimental_devSpacePro } = useSettings()
   const isProUnauthenticated = proInstances?.some(({ authenticated }) => !authenticated)
-  if (!experimental_devPodPro) {
+  if (!experimental_devSpacePro) {
     return (
       <Button
         variant="outline"
-        leftIcon={<DevPodProBadge width="9" height="8" />}
+        leftIcon={<DevSpaceProBadge width="9" height="8" />}
         onClick={handleAnnouncementClicked}>
-        Try DevPod Pro
+        Try DevSpace Pro
       </Button>
     )
   }
@@ -74,7 +74,7 @@ export function ProSwitcher() {
             {...(isProUnauthenticated && {
               leftIcon: <ExclamationTriangle boxSize={4} color="orange.300" />,
             })}>
-            DevPod Pro
+            DevSpace Pro
           </Button>
         </PopoverTrigger>
         <Portal>
@@ -162,7 +162,7 @@ function ProPopoverContent({
           <Heading size="sm" as="h3">
             Your Pro Instances
           </Heading>
-          <Text fontSize="xs">Manage DevPod Pro</Text>
+          <Text fontSize="xs">Manage DevSpace Pro</Text>
         </VStack>
         <ButtonGroup variant="outline">
           <Tooltip label="Connect to Pro instance">

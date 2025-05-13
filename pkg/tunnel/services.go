@@ -35,7 +35,7 @@ import (
 // RunServices forwards the ports for a given workspace and uses it's SSH client to run the credentials server remotely and the services server locally to communicate with the container
 func RunServices(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	containerClient *ssh.Client,
 	user string,
 	forwardPorts bool,
@@ -47,7 +47,7 @@ func RunServices(
 ) error {
 	// calculate exit after timeout
 	exitAfterTimeout := time.Second * 5
-	if devPodConfig.ContextOption(config.ContextOptionExitAfterTimeout) != "true" {
+	if devSpaceConfig.ContextOption(config.ContextOptionExitAfterTimeout) != "true" {
 		exitAfterTimeout = 0
 	}
 
@@ -113,7 +113,7 @@ func RunServices(
 		writer := log.ErrorStreamOnly().Writer(logrus.DebugLevel, false)
 		defer writer.Close()
 
-		command := fmt.Sprintf("'%s' agent container credentials-server --user '%s'", agent.ContainerDevPodHelperLocation, user)
+		command := fmt.Sprintf("'%s' agent container credentials-server --user '%s'", agent.ContainerDevSpaceHelperLocation, user)
 		if configureGitCredentials {
 			command += " --configure-git-helper"
 		}

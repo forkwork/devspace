@@ -9,46 +9,46 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// DevPodWorkspaceInstanceLister helps list DevPodWorkspaceInstances.
+// DevSpaceWorkspaceInstanceLister helps list DevSpaceWorkspaceInstances.
 // All objects returned here must be treated as read-only.
-type DevPodWorkspaceInstanceLister interface {
-	// List lists all DevPodWorkspaceInstances in the indexer.
+type DevSpaceWorkspaceInstanceLister interface {
+	// List lists all DevSpaceWorkspaceInstances in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1.DevPodWorkspaceInstance, err error)
-	// DevPodWorkspaceInstances returns an object that can list and get DevPodWorkspaceInstances.
-	DevPodWorkspaceInstances(namespace string) DevPodWorkspaceInstanceNamespaceLister
-	DevPodWorkspaceInstanceListerExpansion
+	List(selector labels.Selector) (ret []*v1.DevSpaceWorkspaceInstance, err error)
+	// DevSpaceWorkspaceInstances returns an object that can list and get DevSpaceWorkspaceInstances.
+	DevSpaceWorkspaceInstances(namespace string) DevSpaceWorkspaceInstanceNamespaceLister
+	DevSpaceWorkspaceInstanceListerExpansion
 }
 
-// devPodWorkspaceInstanceLister implements the DevPodWorkspaceInstanceLister interface.
-type devPodWorkspaceInstanceLister struct {
-	listers.ResourceIndexer[*v1.DevPodWorkspaceInstance]
+// devSpaceWorkspaceInstanceLister implements the DevSpaceWorkspaceInstanceLister interface.
+type devSpaceWorkspaceInstanceLister struct {
+	listers.ResourceIndexer[*v1.DevSpaceWorkspaceInstance]
 }
 
-// NewDevPodWorkspaceInstanceLister returns a new DevPodWorkspaceInstanceLister.
-func NewDevPodWorkspaceInstanceLister(indexer cache.Indexer) DevPodWorkspaceInstanceLister {
-	return &devPodWorkspaceInstanceLister{listers.New[*v1.DevPodWorkspaceInstance](indexer, v1.Resource("devspaceworkspaceinstance"))}
+// NewDevSpaceWorkspaceInstanceLister returns a new DevSpaceWorkspaceInstanceLister.
+func NewDevSpaceWorkspaceInstanceLister(indexer cache.Indexer) DevSpaceWorkspaceInstanceLister {
+	return &devSpaceWorkspaceInstanceLister{listers.New[*v1.DevSpaceWorkspaceInstance](indexer, v1.Resource("devspaceworkspaceinstance"))}
 }
 
-// DevPodWorkspaceInstances returns an object that can list and get DevPodWorkspaceInstances.
-func (s *devPodWorkspaceInstanceLister) DevPodWorkspaceInstances(namespace string) DevPodWorkspaceInstanceNamespaceLister {
-	return devPodWorkspaceInstanceNamespaceLister{listers.NewNamespaced[*v1.DevPodWorkspaceInstance](s.ResourceIndexer, namespace)}
+// DevSpaceWorkspaceInstances returns an object that can list and get DevSpaceWorkspaceInstances.
+func (s *devSpaceWorkspaceInstanceLister) DevSpaceWorkspaceInstances(namespace string) DevSpaceWorkspaceInstanceNamespaceLister {
+	return devSpaceWorkspaceInstanceNamespaceLister{listers.NewNamespaced[*v1.DevSpaceWorkspaceInstance](s.ResourceIndexer, namespace)}
 }
 
-// DevPodWorkspaceInstanceNamespaceLister helps list and get DevPodWorkspaceInstances.
+// DevSpaceWorkspaceInstanceNamespaceLister helps list and get DevSpaceWorkspaceInstances.
 // All objects returned here must be treated as read-only.
-type DevPodWorkspaceInstanceNamespaceLister interface {
-	// List lists all DevPodWorkspaceInstances in the indexer for a given namespace.
+type DevSpaceWorkspaceInstanceNamespaceLister interface {
+	// List lists all DevSpaceWorkspaceInstances in the indexer for a given namespace.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1.DevPodWorkspaceInstance, err error)
-	// Get retrieves the DevPodWorkspaceInstance from the indexer for a given namespace and name.
+	List(selector labels.Selector) (ret []*v1.DevSpaceWorkspaceInstance, err error)
+	// Get retrieves the DevSpaceWorkspaceInstance from the indexer for a given namespace and name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1.DevPodWorkspaceInstance, error)
-	DevPodWorkspaceInstanceNamespaceListerExpansion
+	Get(name string) (*v1.DevSpaceWorkspaceInstance, error)
+	DevSpaceWorkspaceInstanceNamespaceListerExpansion
 }
 
-// devPodWorkspaceInstanceNamespaceLister implements the DevPodWorkspaceInstanceNamespaceLister
+// devSpaceWorkspaceInstanceNamespaceLister implements the DevSpaceWorkspaceInstanceNamespaceLister
 // interface.
-type devPodWorkspaceInstanceNamespaceLister struct {
-	listers.ResourceIndexer[*v1.DevPodWorkspaceInstance]
+type devSpaceWorkspaceInstanceNamespaceLister struct {
+	listers.ResourceIndexer[*v1.DevSpaceWorkspaceInstance]
 }

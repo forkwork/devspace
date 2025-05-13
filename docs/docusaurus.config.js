@@ -1,7 +1,7 @@
 __webpack_public_path__ = "/docs/";
 
 module.exports = {
-  title: "DevPod docs | DevContainers everywhere",
+  title: "DevSpace docs | DevContainers everywhere",
   tagline: "DevContainers everywhere",
   url: "https://dev.khulnasoft.com",
   baseUrl: __webpack_public_path__,

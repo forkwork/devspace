@@ -25,7 +25,7 @@ const (
 	PanicSeverity   ErrorSeverityType = "panic"
 )
 
-const UIEnvVar = "DEVPOD_UI"
+const UIEnvVar = "DEVSPACE_UI"
 
 var UIEventsExceptions []string = []string{
 	"devspace list",
@@ -53,10 +53,10 @@ type CLICollector interface {
 }
 
 // StartCLI starts collecting events and sending them to the backend from the CLI
-func StartCLI(devPodConfig *config.Config, cmd *cobra.Command) {
-	telemetryOpt := devPodConfig.ContextOption(config.ContextOptionTelemetry)
+func StartCLI(devSpaceConfig *config.Config, cmd *cobra.Command) {
+	telemetryOpt := devSpaceConfig.ContextOption(config.ContextOptionTelemetry)
 	if telemetryOpt == "false" || version.GetVersion() == version.DevVersion ||
-		os.Getenv("DEVPOD_DISABLE_TELEMETRY") == "true" {
+		os.Getenv("DEVSPACE_DISABLE_TELEMETRY") == "true" {
 		return
 	}
 
@@ -106,7 +106,7 @@ func (d *cliCollector) RecordCLI(err error) {
 	if os.Getenv(UIEnvVar) == "true" {
 		isUI = true
 	}
-	// Ignore certain commands triggered by DevPod Desktop
+	// Ignore certain commands triggered by DevSpace Desktop
 	if isUI {
 		for _, exception := range UIEventsExceptions {
 			if cmd == exception {

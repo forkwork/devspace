@@ -38,7 +38,7 @@ type streams struct {
 // NewUpCmd creates a new command
 func NewUpCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	logLevel := logrus.InfoLevel
-	if os.Getenv(clientimplementation.DevPodDebug) == "true" || globalFlags.Debug {
+	if os.Getenv(clientimplementation.DevSpaceDebug) == "true" || globalFlags.Debug {
 		logLevel = logrus.DebugLevel
 	}
 
@@ -102,8 +102,8 @@ func (cmd *UpCmd) Run(ctx context.Context) error {
 	return cmd.up(ctx, instance, baseClient)
 }
 
-func (cmd *UpCmd) up(ctx context.Context, workspace *managementv1.DevPodWorkspaceInstance, client client.Client) error {
-	options := platform.OptionsFromEnv(storagev1.DevPodFlagsUp)
+func (cmd *UpCmd) up(ctx context.Context, workspace *managementv1.DevSpaceWorkspaceInstance, client client.Client) error {
+	options := platform.OptionsFromEnv(storagev1.DevSpaceFlagsUp)
 	if options != nil && os.Getenv("DEBUG") == "true" {
 		options.Add("debug", "true")
 	}
@@ -121,7 +121,7 @@ func (cmd *UpCmd) up(ctx context.Context, workspace *managementv1.DevPodWorkspac
 	return nil
 }
 
-func templateUpdateRequired(instance *managementv1.DevPodWorkspaceInstance) bool {
+func templateUpdateRequired(instance *managementv1.DevSpaceWorkspaceInstance) bool {
 	var templateResolved, templateChangesAvailable bool
 	for _, condition := range instance.Status.Conditions {
 		if condition.Type == storagev1.InstanceTemplateResolved {
@@ -139,7 +139,7 @@ func templateUpdateRequired(instance *managementv1.DevPodWorkspaceInstance) bool
 	return !templateResolved || templateChangesAvailable
 }
 
-func printInstanceInfo(instance *managementv1.DevPodWorkspaceInstance, log log.Logger) {
+func printInstanceInfo(instance *managementv1.DevSpaceWorkspaceInstance, log log.Logger) {
 	workspaceConfig, _ := json.Marshal(struct {
 		// Cluster    storagev1.WorkspaceTargetNamespace
 		Template   *storagev1.TemplateRef

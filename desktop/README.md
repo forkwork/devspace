@@ -1,6 +1,6 @@
-# Devpod Desktop
+# Devspace Desktop
 
-[Open Example Devpod](devspace://open?workspace=vscode-remote-try-go&source=https://github.com/Microsoft/vscode-remote-try-go&provider=docker)
+[Open Example Devspace](devspace://open?workspace=vscode-remote-try-go&source=https://github.com/Microsoft/vscode-remote-try-go&provider=docker)
 
 ## Development
 

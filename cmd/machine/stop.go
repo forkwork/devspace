@@ -34,12 +34,12 @@ func NewStopCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *StopCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	machineClient, err := workspace.GetMachine(devPodConfig, args, log.Default)
+	machineClient, err := workspace.GetMachine(devSpaceConfig, args, log.Default)
 	if err != nil {
 		return err
 	}

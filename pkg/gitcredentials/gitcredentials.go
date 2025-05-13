@@ -202,7 +202,7 @@ func GetUser(userName string) (*GitUser, error) {
 
 func GetCredentials(requestObj *GitCredentials) (*GitCredentials, error) {
 	// run in git helper mode if we have a port
-	gitHelperPort := os.Getenv("DEVPOD_GIT_HELPER_PORT")
+	gitHelperPort := os.Getenv("DEVSPACE_GIT_HELPER_PORT")
 	if gitHelperPort != "" {
 		binaryPath, err := os.Executable()
 		if err != nil {

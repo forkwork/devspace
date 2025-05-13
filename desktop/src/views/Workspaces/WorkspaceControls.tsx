@@ -1,4 +1,4 @@
-import { TWorkspaceResult } from "@/contexts/DevPodContext/workspaces/useWorkspace"
+import { TWorkspaceResult } from "@/contexts/DevSpaceContext/workspaces/useWorkspace"
 import { ChevronRightIcon } from "@chakra-ui/icons"
 import {
   Button,

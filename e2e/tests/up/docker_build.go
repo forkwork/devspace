@@ -13,7 +13,7 @@ import (
 	"github.com/onsi/gomega"
 )
 
-var _ = DevPodDescribe("devspace up test suite", func() {
+var _ = DevSpaceDescribe("devspace up test suite", func() {
 	ginkgo.Context("testing up command", ginkgo.Label("up-docker-build"), ginkgo.Ordered, func() {
 		var dockerHelper *docker.DockerHelper
 		var initialDir string
@@ -33,14 +33,14 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 				// Wait for devspace workspace to come online (deadline: 30s)
-				err = f.DevPodUp(ctx, tempDir, "--debug")
+				err = f.DevSpaceUp(ctx, tempDir, "--debug")
 				framework.ExpectNoError(err)
 			}, ginkgo.SpecTimeout(framework.GetTimeout()*3))
 			ginkgo.Context("should start a workspace from a Dockerfile build", func() {
@@ -51,16 +51,16 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 
 					f := framework.NewDefaultFramework(initialDir + "/bin")
 
-					_ = f.DevPodProviderDelete(ctx, "docker")
-					err = f.DevPodProviderAdd(ctx, "docker")
+					_ = f.DevSpaceProviderDelete(ctx, "docker")
+					err = f.DevSpaceProviderAdd(ctx, "docker")
 					framework.ExpectNoError(err)
-					err = f.DevPodProviderUse(context.Background(), "docker")
+					err = f.DevSpaceProviderUse(context.Background(), "docker")
 					framework.ExpectNoError(err)
 
-					ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+					ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 					// Wait for devspace workspace to come online (deadline: 30s)
-					err = f.DevPodUp(ctx, tempDir)
+					err = f.DevSpaceUp(ctx, tempDir)
 					framework.ExpectNoError(err)
 
 					workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -83,8 +83,8 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 					_, err = scriptFile.Write([]byte("alias yr='date +%Y'"))
 					framework.ExpectNoError(err)
 
-					ginkgo.By("Starting DevPod again with --recreate")
-					err = f.DevPodUp(ctx, tempDir, "--debug", "--recreate")
+					ginkgo.By("Starting DevSpace again with --recreate")
+					err = f.DevSpaceUp(ctx, tempDir, "--debug", "--recreate")
 					framework.ExpectNoError(err)
 
 					container, err = dockerHelper.FindDevContainer(ctx, []string{
@@ -103,16 +103,16 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 
 					f := framework.NewDefaultFramework(initialDir + "/bin")
 
-					_ = f.DevPodProviderDelete(ctx, "docker")
-					err = f.DevPodProviderAdd(ctx, "docker")
+					_ = f.DevSpaceProviderDelete(ctx, "docker")
+					err = f.DevSpaceProviderAdd(ctx, "docker")
 					framework.ExpectNoError(err)
-					err = f.DevPodProviderUse(context.Background(), "docker")
+					err = f.DevSpaceProviderUse(context.Background(), "docker")
 					framework.ExpectNoError(err)
 
-					ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+					ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 					// Wait for devspace workspace to come online (deadline: 30s)
-					err = f.DevPodUp(ctx, tempDir)
+					err = f.DevSpaceUp(ctx, tempDir)
 					framework.ExpectNoError(err)
 
 					workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -135,8 +135,8 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 					_, err = scriptFile.Write([]byte("apt install python"))
 					framework.ExpectNoError(err)
 
-					ginkgo.By("Starting DevPod again with --recreate")
-					err = f.DevPodUp(ctx, tempDir, "--debug", "--recreate")
+					ginkgo.By("Starting DevSpace again with --recreate")
+					err = f.DevSpaceUp(ctx, tempDir, "--debug", "--recreate")
 					framework.ExpectNoError(err)
 
 					container, err = dockerHelper.FindDevContainer(ctx, []string{

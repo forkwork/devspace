@@ -24,7 +24,7 @@ func NewProCmd(flags *flags.GlobalFlags, streamLogger *log.StreamLogger) *cobra.
 	globalFlags := &proflags.GlobalFlags{GlobalFlags: flags}
 	proCmd := &cobra.Command{
 		Use:           "pro",
-		Short:         "DevPod Pro commands",
+		Short:         "DevSpace Pro commands",
 		SilenceUsage:  true,
 		SilenceErrors: true,
 		Args:          cobra.NoArgs,
@@ -37,7 +37,7 @@ func NewProCmd(flags *flags.GlobalFlags, streamLogger *log.StreamLogger) *cobra.
 				streamLogger.SetLevel(logrus.DebugLevel)
 			}
 
-			if os.Getenv("DEVPOD_DEBUG") == "true" {
+			if os.Getenv("DEVSPACE_DEBUG") == "true" {
 				log.Default.SetLevel(logrus.DebugLevel)
 			}
 			if flags.LogOutput == "json" {
@@ -76,15 +76,15 @@ func NewProCmd(flags *flags.GlobalFlags, streamLogger *log.StreamLogger) *cobra.
 }
 
 func findProProvider(ctx context.Context, context, provider, host string, log log.Logger) (*config.Config, *providerpkg.ProviderConfig, error) {
-	devPodConfig, err := config.LoadConfig(context, provider)
+	devSpaceConfig, err := config.LoadConfig(context, provider)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	pCfg, err := workspace.ProviderFromHost(ctx, devPodConfig, host, log)
+	pCfg, err := workspace.ProviderFromHost(ctx, devSpaceConfig, host, log)
 	if err != nil {
-		return devPodConfig, nil, fmt.Errorf("load provider: %w", err)
+		return devSpaceConfig, nil, fmt.Errorf("load provider: %w", err)
 	}
 
-	return devPodConfig, pCfg, nil
+	return devSpaceConfig, pCfg, nil
 }

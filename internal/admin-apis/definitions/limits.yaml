@@ -4,7 +4,7 @@ limits: # array of features
 - name: "virtual-cluster-instance"
   displayName: "Virtual Clusters"
 - name: "devspace-workspace-instance"
-  displayName: "DevPod Workspaces"
+  displayName: "DevSpace Workspaces"
 - name: "space-instance"
   displayName: "Namespaces"
 - name: "user"

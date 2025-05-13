@@ -17,10 +17,10 @@ type StorageV1Interface interface {
 	ClustersGetter
 	ClusterAccessesGetter
 	ClusterRoleTemplatesGetter
-	DevPodEnvironmentTemplatesGetter
-	DevPodWorkspaceInstancesGetter
-	DevPodWorkspacePresetsGetter
-	DevPodWorkspaceTemplatesGetter
+	DevSpaceEnvironmentTemplatesGetter
+	DevSpaceWorkspaceInstancesGetter
+	DevSpaceWorkspacePresetsGetter
+	DevSpaceWorkspaceTemplatesGetter
 	NetworkPeersGetter
 	ProjectsGetter
 	RunnersGetter
@@ -59,20 +59,20 @@ func (c *StorageV1Client) ClusterRoleTemplates() ClusterRoleTemplateInterface {
 	return newClusterRoleTemplates(c)
 }
 
-func (c *StorageV1Client) DevPodEnvironmentTemplates() DevPodEnvironmentTemplateInterface {
-	return newDevPodEnvironmentTemplates(c)
+func (c *StorageV1Client) DevSpaceEnvironmentTemplates() DevSpaceEnvironmentTemplateInterface {
+	return newDevSpaceEnvironmentTemplates(c)
 }
 
-func (c *StorageV1Client) DevPodWorkspaceInstances(namespace string) DevPodWorkspaceInstanceInterface {
-	return newDevPodWorkspaceInstances(c, namespace)
+func (c *StorageV1Client) DevSpaceWorkspaceInstances(namespace string) DevSpaceWorkspaceInstanceInterface {
+	return newDevSpaceWorkspaceInstances(c, namespace)
 }
 
-func (c *StorageV1Client) DevPodWorkspacePresets() DevPodWorkspacePresetInterface {
-	return newDevPodWorkspacePresets(c)
+func (c *StorageV1Client) DevSpaceWorkspacePresets() DevSpaceWorkspacePresetInterface {
+	return newDevSpaceWorkspacePresets(c)
 }
 
-func (c *StorageV1Client) DevPodWorkspaceTemplates() DevPodWorkspaceTemplateInterface {
-	return newDevPodWorkspaceTemplates(c)
+func (c *StorageV1Client) DevSpaceWorkspaceTemplates() DevSpaceWorkspaceTemplateInterface {
+	return newDevSpaceWorkspaceTemplates(c)
 }
 
 func (c *StorageV1Client) NetworkPeers() NetworkPeerInterface {

@@ -22,17 +22,17 @@ const DevContainerName = "devspace"
 const InitContainerName = "devspace-init"
 
 const (
-	DevPodCreatedLabel      = "dev.khulnasoft.com/created"
-	DevPodWorkspaceLabel    = "dev.khulnasoft.com/workspace"
-	DevPodWorkspaceUIDLabel = "dev.khulnasoft.com/workspace-uid"
+	DevSpaceCreatedLabel      = "dev.khulnasoft.com/created"
+	DevSpaceWorkspaceLabel    = "dev.khulnasoft.com/workspace"
+	DevSpaceWorkspaceUIDLabel = "dev.khulnasoft.com/workspace-uid"
 
-	DevPodInfoAnnotation                   = "dev.khulnasoft.com/info"
-	DevPodLastAppliedAnnotation            = "dev.khulnasoft.com/last-applied-configuration"
+	DevSpaceInfoAnnotation                   = "dev.khulnasoft.com/info"
+	DevSpaceLastAppliedAnnotation            = "dev.khulnasoft.com/last-applied-configuration"
 	ClusterAutoscalerSaveToEvictAnnotation = "cluster-autoscaler.kubernetes.io/safe-to-evict"
 )
 
-var ExtraDevPodLabels = map[string]string{
-	DevPodCreatedLabel: "true",
+var ExtraDevSpaceLabels = map[string]string{
+	DevSpaceCreatedLabel: "true",
 }
 
 type DevContainerInfo struct {
@@ -185,7 +185,7 @@ func (k *KubernetesDriver) runContainer(
 	if err != nil {
 		return err
 	}
-	labels[DevPodWorkspaceUIDLabel] = options.UID
+	labels[DevSpaceWorkspaceUIDLabel] = options.UID
 
 	// node selector
 	nodeSelector, err := getNodeSelector(pod, k.options.NodeSelector)
@@ -249,7 +249,7 @@ func (k *KubernetesDriver) runContainer(
 
 	if existingPod != nil {
 		existingOptions := &provider2.ProviderKubernetesDriverConfig{}
-		err := json.Unmarshal([]byte(existingPod.GetAnnotations()[DevPodLastAppliedAnnotation]), existingOptions)
+		err := json.Unmarshal([]byte(existingPod.GetAnnotations()[DevSpaceLastAppliedAnnotation]), existingOptions)
 		if err != nil {
 			k.Log.Errorf("Error unmarshalling existing provider options, continuing...: %s", err)
 		}
@@ -288,7 +288,7 @@ func (k *KubernetesDriver) runPod(ctx context.Context, id string, pod *corev1.Po
 	if pod.Annotations == nil {
 		pod.Annotations = map[string]string{}
 	}
-	pod.Annotations[DevPodLastAppliedAnnotation] = string(lastAppliedConfigRaw)
+	pod.Annotations[DevSpaceLastAppliedAnnotation] = string(lastAppliedConfigRaw)
 	pod.Annotations[ClusterAutoscalerSaveToEvictAnnotation] = "false"
 
 	// marshal the pod
@@ -335,7 +335,7 @@ func getContainers(
 			MountPath: "/var/run/secrets/devspace",
 		})
 	}
-	devPodContainer := corev1.Container{
+	devSpaceContainer := corev1.Container{
 		Name:         DevContainerName,
 		Image:        imageName,
 		Command:      []string{entrypoint},
@@ -353,34 +353,34 @@ func getContainers(
 	}
 
 	if strictSecurity == "true" {
-		devPodContainer.SecurityContext = nil
+		devSpaceContainer.SecurityContext = nil
 	}
 
 	// merge with existing container if it exists
-	var existingDevPodContainer *corev1.Container
+	var existingDevSpaceContainer *corev1.Container
 	retContainers := []corev1.Container{}
 	if pod != nil {
 		for i, container := range pod.Spec.Containers {
 			if container.Name == DevContainerName {
-				existingDevPodContainer = &pod.Spec.Containers[i]
+				existingDevSpaceContainer = &pod.Spec.Containers[i]
 			} else {
 				retContainers = append(retContainers, container)
 			}
 		}
 	}
 
-	if existingDevPodContainer != nil {
-		devPodContainer.Env = append(existingDevPodContainer.Env, devPodContainer.Env...)
-		devPodContainer.EnvFrom = existingDevPodContainer.EnvFrom
-		devPodContainer.Ports = existingDevPodContainer.Ports
-		devPodContainer.VolumeMounts = append(existingDevPodContainer.VolumeMounts, devPodContainer.VolumeMounts...)
-		devPodContainer.ImagePullPolicy = existingDevPodContainer.ImagePullPolicy
+	if existingDevSpaceContainer != nil {
+		devSpaceContainer.Env = append(existingDevSpaceContainer.Env, devSpaceContainer.Env...)
+		devSpaceContainer.EnvFrom = existingDevSpaceContainer.EnvFrom
+		devSpaceContainer.Ports = existingDevSpaceContainer.Ports
+		devSpaceContainer.VolumeMounts = append(existingDevSpaceContainer.VolumeMounts, devSpaceContainer.VolumeMounts...)
+		devSpaceContainer.ImagePullPolicy = existingDevSpaceContainer.ImagePullPolicy
 
-		if devPodContainer.SecurityContext == nil && existingDevPodContainer.SecurityContext != nil {
-			devPodContainer.SecurityContext = existingDevPodContainer.SecurityContext
+		if devSpaceContainer.SecurityContext == nil && existingDevSpaceContainer.SecurityContext != nil {
+			devSpaceContainer.SecurityContext = existingDevSpaceContainer.SecurityContext
 		}
 	}
-	retContainers = append(retContainers, devPodContainer)
+	retContainers = append(retContainers, devSpaceContainer)
 
 	return retContainers
 }
@@ -445,7 +445,7 @@ func getLabels(pod *corev1.Pod, rawLabels string) (map[string]string, error) {
 		}
 	}
 	// make sure we don't overwrite the devspace labels
-	for k, v := range ExtraDevPodLabels {
+	for k, v := range ExtraDevSpaceLabels {
 		labels[k] = v
 	}
 

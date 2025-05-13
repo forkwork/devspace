@@ -45,12 +45,12 @@ type optionWithValue struct {
 
 // Run runs the command logic
 func (cmd *OptionsCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, "")
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, "")
 	if err != nil {
 		return err
 	}
 
-	entryOptions := devPodConfig.Current().Options
+	entryOptions := devSpaceConfig.Current().Options
 	if entryOptions == nil {
 		entryOptions = map[string]config.OptionValue{}
 	}

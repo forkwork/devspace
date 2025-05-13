@@ -15,7 +15,7 @@ import { TSettings } from "../contexts"
 import { Release } from "../gen"
 import { Result, Return, hasCapability, isError, noop } from "../lib"
 import { TCommunityContributions, TProInstance, TUnsubscribeFn } from "../types"
-import { Command as DevPodCommand } from "./command"
+import { Command as DevSpaceCommand } from "./command"
 import { ContextClient } from "./context"
 import { IDEsClient } from "./ides"
 import { ProClient } from "./pro"
@@ -110,16 +110,16 @@ class Client {
       this.workspaces.setSSHKeyPath(value as string)
     }
     if (name === "additionalEnvVars") {
-      DevPodCommand.ADDITIONAL_ENV_VARS = value as string
+      DevSpaceCommand.ADDITIONAL_ENV_VARS = value as string
     }
     if (name === "httpProxyUrl") {
-      DevPodCommand.HTTP_PROXY = value as string
+      DevSpaceCommand.HTTP_PROXY = value as string
     }
     if (name === "httpsProxyUrl") {
-      DevPodCommand.HTTPS_PROXY = value as string
+      DevSpaceCommand.HTTPS_PROXY = value as string
     }
     if (name === "noProxy") {
-      DevPodCommand.NO_PROXY = value as string
+      DevSpaceCommand.NO_PROXY = value as string
     }
   }
 
@@ -235,7 +235,7 @@ class Client {
     try {
       let p = await this.getDir(dir)
       if (dir === "AppLog") {
-        p = await path.join(p, "DevPod.log")
+        p = await path.join(p, "DevSpace.log")
       }
 
       shell.open(p)

@@ -32,7 +32,7 @@ func NewListCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	listCmd := &cobra.Command{
 		Use:     "list",
 		Aliases: []string{"ls"},
-		Short:   "List available DevPod Pro instances",
+		Short:   "List available DevSpace Pro instances",
 		Args:    cobra.NoArgs,
 		RunE: func(_ *cobra.Command, args []string) error {
 			return cmd.Run(context.Background())
@@ -46,12 +46,12 @@ func NewListCmd(flags *proflags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *ListCmd) Run(ctx context.Context) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	proInstances, err := workspace.ListProInstances(devPodConfig, log.Default)
+	proInstances, err := workspace.ListProInstances(devSpaceConfig, log.Default)
 	if err != nil {
 		return err
 	}
@@ -65,7 +65,7 @@ func (cmd *ListCmd) Run(ctx context.Context) error {
 				time.Since(proInstance.CreationTimestamp.Time).Round(1 * time.Second).String(),
 			}
 			if cmd.Login {
-				err = checkLogin(ctx, devPodConfig, proInstance)
+				err = checkLogin(ctx, devSpaceConfig, proInstance)
 				entry = append(entry, fmt.Sprintf("%t", err == nil))
 			}
 
@@ -90,11 +90,11 @@ func (cmd *ListCmd) Run(ctx context.Context) error {
 		for _, proInstance := range proInstances {
 			entry := &proTableEntry{
 				ProInstance:  proInstance,
-				Context:      devPodConfig.DefaultContext,
-				Capabilities: getCapabilities(ctx, devPodConfig, proInstance, log.Discard),
+				Context:      devSpaceConfig.DefaultContext,
+				Capabilities: getCapabilities(ctx, devSpaceConfig, proInstance, log.Discard),
 			}
 			if cmd.Login {
-				err = checkLogin(ctx, devPodConfig, proInstance)
+				err = checkLogin(ctx, devSpaceConfig, proInstance)
 				isAuthenticated := err == nil
 				entry.Authenticated = &isAuthenticated
 			}
@@ -133,18 +133,18 @@ var (
 	capabilityUpdateProvider Capability = "update-provider"
 )
 
-func checkLogin(ctx context.Context, devPodConfig *config.Config, proInstance *provider.ProInstance) error {
+func checkLogin(ctx context.Context, devSpaceConfig *config.Config, proInstance *provider.ProInstance) error {
 	// for every pro instance, check auth status by calling login
-	if err := login(ctx, devPodConfig, proInstance.Host, proInstance.Provider, "", true, false, log.Default); err != nil {
+	if err := login(ctx, devSpaceConfig, proInstance.Host, proInstance.Provider, "", true, false, log.Default); err != nil {
 		return fmt.Errorf("not logged into %s", proInstance.Host)
 	}
 
 	return nil
 }
 
-func getCapabilities(ctx context.Context, devPodConfig *config.Config, proInstance *provider.ProInstance, log log.Logger) []Capability {
+func getCapabilities(ctx context.Context, devSpaceConfig *config.Config, proInstance *provider.ProInstance, log log.Logger) []Capability {
 	capabilities := []Capability{}
-	provider, err := workspace.FindProvider(devPodConfig, proInstance.Provider, log)
+	provider, err := workspace.FindProvider(devSpaceConfig, proInstance.Provider, log)
 	if err != nil {
 		return capabilities
 	}

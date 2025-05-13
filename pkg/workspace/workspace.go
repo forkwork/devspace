@@ -28,7 +28,7 @@ import (
 // Resolve takes the `devspace up|build` CLI input and either finds an existing workspace or creates a new one
 func Resolve(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	ide string,
 	ideOptions []string,
 	args []string,
@@ -57,7 +57,7 @@ func Resolve(
 	// resolve workspace
 	provider, workspace, machine, err := resolveWorkspace(
 		ctx,
-		devPodConfig,
+		devSpaceConfig,
 		args,
 		desiredID,
 		desiredMachine,
@@ -74,7 +74,7 @@ func Resolve(
 	}
 
 	// configure ide
-	workspace, err = ideparse.RefreshIDEOptions(devPodConfig, workspace, ide, ideOptions)
+	workspace, err = ideparse.RefreshIDEOptions(devSpaceConfig, workspace, ide, ideOptions)
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +108,7 @@ func Resolve(
 	}
 
 	// create workspace client
-	client, err := getWorkspaceClient(devPodConfig, provider, workspace, machine, log)
+	client, err := getWorkspaceClient(devSpaceConfig, provider, workspace, machine, log)
 	if err != nil {
 		return nil, err
 	}
@@ -122,18 +122,18 @@ func Resolve(
 	return client, nil
 }
 
-func getWorkspaceClient(devPodConfig *config.Config, provider *providerpkg.ProviderConfig, workspace *providerpkg.Workspace, machine *providerpkg.Machine, log log.Logger) (client.BaseWorkspaceClient, error) {
+func getWorkspaceClient(devSpaceConfig *config.Config, provider *providerpkg.ProviderConfig, workspace *providerpkg.Workspace, machine *providerpkg.Machine, log log.Logger) (client.BaseWorkspaceClient, error) {
 	if provider.IsProxyProvider() {
-		return clientimplementation.NewProxyClient(devPodConfig, provider, workspace, log)
+		return clientimplementation.NewProxyClient(devSpaceConfig, provider, workspace, log)
 	} else if provider.IsDaemonProvider() {
-		return daemonclient.New(devPodConfig, provider, workspace, log)
+		return daemonclient.New(devSpaceConfig, provider, workspace, log)
 	} else {
-		return clientimplementation.NewWorkspaceClient(devPodConfig, provider, workspace, machine, log)
+		return clientimplementation.NewWorkspaceClient(devSpaceConfig, provider, workspace, machine, log)
 	}
 }
 
 // Get tries to retrieve an already existing workspace
-func Get(ctx context.Context, devPodConfig *config.Config, args []string, changeLastUsed bool, owner platform.OwnerFilter, localOnly bool, log log.Logger) (client.BaseWorkspaceClient, error) {
+func Get(ctx context.Context, devSpaceConfig *config.Config, args []string, changeLastUsed bool, owner platform.OwnerFilter, localOnly bool, log log.Logger) (client.BaseWorkspaceClient, error) {
 	var (
 		provider  *providerpkg.ProviderConfig
 		workspace *providerpkg.Workspace
@@ -143,27 +143,27 @@ func Get(ctx context.Context, devPodConfig *config.Config, args []string, change
 
 	// check if we have no args
 	if len(args) == 0 {
-		provider, workspace, machine, err = selectWorkspace(ctx, devPodConfig, changeLastUsed, "", owner, log)
+		provider, workspace, machine, err = selectWorkspace(ctx, devSpaceConfig, changeLastUsed, "", owner, log)
 		if err != nil {
 			return nil, err
 		}
 	} else {
 		if localOnly {
-			workspace = findLocalWorkspace(ctx, devPodConfig, args, "", log)
+			workspace = findLocalWorkspace(ctx, devSpaceConfig, args, "", log)
 		} else {
-			workspace = findWorkspace(ctx, devPodConfig, args, "", owner, log)
+			workspace = findWorkspace(ctx, devSpaceConfig, args, "", owner, log)
 		}
 		if workspace == nil {
 			return nil, fmt.Errorf("workspace %s doesn't exist", args[0])
 		}
 
-		provider, workspace, machine, err = loadExistingWorkspace(devPodConfig, workspace.ID, changeLastUsed, log)
+		provider, workspace, machine, err = loadExistingWorkspace(devSpaceConfig, workspace.ID, changeLastUsed, log)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	client, err := getWorkspaceClient(devPodConfig, provider, workspace, machine, log)
+	client, err := getWorkspaceClient(devSpaceConfig, provider, workspace, machine, log)
 	if err != nil {
 		return nil, err
 	}
@@ -172,8 +172,8 @@ func Get(ctx context.Context, devPodConfig *config.Config, args []string, change
 }
 
 // Exists checks if the given workspace already exists
-func Exists(ctx context.Context, devPodConfig *config.Config, args []string, workspaceID string, owner platform.OwnerFilter, log log.Logger) string {
-	workspace := findWorkspace(ctx, devPodConfig, args, workspaceID, owner, log)
+func Exists(ctx context.Context, devSpaceConfig *config.Config, args []string, workspaceID string, owner platform.OwnerFilter, log log.Logger) string {
+	workspace := findWorkspace(ctx, devSpaceConfig, args, workspaceID, owner, log)
 	if workspace == nil {
 		return ""
 	}
@@ -183,7 +183,7 @@ func Exists(ctx context.Context, devPodConfig *config.Config, args []string, wor
 
 func resolveWorkspace(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	args []string,
 	desiredID,
 	desiredMachine string,
@@ -198,14 +198,14 @@ func resolveWorkspace(
 	// check if we have no args
 	if len(args) == 0 {
 		if desiredID != "" {
-			workspace := findWorkspace(ctx, devPodConfig, nil, desiredID, owner, log)
+			workspace := findWorkspace(ctx, devSpaceConfig, nil, desiredID, owner, log)
 			if workspace == nil {
 				return nil, nil, nil, fmt.Errorf("workspace %s doesn't exist", desiredID)
 			}
-			return loadExistingWorkspace(devPodConfig, workspace.ID, changeLastUsed, log)
+			return loadExistingWorkspace(devSpaceConfig, workspace.ID, changeLastUsed, log)
 		}
 
-		return selectWorkspace(ctx, devPodConfig, changeLastUsed, sshConfigPath, owner, log)
+		return selectWorkspace(ctx, devSpaceConfig, changeLastUsed, sshConfigPath, owner, log)
 	}
 
 	// check if workspace already exists
@@ -216,22 +216,22 @@ func resolveWorkspace(
 
 	// check if desired id already exists
 	if desiredID != "" {
-		if Exists(ctx, devPodConfig, nil, desiredID, owner, log) != "" {
+		if Exists(ctx, devSpaceConfig, nil, desiredID, owner, log) != "" {
 			log.Debugf("Workspace %s already exists", desiredID)
-			return loadExistingWorkspace(devPodConfig, desiredID, changeLastUsed, log)
+			return loadExistingWorkspace(devSpaceConfig, desiredID, changeLastUsed, log)
 		}
 
 		// set desired id
 		workspaceID = desiredID
-	} else if Exists(ctx, devPodConfig, nil, workspaceID, owner, log) != "" {
+	} else if Exists(ctx, devSpaceConfig, nil, workspaceID, owner, log) != "" {
 		log.Debugf("Workspace %s already exists", workspaceID)
-		return loadExistingWorkspace(devPodConfig, workspaceID, changeLastUsed, log)
+		return loadExistingWorkspace(devSpaceConfig, workspaceID, changeLastUsed, log)
 	}
 
 	// create workspace
 	provider, workspace, machine, err := createWorkspace(
 		ctx,
-		devPodConfig,
+		devSpaceConfig,
 		workspaceID,
 		name,
 		desiredMachine,
@@ -243,7 +243,7 @@ func resolveWorkspace(
 		log,
 	)
 	if err != nil {
-		_ = clientimplementation.DeleteWorkspaceFolder(devPodConfig.DefaultContext, workspaceID, sshConfigPath, log)
+		_ = clientimplementation.DeleteWorkspaceFolder(devSpaceConfig.DefaultContext, workspaceID, sshConfigPath, log)
 		return nil, nil, nil, err
 	}
 
@@ -252,7 +252,7 @@ func resolveWorkspace(
 
 func createWorkspace(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	workspaceID,
 	name,
 	desiredMachine string,
@@ -264,7 +264,7 @@ func createWorkspace(
 	log log.Logger,
 ) (*providerpkg.ProviderConfig, *providerpkg.Workspace, *providerpkg.Machine, error) {
 	// get default provider
-	provider, _, err := LoadProviders(devPodConfig, log)
+	provider, _, err := LoadProviders(devSpaceConfig, log)
 	if err != nil {
 		return nil, nil, nil, err
 	} else if provider.State == nil || !provider.State.Initialized {
@@ -272,7 +272,7 @@ func createWorkspace(
 	}
 
 	// resolve workspace
-	workspace, err := resolveWorkspaceConfig(ctx, provider, devPodConfig, name, workspaceID, source, isLocalPath, sshConfigPath, uid)
+	workspace, err := resolveWorkspaceConfig(ctx, provider, devSpaceConfig, name, workspaceID, source, isLocalPath, sshConfigPath, uid)
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -299,7 +299,7 @@ func createWorkspace(
 	if provider.Config.IsMachineProvider() && workspace.Machine.ID == "" {
 		// create a new machine
 		if provider.State != nil && provider.State.SingleMachine {
-			workspace.Machine.ID = SingleMachineName(devPodConfig, provider.Config.Name, log)
+			workspace.Machine.ID = SingleMachineName(devSpaceConfig, provider.Config.Name, log)
 		} else {
 			workspace.Machine.ID = encoding.CreateNewUIDShort(workspace.ID)
 			workspace.Machine.AutoDelete = true
@@ -312,7 +312,7 @@ func createWorkspace(
 		}
 
 		// only create machine if it does not exist yet
-		if !providerpkg.MachineExists(devPodConfig.DefaultContext, workspace.Machine.ID) {
+		if !providerpkg.MachineExists(devSpaceConfig.DefaultContext, workspace.Machine.ID) {
 			// create machine folder
 			machineConfig, err = createMachine(workspace.Context, workspace.Machine.ID, provider.Config.Name)
 			if err != nil {
@@ -320,7 +320,7 @@ func createWorkspace(
 			}
 
 			// create machine
-			machineClient, err := clientimplementation.NewMachineClient(devPodConfig, provider.Config, machineConfig, log)
+			machineClient, err := clientimplementation.NewMachineClient(devSpaceConfig, provider.Config, machineConfig, log)
 			if err != nil {
 				_ = clientimplementation.DeleteMachineFolder(machineConfig.Context, machineConfig.ID)
 				return nil, nil, nil, err
@@ -358,7 +358,7 @@ func createWorkspace(
 			return nil, nil, nil, fmt.Errorf("save config: %w", err)
 		}
 
-		err := resolveProInstance(ctx, devPodConfig, provider.Config.Name, workspace, log)
+		err := resolveProInstance(ctx, devSpaceConfig, provider.Config.Name, workspace, log)
 		if err != nil {
 			return nil, nil, nil, err
 		}
@@ -389,7 +389,7 @@ func createWorkspace(
 func resolveWorkspaceConfig(
 	ctx context.Context,
 	defaultProvider *ProviderWithOptions,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	name,
 	workspaceID string,
 	source *providerpkg.WorkspaceSource,
@@ -399,12 +399,12 @@ func resolveWorkspaceConfig(
 ) (*providerpkg.Workspace, error) {
 	now := types.Now()
 	if uid == "" {
-		uid = encoding.CreateNewUID(devPodConfig.DefaultContext, workspaceID)
+		uid = encoding.CreateNewUID(devSpaceConfig.DefaultContext, workspaceID)
 	}
 	workspace := &providerpkg.Workspace{
 		ID:      workspaceID,
 		UID:     uid,
-		Context: devPodConfig.DefaultContext,
+		Context: devSpaceConfig.DefaultContext,
 		Provider: providerpkg.WorkspaceProviderConfig{
 			Name: defaultProvider.Config.Name,
 		},
@@ -488,13 +488,13 @@ func ensureWorkspaceID(args []string, workspaceID string) string {
 	return workspaceID
 }
 
-func findLocalWorkspace(ctx context.Context, devPodConfig *config.Config, args []string, workspaceID string, log log.Logger) *providerpkg.Workspace {
+func findLocalWorkspace(ctx context.Context, devSpaceConfig *config.Config, args []string, workspaceID string, log log.Logger) *providerpkg.Workspace {
 	workspaceID = ensureWorkspaceID(args, workspaceID)
 	if workspaceID == "" {
 		return nil
 	}
 
-	allWorkspaces, err := ListLocalWorkspaces(devPodConfig.DefaultContext, false, log)
+	allWorkspaces, err := ListLocalWorkspaces(devSpaceConfig.DefaultContext, false, log)
 	if err != nil {
 		log.Debugf("failed to list workspaces: %v", err)
 		return nil
@@ -510,13 +510,13 @@ func findLocalWorkspace(ctx context.Context, devPodConfig *config.Config, args [
 	return nil
 }
 
-func findWorkspace(ctx context.Context, devPodConfig *config.Config, args []string, workspaceID string, owner platform.OwnerFilter, log log.Logger) *providerpkg.Workspace {
+func findWorkspace(ctx context.Context, devSpaceConfig *config.Config, args []string, workspaceID string, owner platform.OwnerFilter, log log.Logger) *providerpkg.Workspace {
 	workspaceID = ensureWorkspaceID(args, workspaceID)
 	if workspaceID == "" {
 		return nil
 	}
 
-	allWorkspaces, err := List(ctx, devPodConfig, false, owner, log)
+	allWorkspaces, err := List(ctx, devSpaceConfig, false, owner, log)
 	if err != nil {
 		log.Debugf("failed to list workspaces: %v", err)
 		return nil
@@ -545,12 +545,12 @@ func findWorkspace(ctx context.Context, devPodConfig *config.Config, args []stri
 	return retWorkspace
 }
 
-func selectWorkspace(ctx context.Context, devPodConfig *config.Config, changeLastUsed bool, sshConfigPath string, owner platform.OwnerFilter, log log.Logger) (*providerpkg.ProviderConfig, *providerpkg.Workspace, *providerpkg.Machine, error) {
+func selectWorkspace(ctx context.Context, devSpaceConfig *config.Config, changeLastUsed bool, sshConfigPath string, owner platform.OwnerFilter, log log.Logger) (*providerpkg.ProviderConfig, *providerpkg.Workspace, *providerpkg.Machine, error) {
 	if !terminal.IsTerminalIn {
 		return nil, nil, nil, errProvideWorkspaceArg
 	}
 
-	workspaces, err := List(ctx, devPodConfig, false, owner, log)
+	workspaces, err := List(ctx, devSpaceConfig, false, owner, log)
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("list workspaces: %w", err)
 	}
@@ -601,7 +601,7 @@ func selectWorkspace(ctx context.Context, devPodConfig *config.Config, changeLas
 				return nil, nil, nil, fmt.Errorf("save workspace config for workspace \"%s\": %w", workspace.ID, err)
 			}
 
-			providerConfig, err := providerpkg.LoadProviderConfig(devPodConfig.DefaultContext, workspace.Provider.Name)
+			providerConfig, err := providerpkg.LoadProviderConfig(devSpaceConfig.DefaultContext, workspace.Provider.Name)
 			if err != nil {
 				return nil, nil, nil, fmt.Errorf("load provider config for workspace \"%s\" with provider \"%s\": %w", workspace.ID, workspace.Provider.Name, err)
 			}
@@ -611,16 +611,16 @@ func selectWorkspace(ctx context.Context, devPodConfig *config.Config, changeLas
 	}
 
 	// load workspace
-	return loadExistingWorkspace(devPodConfig, selectedWorkspace.ID, changeLastUsed, log)
+	return loadExistingWorkspace(devSpaceConfig, selectedWorkspace.ID, changeLastUsed, log)
 }
 
-func loadExistingWorkspace(devPodConfig *config.Config, workspaceID string, changeLastUsed bool, log log.Logger) (*providerpkg.ProviderConfig, *providerpkg.Workspace, *providerpkg.Machine, error) {
-	workspaceConfig, err := providerpkg.LoadWorkspaceConfig(devPodConfig.DefaultContext, workspaceID)
+func loadExistingWorkspace(devSpaceConfig *config.Config, workspaceID string, changeLastUsed bool, log log.Logger) (*providerpkg.ProviderConfig, *providerpkg.Workspace, *providerpkg.Machine, error) {
+	workspaceConfig, err := providerpkg.LoadWorkspaceConfig(devSpaceConfig.DefaultContext, workspaceID)
 	if err != nil {
 		return nil, nil, nil, err
 	}
 
-	providerWithOptions, err := FindProvider(devPodConfig, workspaceConfig.Provider.Name, log)
+	providerWithOptions, err := FindProvider(devSpaceConfig, workspaceConfig.Provider.Name, log)
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -647,13 +647,13 @@ func loadExistingWorkspace(devPodConfig *config.Config, workspaceID string, chan
 	return providerWithOptions.Config, workspaceConfig, machineConfig, nil
 }
 
-func resolveProInstance(ctx context.Context, devPodConfig *config.Config, providerName string, workspace *providerpkg.Workspace, log log.Logger) error {
-	provider, err := FindProvider(devPodConfig, providerName, log)
+func resolveProInstance(ctx context.Context, devSpaceConfig *config.Config, providerName string, workspace *providerpkg.Workspace, log log.Logger) error {
+	provider, err := FindProvider(devSpaceConfig, providerName, log)
 	if err != nil {
 		return err
 	}
 
-	workspaceClient, err := getWorkspaceClient(devPodConfig, provider.Config, workspace, nil, log)
+	workspaceClient, err := getWorkspaceClient(devSpaceConfig, provider.Config, workspace, nil, log)
 	if err != nil {
 		return err
 	}

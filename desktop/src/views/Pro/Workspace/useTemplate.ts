@@ -1,15 +1,15 @@
 import { useTemplates } from "@/contexts"
 import { TParameterWithValue, getParametersWithValues } from "@/lib"
-import { ManagementV1DevPodWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceInstance"
-import { ManagementV1DevPodWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceTemplate"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
+import { ManagementV1DevSpaceWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
 import { useMemo } from "react"
 
-export function useTemplate(instance: ManagementV1DevPodWorkspaceInstance | undefined) {
+export function useTemplate(instance: ManagementV1DevSpaceWorkspaceInstance | undefined) {
   const { data: templates } = useTemplates()
 
   return useMemo<{
     parameters: readonly TParameterWithValue[]
-    template: ManagementV1DevPodWorkspaceTemplate | undefined
+    template: ManagementV1DevSpaceWorkspaceTemplate | undefined
   }>(() => {
     // find template for workspace
     const currentTemplate = templates?.workspace.find(

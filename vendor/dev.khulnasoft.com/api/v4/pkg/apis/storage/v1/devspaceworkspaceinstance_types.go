@@ -6,83 +6,83 @@ import (
 )
 
 var (
-	DevPodWorkspaceConditions = []agentstoragev1.ConditionType{
+	DevSpaceWorkspaceConditions = []agentstoragev1.ConditionType{
 		InstanceScheduled,
 		InstanceTemplateResolved,
 	}
 
-	// DevPodWorkspaceIDLabel holds the actual workspace id of the devspace workspace
-	DevPodWorkspaceIDLabel = "loft.sh/workspace-id"
+	// DevSpaceWorkspaceIDLabel holds the actual workspace id of the devspace workspace
+	DevSpaceWorkspaceIDLabel = "loft.sh/workspace-id"
 
-	// DevPodWorkspaceUIDLabel holds the actual workspace uid of the devspace workspace
-	DevPodWorkspaceUIDLabel = "loft.sh/workspace-uid"
+	// DevSpaceWorkspaceUIDLabel holds the actual workspace uid of the devspace workspace
+	DevSpaceWorkspaceUIDLabel = "loft.sh/workspace-uid"
 
-	// DevPodKubernetesProviderWorkspaceUIDLabel holds the actual workspace uid of the devspace workspace on resources
-	// created by the DevPod Kubernetes provider.
-	DevPodKubernetesProviderWorkspaceUIDLabel = "dev.khulnasoft.com/workspace-uid"
+	// DevSpaceKubernetesProviderWorkspaceUIDLabel holds the actual workspace uid of the devspace workspace on resources
+	// created by the DevSpace Kubernetes provider.
+	DevSpaceKubernetesProviderWorkspaceUIDLabel = "dev.khulnasoft.com/workspace-uid"
 
-	// DevPodWorkspacePictureAnnotation holds the workspace picture url of the devspace workspace
-	DevPodWorkspacePictureAnnotation = "loft.sh/workspace-picture"
+	// DevSpaceWorkspacePictureAnnotation holds the workspace picture url of the devspace workspace
+	DevSpaceWorkspacePictureAnnotation = "loft.sh/workspace-picture"
 
-	// DevPodWorkspaceSourceAnnotation holds the workspace source of the devspace workspace
-	DevPodWorkspaceSourceAnnotation = "loft.sh/workspace-source"
+	// DevSpaceWorkspaceSourceAnnotation holds the workspace source of the devspace workspace
+	DevSpaceWorkspaceSourceAnnotation = "loft.sh/workspace-source"
 
-	// DevPodWorkspaceRunnerNetworkPeerAnnotation holds the workspace runner network peer name of the devspace workspace
-	DevPodWorkspaceRunnerEndpointAnnotation = "loft.sh/runner-endpoint"
+	// DevSpaceWorkspaceRunnerNetworkPeerAnnotation holds the workspace runner network peer name of the devspace workspace
+	DevSpaceWorkspaceRunnerEndpointAnnotation = "loft.sh/runner-endpoint"
 )
 
 var (
-	DevPodFlagsUp     = "DEVPOD_FLAGS_UP"
-	DevPodFlagsDelete = "DEVPOD_FLAGS_DELETE"
-	DevPodFlagsStatus = "DEVPOD_FLAGS_STATUS"
-	DevPodFlagsSsh    = "DEVPOD_FLAGS_SSH"
-	DevPodFlagsStop   = "DEVPOD_FLAGS_STOP"
+	DevSpaceFlagsUp     = "DEVSPACE_FLAGS_UP"
+	DevSpaceFlagsDelete = "DEVSPACE_FLAGS_DELETE"
+	DevSpaceFlagsStatus = "DEVSPACE_FLAGS_STATUS"
+	DevSpaceFlagsSsh    = "DEVSPACE_FLAGS_SSH"
+	DevSpaceFlagsStop   = "DEVSPACE_FLAGS_STOP"
 )
 
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodWorkspaceInstance
+// DevSpaceWorkspaceInstance
 // +k8s:openapi-gen=true
-type DevPodWorkspaceInstance struct {
+type DevSpaceWorkspaceInstance struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   DevPodWorkspaceInstanceSpec   `json:"spec,omitempty"`
-	Status DevPodWorkspaceInstanceStatus `json:"status,omitempty"`
+	Spec   DevSpaceWorkspaceInstanceSpec   `json:"spec,omitempty"`
+	Status DevSpaceWorkspaceInstanceStatus `json:"status,omitempty"`
 }
 
-func (a *DevPodWorkspaceInstance) GetConditions() agentstoragev1.Conditions {
+func (a *DevSpaceWorkspaceInstance) GetConditions() agentstoragev1.Conditions {
 	return a.Status.Conditions
 }
 
-func (a *DevPodWorkspaceInstance) SetConditions(conditions agentstoragev1.Conditions) {
+func (a *DevSpaceWorkspaceInstance) SetConditions(conditions agentstoragev1.Conditions) {
 	a.Status.Conditions = conditions
 }
 
-func (a *DevPodWorkspaceInstance) GetOwner() *UserOrTeam {
+func (a *DevSpaceWorkspaceInstance) GetOwner() *UserOrTeam {
 	return a.Spec.Owner
 }
 
-func (a *DevPodWorkspaceInstance) SetOwner(userOrTeam *UserOrTeam) {
+func (a *DevSpaceWorkspaceInstance) SetOwner(userOrTeam *UserOrTeam) {
 	a.Spec.Owner = userOrTeam
 }
 
-func (a *DevPodWorkspaceInstance) GetAccess() []Access {
+func (a *DevSpaceWorkspaceInstance) GetAccess() []Access {
 	return a.Spec.Access
 }
 
-func (a *DevPodWorkspaceInstance) SetAccess(access []Access) {
+func (a *DevSpaceWorkspaceInstance) SetAccess(access []Access) {
 	a.Spec.Access = access
 }
 
-type DevPodWorkspaceInstanceSpec struct {
+type DevSpaceWorkspaceInstanceSpec struct {
 	// DisplayName is the name that should be displayed in the UI
 	// +optional
 	DisplayName string `json:"displayName,omitempty"`
 
-	// Description describes a DevPod machine instance
+	// Description describes a DevSpace machine instance
 	// +optional
 	Description string `json:"description,omitempty"`
 
@@ -90,22 +90,22 @@ type DevPodWorkspaceInstanceSpec struct {
 	// +optional
 	Owner *UserOrTeam `json:"owner,omitempty"`
 
-	// PresetRef holds the DevPodWorkspacePreset template reference
+	// PresetRef holds the DevSpaceWorkspacePreset template reference
 	// +optional
 	PresetRef *PresetRef `json:"presetRef,omitempty"`
 
-	// TemplateRef holds the DevPod machine template reference
+	// TemplateRef holds the DevSpace machine template reference
 	// +optional
 	TemplateRef *TemplateRef `json:"templateRef,omitempty"`
 
-	// EnvironmentRef is the reference to DevPodEnvironmentTemplate that should be used
+	// EnvironmentRef is the reference to DevSpaceEnvironmentTemplate that should be used
 	// +optional
 	EnvironmentRef *EnvironmentRef `json:"environmentRef,omitempty"`
 
-	// Template is the inline template to use for DevPod machine creation. This is mutually
+	// Template is the inline template to use for DevSpace machine creation. This is mutually
 	// exclusive with templateRef.
 	// +optional
-	Template *DevPodWorkspaceTemplateDefinition `json:"template,omitempty"`
+	Template *DevSpaceWorkspaceTemplateDefinition `json:"template,omitempty"`
 
 	// RunnerRef is the reference to the connected runner holding
 	// this workspace
@@ -117,7 +117,7 @@ type DevPodWorkspaceInstanceSpec struct {
 	// +optional
 	Parameters string `json:"parameters,omitempty"`
 
-	// Access to the DevPod machine instance object itself
+	// Access to the DevSpace machine instance object itself
 	// +optional
 	Access []Access `json:"access,omitempty"`
 
@@ -127,7 +127,7 @@ type DevPodWorkspaceInstanceSpec struct {
 }
 
 type PresetRef struct {
-	// Name is the name of DevPodWorkspacePreset
+	// Name is the name of DevSpaceWorkspacePreset
 	Name string `json:"name"`
 
 	// Version holds the preset version to use. Version is expected to
@@ -145,20 +145,20 @@ type RunnerRef struct {
 }
 
 type EnvironmentRef struct {
-	// Name is the name of DevPodEnvironmentTemplate this references
+	// Name is the name of DevSpaceEnvironmentTemplate this references
 	Name string `json:"name"`
 
-	// Version is the version of DevPodEnvironmentTemplate this references
+	// Version is the version of DevSpaceEnvironmentTemplate this references
 	// +optional
 	Version string `json:"version,omitempty"`
 }
 
-type DevPodWorkspaceInstanceStatus struct {
+type DevSpaceWorkspaceInstanceStatus struct {
 	// LastWorkspaceStatus is the last workspace status reported by the runner.
 	// +optional
 	LastWorkspaceStatus WorkspaceStatus `json:"lastWorkspaceStatus,omitempty"`
 
-	// Phase describes the current phase the DevPod machine instance is in
+	// Phase describes the current phase the DevSpace machine instance is in
 	// +optional
 	Phase InstancePhase `json:"phase,omitempty"`
 
@@ -167,18 +167,18 @@ type DevPodWorkspaceInstanceStatus struct {
 	// +optional
 	Reason string `json:"reason,omitempty"`
 
-	// Message describes the reason in human-readable form why the DevPod machine is in the current
+	// Message describes the reason in human-readable form why the DevSpace machine is in the current
 	// phase
 	// +optional
 	Message string `json:"message,omitempty"`
 
-	// Conditions holds several conditions the DevPod machine might be in
+	// Conditions holds several conditions the DevSpace machine might be in
 	// +optional
 	Conditions agentstoragev1.Conditions `json:"conditions,omitempty"`
 
 	// Instance is the template rendered with all the parameters
 	// +optional
-	Instance *DevPodWorkspaceTemplateDefinition `json:"instance,omitempty"`
+	Instance *DevSpaceWorkspaceTemplateDefinition `json:"instance,omitempty"`
 
 	// IgnoreReconciliation ignores reconciliation for this object
 	// +optional
@@ -212,19 +212,19 @@ var (
 	WorkspaceStatusRunning  WorkspaceStatus = "Running"
 )
 
-type DevPodCommandStopOptions struct{}
+type DevSpaceCommandStopOptions struct{}
 
-type DevPodCommandDeleteOptions struct {
+type DevSpaceCommandDeleteOptions struct {
 	IgnoreNotFound bool   `json:"ignoreNotFound,omitempty"`
 	Force          bool   `json:"force,omitempty"`
 	GracePeriod    string `json:"gracePeriod,omitempty"`
 }
 
-type DevPodCommandStatusOptions struct {
+type DevSpaceCommandStatusOptions struct {
 	ContainerStatus bool `json:"containerStatus,omitempty"`
 }
 
-type DevPodCommandUpOptions struct {
+type DevSpaceCommandUpOptions struct {
 	// up options
 	ID                   string   `json:"id,omitempty"`
 	Source               string   `json:"source,omitempty"`
@@ -250,13 +250,13 @@ type DevPodCommandUpOptions struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodWorkspaceInstanceList contains a list of DevPodWorkspaceInstance objects
-type DevPodWorkspaceInstanceList struct {
+// DevSpaceWorkspaceInstanceList contains a list of DevSpaceWorkspaceInstance objects
+type DevSpaceWorkspaceInstanceList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []DevPodWorkspaceInstance `json:"items"`
+	Items           []DevSpaceWorkspaceInstance `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&DevPodWorkspaceInstance{}, &DevPodWorkspaceInstanceList{})
+	SchemeBuilder.Register(&DevSpaceWorkspaceInstance{}, &DevSpaceWorkspaceInstanceList{})
 }

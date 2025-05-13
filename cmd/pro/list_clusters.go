@@ -35,12 +35,12 @@ func NewListClustersCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 		Short:  "List clusters",
 		Hidden: true,
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 	}
 
@@ -52,8 +52,8 @@ func NewListClustersCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *ListClustersCmd) Run(ctx context.Context, devPodConfig *config.Config, provider *provider.ProviderConfig) error {
-	opts := devPodConfig.ProviderOptions(provider.Name)
+func (cmd *ListClustersCmd) Run(ctx context.Context, devSpaceConfig *config.Config, provider *provider.ProviderConfig) error {
+	opts := devSpaceConfig.ProviderOptions(provider.Name)
 	opts[platform.ProjectEnv] = config.OptionValue{Value: cmd.Project}
 
 	// ignore --debug because we tunnel json through stdio
@@ -64,7 +64,7 @@ func (cmd *ListClustersCmd) Run(ctx context.Context, devPodConfig *config.Config
 		ctx,
 		"listClusters",
 		provider.Exec.Proxy.List.Clusters,
-		devPodConfig.DefaultContext,
+		devSpaceConfig.DefaultContext,
 		nil,
 		nil,
 		opts,

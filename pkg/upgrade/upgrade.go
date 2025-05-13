@@ -21,7 +21,7 @@ var devVersion string = strings.TrimPrefix(versionpkg.DevVersion, "v")
 var githubSlug = "khulnasoftdevspace"
 
 func PrintNewerVersionWarning() {
-	if os.Getenv("DEVPOD_SKIP_VERSION_CHECK") != "true" {
+	if os.Getenv("DEVSPACE_SKIP_VERSION_CHECK") != "true" {
 		// Get version of current binary
 		latestVersion := NewerVersionAvailable()
 		if latestVersion != "" {

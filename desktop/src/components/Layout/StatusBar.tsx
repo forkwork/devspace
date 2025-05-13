@@ -99,12 +99,12 @@ function GitHubStar() {
   const iconColor = useStatusBarIconColor()
 
   return (
-    <Tooltip label="Loving DevPod? Give us a star on Github">
+    <Tooltip label="Loving DevSpace? Give us a star on Github">
       <IconButton
         variant="ghost"
         rounded="full"
         icon={<StarIcon color={iconColor} />}
-        aria-label="Loving DevPod? Give us a star on Github"
+        aria-label="Loving DevSpace? Give us a star on Github"
         onClick={() => client.open("https://dev.khulnasoft.com")}
       />
     </Tooltip>
@@ -115,12 +115,12 @@ function OSSDocs() {
   const iconColor = useStatusBarIconColor()
 
   return (
-    <Tooltip label="How to DevPod - Docs">
+    <Tooltip label="How to DevSpace - Docs">
       <IconButton
         variant="ghost"
         rounded="full"
         icon={<Icon as={HiDocumentMagnifyingGlass} color={iconColor} />}
-        aria-label="How to DevPod - Docs"
+        aria-label="How to DevSpace - Docs"
         onClick={() => client.open("https://dev.khulnasoft.com/docs")}
       />
     </Tooltip>

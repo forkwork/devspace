@@ -97,13 +97,13 @@ func NewStartCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	}
 	startCmd := &cobra.Command{
 		Use:   "start",
-		Short: "Start a Devpod Pro instance",
+		Short: "Start a Devspace Pro instance",
 		RunE: func(_ *cobra.Command, args []string) error {
 			return cmd.Run(context.Background())
 		},
 	}
 
-	startCmd.Flags().BoolVar(&cmd.Docker, "docker", false, "If enabled will try to deploy DevPod Pro to the local docker installation.")
+	startCmd.Flags().BoolVar(&cmd.Docker, "docker", false, "If enabled will try to deploy DevSpace Pro to the local docker installation.")
 	startCmd.Flags().StringVar(&cmd.DockerImage, "docker-image", "", "The docker image to install.")
 	startCmd.Flags().StringArrayVar(&cmd.DockerArgs, "docker-arg", []string{}, "Extra docker args")
 	startCmd.Flags().StringVar(&cmd.Context, "context", "", "The kube context to use for installation")
@@ -115,12 +115,12 @@ func NewStartCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	startCmd.Flags().BoolVar(&cmd.ReuseValues, "reuse-values", true, "Reuse previous helm values on upgrade")
 	startCmd.Flags().BoolVar(&cmd.Upgrade, "upgrade", false, "If true, will try to upgrade the release")
 	startCmd.Flags().StringVar(&cmd.Email, "email", "", "The email to use for the installation")
-	startCmd.Flags().BoolVar(&cmd.Reset, "reset", false, "If true, an existing instance will be deleted before installing DevPod Pro")
+	startCmd.Flags().BoolVar(&cmd.Reset, "reset", false, "If true, an existing instance will be deleted before installing DevSpace Pro")
 	startCmd.Flags().BoolVar(&cmd.NoWait, "no-wait", false, "If true, will not wait after installing it")
 	startCmd.Flags().BoolVar(&cmd.NoTunnel, "no-tunnel", false, "If true, will not create a loft.host tunnel for this installation")
-	startCmd.Flags().BoolVar(&cmd.NoLogin, "no-login", false, "If true, will not login to a DevPod Pro instance on start")
-	startCmd.Flags().StringVar(&cmd.ChartPath, "chart-path", "", "The local chart path to deploy DevPod Pro")
-	startCmd.Flags().StringVar(&cmd.ChartRepo, "chart-repo", "https://charts.loft.sh/", "The chart repo to deploy DevPod Pro")
+	startCmd.Flags().BoolVar(&cmd.NoLogin, "no-login", false, "If true, will not login to a DevSpace Pro instance on start")
+	startCmd.Flags().StringVar(&cmd.ChartPath, "chart-path", "", "The local chart path to deploy DevSpace Pro")
+	startCmd.Flags().StringVar(&cmd.ChartRepo, "chart-repo", "https://charts.loft.sh/", "The chart repo to deploy DevSpace Pro")
 
 	return startCmd
 }
@@ -172,7 +172,7 @@ func (cmd *StartCmd) Run(ctx context.Context) error {
 	}
 
 	// Install Loft
-	cmd.Log.Info("Welcome to DevPod Pro!")
+	cmd.Log.Info("Welcome to DevSpace Pro!")
 	cmd.Log.Info("This installer will help you to get started.")
 
 	// make sure we are ready for installing
@@ -201,7 +201,7 @@ func (cmd *StartCmd) upgrade() error {
 		extraArgs = append(extraArgs, "--set", "ingress.enabled=true", "--set", "ingress.host="+cmd.Host)
 		extraArgs = append(extraArgs, "--set", "env.LOFT_HOST="+cmd.Host)
 		extraArgs = append(extraArgs, "--set", "devspaceIngress.enabled=true", "--set", "devspaceIngress.host=*."+cmd.Host)
-		extraArgs = append(extraArgs, "--set", "env.DEVPOD_SUBDOMAIN=*."+cmd.Host)
+		extraArgs = append(extraArgs, "--set", "env.DEVSPACE_SUBDOMAIN=*."+cmd.Host)
 	}
 	if cmd.Version != "" {
 		extraArgs = append(extraArgs, "--version", cmd.Version)
@@ -233,7 +233,7 @@ func (cmd *StartCmd) upgrade() error {
 	err := upgradeRelease(chartName, chartRepo, cmd.Context, cmd.Namespace, extraArgs, cmd.Log)
 	if err != nil {
 		if !cmd.Reset {
-			return errors.New(err.Error() + fmt.Sprintf("\n\nIf want to purge and reinstall DevPod Pro, run: %s\n", ansi.Color("devspace pro start --reset", "green+b")))
+			return errors.New(err.Error() + fmt.Sprintf("\n\nIf want to purge and reinstall DevSpace Pro, run: %s\n", ansi.Color("devspace pro start --reset", "green+b")))
 		}
 
 		// Try to purge Loft and retry install
@@ -355,9 +355,9 @@ Follow this guide to add a valid certificate: %s
 
 #################################################################
 
-DevPod Pro was successfully installed and can now be reached at: %s
+DevSpace Pro was successfully installed and can now be reached at: %s
 
-Thanks for using DevPod Pro!
+Thanks for using DevSpace Pro!
 `,
 			ansi.Color(url, "green+b"),
 			ansi.Color("devspace pro login "+url, "green+b"),
@@ -390,11 +390,11 @@ EXTERNAL-IP may be 'pending' for a while until your cloud provider has created a
 
 #########################################################################################################
 
-The command will wait until DevPod Pro is reachable under the host.
+The command will wait until DevSpace Pro is reachable under the host.
 
 `)
 
-	cmd.Log.Info("Waiting for you to configure DNS, so DevPod Pro can be reached on https://" + host)
+	cmd.Log.Info("Waiting for you to configure DNS, so DevSpace Pro can be reached on https://" + host)
 	err = wait.PollUntilContextTimeout(ctx, 5*time.Second, platform.Timeout(), true, func(ctx context.Context) (done bool, err error) {
 		return isHostReachable(ctx, host)
 	})
@@ -402,7 +402,7 @@ The command will wait until DevPod Pro is reachable under the host.
 		return err
 	}
 
-	cmd.Log.Done("DevPod Pro is reachable at https://" + host)
+	cmd.Log.Done("DevSpace Pro is reachable at https://" + host)
 
 	printSuccess()
 	return nil
@@ -436,9 +436,9 @@ Login via CLI: %s
 
 #################################################################
 
-DevPod Pro was successfully installed.
+DevSpace Pro was successfully installed.
 
-Thanks for using DevPod Pro!
+Thanks for using DevSpace Pro!
 `, ansi.Color(url, "green+b"), ansi.Color("devspace pro login"+" --insecure "+url, "green+b")))
 	blockChan := make(chan bool)
 	<-blockChan
@@ -446,7 +446,7 @@ Thanks for using DevPod Pro!
 }
 
 func (cmd *StartCmd) startDocker(ctx context.Context) error {
-	cmd.Log.Infof("Starting DevPod Pro in Docker...")
+	cmd.Log.Infof("Starting DevSpace Pro in Docker...")
 	name := "devspace-pro"
 
 	// prepare installation
@@ -484,7 +484,7 @@ func (cmd *StartCmd) startDocker(ctx context.Context) error {
 	}
 
 	// Install Loft
-	cmd.Log.Info("Welcome to DevPod Pro!")
+	cmd.Log.Info("Welcome to DevSpace Pro!")
 	cmd.Log.Info("This installer will help you get started.")
 
 	// make sure we are ready for installing
@@ -510,7 +510,7 @@ func (cmd *StartCmd) successDocker(ctx context.Context, containerID string) erro
 	}
 
 	// wait for domain to become reachable
-	cmd.Log.Infof("Wait for DevPod Pro to become available at %s...", host)
+	cmd.Log.Infof("Wait for DevSpace Pro to become available at %s...", host)
 	err = wait.PollUntilContextTimeout(ctx, time.Second, time.Minute*10, true, func(ctx context.Context) (bool, error) {
 		containerDetails, err := cmd.inspectContainer(ctx, containerID)
 		if err != nil {
@@ -523,7 +523,7 @@ func (cmd *StartCmd) successDocker(ctx context.Context, containerID string) erro
 		return isHostReachable(ctx, host)
 	})
 	if err != nil {
-		return fmt.Errorf("error waiting for DevPod Pro: %w", err)
+		return fmt.Errorf("error waiting for DevSpace Pro: %w", err)
 	}
 
 	// print success message
@@ -546,9 +546,9 @@ Login via CLI: %s
 
 #################################################################
 
-DevPod Pro was successfully installed and can now be reached at: %s
+DevSpace Pro was successfully installed and can now be reached at: %s
 
-Thanks for using DevPod Pro!
+Thanks for using DevSpace Pro!
 `,
 		ansi.Color(url, "green+b"),
 		ansi.Color("devspace pro login"+" "+url, "green+b"),
@@ -557,7 +557,7 @@ Thanks for using DevPod Pro!
 }
 
 func (cmd *StartCmd) waitForLoftDocker(ctx context.Context, containerID string) (string, error) {
-	cmd.Log.Info("Wait for DevPod Pro to become available...")
+	cmd.Log.Info("Wait for DevSpace Pro to become available...")
 
 	// check for local port
 	containerDetails, err := cmd.inspectContainer(ctx, containerID)
@@ -569,7 +569,7 @@ func (cmd *StartCmd) waitForLoftDocker(ctx context.Context, containerID string) 
 
 	// check if no tunnel
 	if cmd.NoTunnel {
-		return "", fmt.Errorf("%w: %s", ErrLoftNotReachable, "cannot connect to DevPod Pro as it has no exposed port and --no-tunnel is enabled")
+		return "", fmt.Errorf("%w: %s", ErrLoftNotReachable, "cannot connect to DevSpace Pro as it has no exposed port and --no-tunnel is enabled")
 	}
 
 	// wait for router
@@ -663,7 +663,7 @@ func (cmd *StartCmd) runInDocker(ctx context.Context, name string) (string, erro
 		args = append(args, "ghcr.io/khulnasoftdevspace-pro:latest")
 	}
 
-	cmd.Log.Infof("Start DevPod Pro via 'docker %s'", strings.Join(args, " "))
+	cmd.Log.Infof("Start DevSpace Pro via 'docker %s'", strings.Join(args, " "))
 	runCmd := cmd.buildDockerCmd(ctx, args...)
 	runCmd.Stdout = os.Stdout
 	runCmd.Stderr = os.Stderr
@@ -932,7 +932,7 @@ func (cmd *StartCmd) handleAlreadyExistingInstallation(ctx context.Context) erro
 
 func (cmd *StartCmd) waitForDeployment(ctx context.Context) (*corev1.Pod, error) {
 	// wait for loft pod to start
-	cmd.Log.Info("Waiting for DevPod Pro pod to be running...")
+	cmd.Log.Info("Waiting for DevSpace Pro pod to be running...")
 	loftPod, err := platform.WaitForPodReady(ctx, cmd.KubeClient, cmd.Namespace, cmd.Log)
 	cmd.Log.Donef("Release Pod successfully started")
 	if err != nil {
@@ -976,7 +976,7 @@ func (cmd *StartCmd) pingLoftRouter(ctx context.Context, loftPod *corev1.Pod) (s
 			},
 		},
 	}
-	cmd.Log.Infof("Waiting until DevPod Pro is reachable at https://%s", loftRouterDomain)
+	cmd.Log.Infof("Waiting until DevSpace Pro is reachable at https://%s", loftRouterDomain)
 	err = wait.PollUntilContextTimeout(ctx, time.Second*3, time.Minute*5, true, func(ctx context.Context) (bool, error) {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://"+loftRouterDomain+"/version", nil)
 		if err != nil {
@@ -1025,9 +1025,9 @@ Login via CLI: %s
 
 #################################################################
 
-DevPod Pro was successfully installed and can now be reached at: %s
+DevSpace Pro was successfully installed and can now be reached at: %s
 
-Thanks for using DevPod Pro!
+Thanks for using DevSpace Pro!
 `,
 		ansi.Color(url, "green+b"),
 		ansi.Color("devspace pro login"+" "+url, "green+b"),
@@ -1216,7 +1216,7 @@ func uninstall(ctx context.Context, kubeClient kubernetes.Interface, restConfig 
 	}
 
 	log.WriteString(logrus.InfoLevel, "\n")
-	log.Done("Successfully uninstalled DevPod Pro")
+	log.Done("Successfully uninstalled DevSpace Pro")
 	log.WriteString(logrus.InfoLevel, "\n")
 
 	return nil
@@ -1269,7 +1269,7 @@ func isInstalledLocally(ctx context.Context, kubeClient kubernetes.Interface, na
 
 func enterHostNameQuestion(log log.Logger) (string, error) {
 	return log.Question(&survey.QuestionOptions{
-		Question: fmt.Sprintf("Enter a hostname for your %s instance (e.g. loft.my-domain.tld): \n ", "DevPod Pro"),
+		Question: fmt.Sprintf("Enter a hostname for your %s instance (e.g. loft.my-domain.tld): \n ", "DevSpace Pro"),
 		ValidationFunc: func(answer string) error {
 			u, err := netUrl.Parse("https://" + answer)
 			if err != nil || u.Path != "" || u.Port() != "" || len(strings.Split(answer, ".")) < 2 {
@@ -1565,7 +1565,7 @@ func upgradeRelease(chartName, chartRepo, kubeContext, namespace string, extraAr
 		return fmt.Errorf("error during helm command: %s (%w)", string(output), err)
 	}
 
-	log.Donef("DevPod Pro has been deployed to your cluster!")
+	log.Donef("DevSpace Pro has been deployed to your cluster!")
 	return nil
 }
 
@@ -1624,7 +1624,7 @@ func getHelmWorkdir(chartName string) (string, error) {
 
 var (
 	ErrMissingContainer = errors.New("missing container")
-	ErrLoftNotReachable = errors.New("DevPod Pro is not reachable")
+	ErrLoftNotReachable = errors.New("DevSpace Pro is not reachable")
 )
 
 type ContainerDetails struct {

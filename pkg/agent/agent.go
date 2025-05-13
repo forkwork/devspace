@@ -24,22 +24,22 @@ import (
 
 const DefaultInactivityTimeout = time.Minute * 20
 
-const ContainerDevPodHelperLocation = "/usr/local/bin/devspace"
+const ContainerDevSpaceHelperLocation = "/usr/local/bin/devspace"
 
-const RemoteDevPodHelperLocation = "/tmp/devspace"
+const RemoteDevSpaceHelperLocation = "/tmp/devspace"
 
 const ContainerActivityFile = "/tmp/devspace.activity"
 
 const defaultAgentDownloadURL = "https://dev.khulnasoft.com/releases/download/"
 
-const EnvDevPodAgentURL = "DEVPOD_AGENT_URL"
+const EnvDevSpaceAgentURL = "DEVSPACE_AGENT_URL"
 
 const WorkspaceBusyFile = "workspace.lock"
 
 func DefaultAgentDownloadURL() string {
-	devPodAgentURL := os.Getenv(EnvDevPodAgentURL)
-	if devPodAgentURL != "" {
-		return strings.TrimSuffix(devPodAgentURL, "/") + "/"
+	devSpaceAgentURL := os.Getenv(EnvDevSpaceAgentURL)
+	if devSpaceAgentURL != "" {
+		return strings.TrimSuffix(devSpaceAgentURL, "/") + "/"
 	}
 
 	if version.GetVersion() == version.DevVersion {
@@ -322,13 +322,13 @@ func Tunnel(
 	// inject agent
 	err := InjectAgent(ctx, func(ctx context.Context, command string, stdin io.Reader, stdout io.Writer, stderr io.Writer) error {
 		return exec(ctx, "root", command, stdin, stdout, stderr)
-	}, false, ContainerDevPodHelperLocation, DefaultAgentDownloadURL(), false, log, timeout)
+	}, false, ContainerDevSpaceHelperLocation, DefaultAgentDownloadURL(), false, log, timeout)
 	if err != nil {
 		return err
 	}
 
 	// build command
-	command := fmt.Sprintf("'%s' helper ssh-server --stdio", ContainerDevPodHelperLocation)
+	command := fmt.Sprintf("'%s' helper ssh-server --stdio", ContainerDevSpaceHelperLocation)
 	if log.GetLevel() == logrus.DebugLevel {
 		command += " --debug"
 	}

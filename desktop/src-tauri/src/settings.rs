@@ -46,7 +46,7 @@ pub struct Settings {
     experimental_positron: bool,
     #[serde(rename = "experimental_rstudio")]
     experimental_rstudio: bool,
-    #[serde(rename = "experimental_devPodPro")]
+    #[serde(rename = "experimental_devSpacePro")]
     experimental_devspace_pro: bool,
     #[serde(rename = "experimental_colorMode")]
     experimental_color_mode: ColorMode,

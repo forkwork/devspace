@@ -18,7 +18,7 @@ type ListAvailableCmd struct {
 	flags.GlobalFlags
 }
 
-func getDevpodProviderList() error {
+func getDevspaceProviderList() error {
 	req, err := http.NewRequest("GET", "https://api.github.com/users/khulnasoftrepos", nil)
 	if err != nil {
 		return err
@@ -70,5 +70,5 @@ func NewListAvailableCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *ListAvailableCmd) Run(ctx context.Context) error {
-	return getDevpodProviderList()
+	return getDevspaceProviderList()
 }

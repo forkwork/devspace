@@ -75,22 +75,22 @@ NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   xxx.yyy.zzz.qqq    <none>        443/TCP   4d14h
 ```
 
-## Install Devpods
+## Install Devspaces
 
-Using the Devpods install for Linux deb [docs](https://dev.khulnasoft.com/docs/getting-started/install)
+Using the Devspaces install for Linux deb [docs](https://dev.khulnasoft.com/docs/getting-started/install)
 
 Download the deb install
 
 ```sh
 
 cd ~/
-wget https://dev.khulnasoft.com/releases/latest/download/DevPod_linux_amd64.deb?_gl=1*76i3lz*_ga*MTczNjE4NzI1My4xNjkxNDQ1ODU1*_ga_4RQQZ3WGE9*MTY5MjY4MTU4NS45LjAuMTY5MjY4MTU4Ny41OC4wLjA. -O DevPod_linux_amd64.deb
-sudo dpkg -i DevPod_linux_amd64.deb
+wget https://dev.khulnasoft.com/releases/latest/download/DevSpace_linux_amd64.deb?_gl=1*76i3lz*_ga*MTczNjE4NzI1My4xNjkxNDQ1ODU1*_ga_4RQQZ3WGE9*MTY5MjY4MTU4NS45LjAuMTY5MjY4MTU4Ny41OC4wLjA. -O DevSpace_linux_amd64.deb
+sudo dpkg -i DevSpace_linux_amd64.deb
 ```
 
-### Test the Devpods install 
+### Test the Devspaces install 
 
-Start Devpods:
+Start Devspaces:
 
 ```sh
 dev-pod
@@ -157,7 +157,7 @@ ls ~/.kube
 cache  completion.bash.inc  config
 ```
 
-Within .minikube the config file is the kubeconfig that can be used by Devpods kubernetes provider.
+Within .minikube the config file is the kubeconfig that can be used by Devspaces kubernetes provider.
 
 Within the kubernetes provider the kubeconfig path will be
 
@@ -166,7 +166,7 @@ Within the kubernetes provider the kubeconfig path will be
 ```
 
 **Note**
-This is a simplification for a production setup where a kubeconfig should be provided for a kubernetes context, namespace and users. You will also need kubectl installed where your Devpods client is running from. The kubernetes provider uses the underlying kubectl providing the locally stored kubeconfig to access a remote cluster. This setup requires kubernetes administration support.
+This is a simplification for a production setup where a kubeconfig should be provided for a kubernetes context, namespace and users. You will also need kubectl installed where your Devspaces client is running from. The kubernetes provider uses the underlying kubectl providing the locally stored kubeconfig to access a remote cluster. This setup requires kubernetes administration support.
 
 ### Identify your namespaces
 
@@ -186,7 +186,7 @@ kube-system       Active   12d
 Add a provider via 'Providers' > '+ Add'. Select the kubernetes provider.
 
 <figure>
-  <img src="/docs/media/add-provider-1.png" alt="DevPod Flow" />
+  <img src="/docs/media/add-provider-1.png" alt="DevSpace Flow" />
   <figcaption>Select Provider</figcaption>
 </figure>
 
@@ -200,7 +200,7 @@ Add a provider via 'Providers' > '+ Add'. Select the kubernetes provider.
 | Kubernetes Config | /home/dev/.kube/config |
 
 <figure>
-  <img src="/docs/media/create-workspace-virtualbox-kubernetes-provider-configuration.png" alt="DevPod Flow" />
+  <img src="/docs/media/create-workspace-virtualbox-kubernetes-provider-configuration.png" alt="DevSpace Flow" />
   <figcaption>Kubernetes Provider Configuration</figcaption>
 </figure>
 
@@ -213,20 +213,20 @@ Select **Add Provider**
 Navigate to 'Workspaces' > '+ Create'. Enter your project url or choose one of the quickstart examples. Make sure to select 'VS Code Browser' under 'Default IDE'
 
 <figure>
-  <img src="/docs/media/create-workspace-virtualbox-workspace.png" alt="DevPod Flow" />
+  <img src="/docs/media/create-workspace-virtualbox-workspace.png" alt="DevSpace Flow" />
   <figcaption>Create Workspace</figcaption>
 </figure>
 
 Then press 'Create Workspace'.
 
 <figure>
-  <img src="/docs/media/create-workspace-virtualbox-workspace-create.png" alt="DevPod Flow" />
+  <img src="/docs/media/create-workspace-virtualbox-workspace-create.png" alt="DevSpace Flow" />
   <figcaption>Create Workspace</figcaption>
 </figure>
 
-A new window appears showing DevPod starting the workspace. After the workspace was created, VS Code should open automatically connected to the DevContainer.
+A new window appears showing DevSpace starting the workspace. After the workspace was created, VS Code should open automatically connected to the DevContainer.
 
 <figure>
-  <img src="/docs/media/create-workspace-vscode-browser-2.png" alt="DevPod Flow" />
+  <img src="/docs/media/create-workspace-vscode-browser-2.png" alt="DevSpace Flow" />
   <figcaption>VS Code opens automatically in the browser</figcaption>
 </figure>

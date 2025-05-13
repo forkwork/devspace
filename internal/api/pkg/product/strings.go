@@ -9,7 +9,7 @@ func LoginCmd() string {
 	loginCmd := "loft login"
 
 	switch Name() {
-	case licenseapi.DevPodPro:
+	case licenseapi.DevSpacePro:
 		return "devspace login"
 	case licenseapi.VClusterPro:
 		return "vcluster login"
@@ -24,7 +24,7 @@ func StartCmd() string {
 	loginCmd := "loft start"
 
 	switch Name() {
-	case licenseapi.DevPodPro:
+	case licenseapi.DevSpacePro:
 		loginCmd = "devspace pro start"
 	case licenseapi.VClusterPro:
 		loginCmd = "vcluster platform start"
@@ -39,7 +39,7 @@ func Url() string {
 	loginCmd := "loft-url"
 
 	switch Name() {
-	case licenseapi.DevPodPro:
+	case licenseapi.DevSpacePro:
 		loginCmd = "devspace-pro-url"
 	case licenseapi.VClusterPro:
 		loginCmd = "vcluster-pro-url"
@@ -54,7 +54,7 @@ func ResetPassword() string {
 	resetPassword := "loft reset password"
 
 	switch Name() {
-	case licenseapi.DevPodPro:
+	case licenseapi.DevSpacePro:
 		return "devspace pro reset password"
 	case licenseapi.VClusterPro:
 		return "vcluster platform reset password"

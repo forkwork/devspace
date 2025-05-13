@@ -321,7 +321,7 @@ export function CreateWorkspace() {
                   <FormErrorMessage>{defaultIDEError.message ?? "Error"}</FormErrorMessage>
                 ) : (
                   <FormHelperText>
-                    DevPod will open this workspace with the selected IDE by default. You can still
+                    DevSpace will open this workspace with the selected IDE by default. You can still
                     change your default IDE later.
                   </FormHelperText>
                 )}
@@ -356,7 +356,7 @@ export function CreateWorkspace() {
                   <FormErrorMessage>{idError.message ?? "Error"}</FormErrorMessage>
                 ) : (
                   <FormHelperText>
-                    This is the workspace name DevPod will use. This is an optional field and
+                    This is the workspace name DevSpace will use. This is an optional field and
                     usually only needed if you have an already existing workspace with the same
                     name.
                   </FormHelperText>
@@ -380,7 +380,7 @@ export function CreateWorkspace() {
                   <FormErrorMessage>{prebuildRepositoryError.message ?? "Error"}</FormErrorMessage>
                 ) : (
                   <FormHelperText>
-                    DevPod will use this repository to find prebuilds for the given workspace.
+                    DevSpace will use this repository to find prebuilds for the given workspace.
                   </FormHelperText>
                 )}
               </FormControl>
@@ -399,7 +399,7 @@ export function CreateWorkspace() {
                   <FormErrorMessage>{devcontainerPathError.message ?? "Error"}</FormErrorMessage>
                 ) : (
                   <FormHelperText>
-                    DevPod will use this path to create the dev container for this workspace. If not
+                    DevSpace will use this path to create the dev container for this workspace. If not
                     specified it&apos;ll use <Code>.devcontainer.json</Code> or{" "}
                     <Code>.devcontainer/devcontainer.json</Code>. <br />
                     Example: <Code>.devcontainer/service/devcontainer.json</Code>

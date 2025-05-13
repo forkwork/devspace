@@ -33,12 +33,12 @@ func NewVersionCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 		Short:  "Get version",
 		Hidden: true,
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 	}
 
@@ -48,8 +48,8 @@ func NewVersionCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *VersionCmd) Run(ctx context.Context, devPodConfig *config.Config, providerConfig *provider.ProviderConfig) error {
-	opts := devPodConfig.ProviderOptions(providerConfig.Name)
+func (cmd *VersionCmd) Run(ctx context.Context, devSpaceConfig *config.Config, providerConfig *provider.ProviderConfig) error {
+	opts := devSpaceConfig.ProviderOptions(providerConfig.Name)
 	opts[provider.PROVIDER_ID] = config.OptionValue{Value: providerConfig.Name}
 	opts[provider.PROVIDER_CONTEXT] = config.OptionValue{Value: cmd.Context}
 
@@ -61,7 +61,7 @@ func (cmd *VersionCmd) Run(ctx context.Context, devPodConfig *config.Config, pro
 		ctx,
 		"getVersion",
 		providerConfig.Exec.Proxy.Get.Version,
-		devPodConfig.DefaultContext,
+		devSpaceConfig.DefaultContext,
 		nil,
 		nil,
 		opts,

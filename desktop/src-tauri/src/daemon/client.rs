@@ -99,7 +99,7 @@ impl Client {
     }
 }
 
-const DEVPOD_PREFIX_BYTE: u8 = 0x01;
+const DEVSPACE_PREFIX_BYTE: u8 = 0x01;
 
 pub struct HandshakeStream {
     inner: InnerStream,
@@ -122,7 +122,7 @@ impl HandshakeStream {
         }
         let mut hs = HandshakeStream { inner };
         // send devspace prefix as first byte
-        hs.inner.write_u8(DEVPOD_PREFIX_BYTE).await?;
+        hs.inner.write_u8(DEVSPACE_PREFIX_BYTE).await?;
         Ok(hs)
     }
 }

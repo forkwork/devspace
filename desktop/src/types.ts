@@ -94,7 +94,7 @@ export type TProviderOption = Readonly<{
   required: TMaybe<boolean>
   // Allowed values for this option.
   enum: TMaybe<TOptionEnum[]>
-  // Suggestions are suggestions to show in the DevPod UI for this option
+  // Suggestions are suggestions to show in the DevSpace UI for this option
   suggestions: TMaybe<string[]>
   // Hidden specifies if the option should be hidden
   hidden: TMaybe<boolean>
@@ -204,7 +204,7 @@ export type TSupportedIDE = (typeof SUPPORTED_IDES)[number]
 export type TImportWorkspaceConfig = Readonly<{
   workspaceID: string
   workspaceUID: string
-  devPodProHost: string
+  devSpaceProHost: string
   project: string
   options: Record<string, string> | null
 }>

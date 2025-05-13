@@ -5,29 +5,29 @@ skinparam BackgroundColor lightgray
 
 alt using machine provider
 alt machine doesn't exist
-DevPod -> Provider: devspace machine create
-Provider --> DevPod: machine id
+DevSpace -> Provider: devspace machine create
+Provider --> DevSpace: machine id
 end
-DevPod -> Provider: devspace machine start
-Provider --> DevPod: machine id
+DevSpace -> Provider: devspace machine start
+Provider --> DevSpace: machine id
 end
 
-DevPod -> Repo: git pull
-Repo --> DevPod: source code
+DevSpace -> Repo: git pull
+Repo --> DevSpace: source code
 
 alt image not already available
-DevPod -> Agent: devspace workspace build
+DevSpace -> Agent: devspace workspace build
 activate Agent
 Agent --> ContainerRuntime: build
 ContainerRuntime --> Agent: image
-Agent --> DevPod: 
+Agent --> DevSpace: 
 deactivate Agent
 end
 
-DevPod -> Agent: devspace helper ssh-server --stdio
+DevSpace -> Agent: devspace helper ssh-server --stdio
 activate Agent
-DevPod -> Agent: devspace agent daemon
-DevPod -> Agent: devspace agent workspace up --workspace-info
+DevSpace -> Agent: devspace agent daemon
+DevSpace -> Agent: devspace agent workspace up --workspace-info
 
 Agent -> ContainerRuntime: run
 ContainerRuntime --> Agent: container id
@@ -48,26 +48,26 @@ Platform --> ContainerAgent: platform creds
 end
 
 alt if GIT_SSH_SIGNATURE_FORWARDING
-Agent -> DevPod: devspace agent git-credentials
-DevPod --> Agent: git creds
+Agent -> DevSpace: devspace agent git-credentials
+DevSpace --> Agent: git creds
 end
 alt if SSH_INJECT_DOCKER_CREDENTIALS
-Agent -> DevPod: devspace agent docker-credentials
-DevPod --> Agent: docker creds
+Agent -> DevSpace: devspace agent docker-credentials
+DevSpace --> Agent: docker creds
 end
 
 Agent -> ContainerAgent: Run life cycle hooks
 
 ContainerAgent --> Agent: 
 deactivate ContainerAgent
-Agent --> DevPod: 
+Agent --> DevSpace: 
 deactivate Agent
 
 alt if using browser based IDE (openvscode, jupyter)
-DevPod -> ContainerAgent: devspace ssh --reuse-ssh-auth-sock
+DevSpace -> ContainerAgent: devspace ssh --reuse-ssh-auth-sock
 end
 
-DevPod -> IDE: Start
+DevSpace -> IDE: Start
 
 alt if using normal IDE (vscode, intilliJ)
 IDE -> ContainerAgent: devspace ssh
@@ -75,7 +75,7 @@ ContainerAgent --> IDE: ssh close
 end
 
 alt if using browser based IDE (openvscode, jupyter)
-ContainerAgent -> DevPod: ssh close
+ContainerAgent -> DevSpace: ssh close
 end
 
 

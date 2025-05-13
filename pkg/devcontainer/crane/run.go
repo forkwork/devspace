@@ -23,7 +23,7 @@ const (
 	EnvironmentCrane = "environment"
 
 	defaultBinName     = "devspace-crane"
-	envDevPodCraneName = "DEVPOD_CRANE_NAME"
+	envDevSpaceCraneName = "DEVSPACE_CRANE_NAME"
 	tmpDirTemplate     = "devspace-crane-*"
 )
 
@@ -152,7 +152,7 @@ func storeFilesInDirectory(content *Content, path string) (string, error) {
 }
 
 func getBinName() string {
-	if name := os.Getenv(envDevPodCraneName); name != "" {
+	if name := os.Getenv(envDevSpaceCraneName); name != "" {
 		return name
 	}
 	return defaultBinName

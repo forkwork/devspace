@@ -36,7 +36,7 @@ func (r *runner) setupContainer(
 	// inject agent
 	err := agent.InjectAgent(ctx, func(ctx context.Context, command string, stdin io.Reader, stdout io.Writer, stderr io.Writer) error {
 		return r.Driver.CommandDevContainer(ctx, r.ID, "root", command, stdin, stdout, stderr)
-	}, false, agent.ContainerDevPodHelperLocation, agent.DefaultAgentDownloadURL(), false, r.Log, timeout)
+	}, false, agent.ContainerDevSpaceHelperLocation, agent.DefaultAgentDownloadURL(), false, r.Log, timeout)
 	if err != nil {
 		return nil, errors.Wrap(err, "inject agent")
 	}
@@ -101,7 +101,7 @@ func (r *runner) setupContainer(
 
 	setupCommand := fmt.Sprintf(
 		"'%s' agent container setup --setup-info '%s' --container-workspace-info '%s'",
-		agent.ContainerDevPodHelperLocation,
+		agent.ContainerDevSpaceHelperLocation,
 		compressed,
 		workspaceConfigCompressed,
 	)
@@ -138,7 +138,7 @@ func (r *runner) setupContainer(
 	}
 
 	// ssh tunnel
-	sshTunnelCmd := fmt.Sprintf("'%s' helper ssh-server --stdio", agent.ContainerDevPodHelperLocation)
+	sshTunnelCmd := fmt.Sprintf("'%s' helper ssh-server --stdio", agent.ContainerDevSpaceHelperLocation)
 	if ide.ReusesAuthSock(r.WorkspaceConfig.Workspace.IDE.Name) {
 		sshTunnelCmd += fmt.Sprintf(" --reuse-ssh-auth-sock=%s", r.WorkspaceConfig.CLIOptions.SSHAuthSockID)
 	}

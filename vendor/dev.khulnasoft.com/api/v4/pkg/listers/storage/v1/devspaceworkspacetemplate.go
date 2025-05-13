@@ -9,24 +9,24 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// DevPodWorkspaceTemplateLister helps list DevPodWorkspaceTemplates.
+// DevSpaceWorkspaceTemplateLister helps list DevSpaceWorkspaceTemplates.
 // All objects returned here must be treated as read-only.
-type DevPodWorkspaceTemplateLister interface {
-	// List lists all DevPodWorkspaceTemplates in the indexer.
+type DevSpaceWorkspaceTemplateLister interface {
+	// List lists all DevSpaceWorkspaceTemplates in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1.DevPodWorkspaceTemplate, err error)
-	// Get retrieves the DevPodWorkspaceTemplate from the index for a given name.
+	List(selector labels.Selector) (ret []*v1.DevSpaceWorkspaceTemplate, err error)
+	// Get retrieves the DevSpaceWorkspaceTemplate from the index for a given name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1.DevPodWorkspaceTemplate, error)
-	DevPodWorkspaceTemplateListerExpansion
+	Get(name string) (*v1.DevSpaceWorkspaceTemplate, error)
+	DevSpaceWorkspaceTemplateListerExpansion
 }
 
-// devPodWorkspaceTemplateLister implements the DevPodWorkspaceTemplateLister interface.
-type devPodWorkspaceTemplateLister struct {
-	listers.ResourceIndexer[*v1.DevPodWorkspaceTemplate]
+// devSpaceWorkspaceTemplateLister implements the DevSpaceWorkspaceTemplateLister interface.
+type devSpaceWorkspaceTemplateLister struct {
+	listers.ResourceIndexer[*v1.DevSpaceWorkspaceTemplate]
 }
 
-// NewDevPodWorkspaceTemplateLister returns a new DevPodWorkspaceTemplateLister.
-func NewDevPodWorkspaceTemplateLister(indexer cache.Indexer) DevPodWorkspaceTemplateLister {
-	return &devPodWorkspaceTemplateLister{listers.New[*v1.DevPodWorkspaceTemplate](indexer, v1.Resource("devspaceworkspacetemplate"))}
+// NewDevSpaceWorkspaceTemplateLister returns a new DevSpaceWorkspaceTemplateLister.
+func NewDevSpaceWorkspaceTemplateLister(indexer cache.Indexer) DevSpaceWorkspaceTemplateLister {
+	return &devSpaceWorkspaceTemplateLister{listers.New[*v1.DevSpaceWorkspaceTemplate](indexer, v1.Resource("devspaceworkspacetemplate"))}
 }

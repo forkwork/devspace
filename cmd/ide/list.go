@@ -48,7 +48,7 @@ type IDEWithDefault struct {
 
 // Run runs the command logic
 func (cmd *ListCmd) Run(ctx context.Context) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
@@ -58,7 +58,7 @@ func (cmd *ListCmd) Run(ctx context.Context) error {
 		for _, entry := range ideparse.AllowedIDEs {
 			tableEntries = append(tableEntries, []string{
 				string(entry.Name),
-				strconv.FormatBool(devPodConfig.Current().DefaultIDE == string(entry.Name)),
+				strconv.FormatBool(devSpaceConfig.Current().DefaultIDE == string(entry.Name)),
 			})
 		}
 		sort.SliceStable(tableEntries, func(i, j int) bool {
@@ -74,7 +74,7 @@ func (cmd *ListCmd) Run(ctx context.Context) error {
 		for _, entry := range ideparse.AllowedIDEs {
 			ides = append(ides, IDEWithDefault{
 				AllowedIDE: entry,
-				Default:    devPodConfig.Current().DefaultIDE == string(entry.Name),
+				Default:    devSpaceConfig.Current().DefaultIDE == string(entry.Name),
 			})
 		}
 

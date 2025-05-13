@@ -52,10 +52,10 @@ func (cmd *TroubleshootCmd) Run(ctx context.Context, args []string) {
 		CLIVersion            string
 		Config                *config.Config
 		Providers             map[string]provider.ProviderWithDefault
-		DevPodProInstances    []DevPodProInstance
+		DevSpaceProInstances    []DevSpaceProInstance
 		Workspace             *pkgprovider.Workspace
 		WorkspaceStatus       client.Status
-		WorkspaceTroubleshoot *managementv1.DevPodWorkspaceInstanceTroubleshoot
+		WorkspaceTroubleshoot *managementv1.DevSpaceWorkspaceInstanceTroubleshoot
 		DaemonStatus          *daemon.Status
 
 		Errors []PrintableError `json:",omitempty"`
@@ -94,7 +94,7 @@ func (cmd *TroubleshootCmd) Run(ctx context.Context, args []string) {
 		info.Errors = append(info.Errors, PrintableError{fmt.Errorf("collect providers: %w", err)})
 	}
 
-	info.DevPodProInstances, err = collectPlatformInfo(info.Config, logger)
+	info.DevSpaceProInstances, err = collectPlatformInfo(info.Config, logger)
 	if err != nil {
 		info.Errors = append(info.Errors, PrintableError{fmt.Errorf("collect platform info: %w", err)})
 	}
@@ -110,9 +110,9 @@ func (cmd *TroubleshootCmd) Run(ctx context.Context, args []string) {
 		if info.Workspace.Pro != nil {
 			// (ThomasK33): As there can be multiple pro instances configured
 			// we want to iterate over all and find the host that this workspace belongs to.
-			var proInstance DevPodProInstance
+			var proInstance DevSpaceProInstance
 
-			for _, instance := range info.DevPodProInstances {
+			for _, instance := range info.DevSpaceProInstances {
 				if instance.ProviderName == info.Workspace.Provider.Name {
 					proInstance = instance
 					break
@@ -148,18 +148,18 @@ func (cmd *TroubleshootCmd) Run(ctx context.Context, args []string) {
 	}
 }
 
-// collectProWorkspaceInfo collects troubleshooting information for a DevPod Pro instance.
+// collectProWorkspaceInfo collects troubleshooting information for a DevSpace Pro instance.
 // It initializes a client from the host, finds the workspace instance in the project, and retrieves
 // troubleshooting information using the management client.
 func collectProWorkspaceInfo(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	host string,
 	logger log.Logger,
 	workspaceUID string,
 	project string,
-) (*managementv1.DevPodWorkspaceInstanceTroubleshoot, error) {
-	baseClient, err := platform.InitClientFromHost(ctx, devPodConfig, host, logger)
+) (*managementv1.DevSpaceWorkspaceInstanceTroubleshoot, error) {
+	baseClient, err := platform.InitClientFromHost(ctx, devSpaceConfig, host, logger)
 	if err != nil {
 		return nil, fmt.Errorf("init client from host: %w", err)
 	}
@@ -179,7 +179,7 @@ func collectProWorkspaceInfo(
 	troubleshoot, err := managementClient.
 		Loft().
 		ManagementV1().
-		DevPodWorkspaceInstances(workspace.Namespace).
+		DevSpaceWorkspaceInstances(workspace.Namespace).
 		Troubleshoot(ctx, workspace.Name, metav1.GetOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("troubleshoot: %w", err)
@@ -188,15 +188,15 @@ func collectProWorkspaceInfo(
 	return troubleshoot, nil
 }
 
-// collectProviders collects and configures providers based on the given devPodConfig.
+// collectProviders collects and configures providers based on the given devSpaceConfig.
 // It returns a map of providers with their default settings and an error if any occurs.
-func collectProviders(devPodConfig *config.Config, logger log.Logger) (map[string]provider.ProviderWithDefault, error) {
-	providers, err := workspace.LoadAllProviders(devPodConfig, logger)
+func collectProviders(devSpaceConfig *config.Config, logger log.Logger) (map[string]provider.ProviderWithDefault, error) {
+	providers, err := workspace.LoadAllProviders(devSpaceConfig, logger)
 	if err != nil {
 		return nil, err
 	}
 
-	configuredProviders := devPodConfig.Current().Providers
+	configuredProviders := devSpaceConfig.Current().Providers
 	if configuredProviders == nil {
 		configuredProviders = map[string]*config.ProviderConfig{}
 	}
@@ -211,36 +211,36 @@ func collectProviders(devPodConfig *config.Config, logger log.Logger) (map[strin
 		entry.Config.Options = srcOptions
 		retMap[k] = provider.ProviderWithDefault{
 			ProviderWithOptions: *entry,
-			Default:             devPodConfig.Current().DefaultProvider == entry.Config.Name,
+			Default:             devSpaceConfig.Current().DefaultProvider == entry.Config.Name,
 		}
 	}
 
 	return retMap, nil
 }
 
-type DevPodProInstance struct {
+type DevSpaceProInstance struct {
 	Host         string
 	ProviderName string
 	Version      string
 }
 
-// collectPlatformInfo collects information about all platform instances in a given devPodConfig.
+// collectPlatformInfo collects information about all platform instances in a given devSpaceConfig.
 // It iterates over the pro instances, retrieves their versions, and appends them to the ProInstance slice.
 // Any errors encountered during this process are combined and returned along with the ProInstance slice.
 // This means that even when an error value is returned, the pro instance slice will contain valid values.
-func collectPlatformInfo(devPodConfig *config.Config, logger log.Logger) ([]DevPodProInstance, error) {
-	proInstanceList, err := workspace.ListProInstances(devPodConfig, logger)
+func collectPlatformInfo(devSpaceConfig *config.Config, logger log.Logger) ([]DevSpaceProInstance, error) {
+	proInstanceList, err := workspace.ListProInstances(devSpaceConfig, logger)
 	if err != nil {
 		return nil, fmt.Errorf("list pro instances: %w", err)
 	}
 
-	var proInstances []DevPodProInstance
+	var proInstances []DevSpaceProInstance
 	var combinedErrs error
 
 	for _, proInstance := range proInstanceList {
-		version, err := platform.GetProInstanceDevPodVersion(&pkgprovider.ProInstance{Host: proInstance.Host})
+		version, err := platform.GetProInstanceDevSpaceVersion(&pkgprovider.ProInstance{Host: proInstance.Host})
 		combinedErrs = errors.Join(combinedErrs, err)
-		proInstances = append(proInstances, DevPodProInstance{
+		proInstances = append(proInstances, DevSpaceProInstance{
 			Host:         proInstance.Host,
 			ProviderName: proInstance.Provider,
 			Version:      version,

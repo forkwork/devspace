@@ -1,10 +1,10 @@
 import { useContext } from "react"
 import { TProviderManager } from "../../types"
-import { DevPodContext, TDevpodContext } from "./DevPodProvider"
+import { DevSpaceContext, TDevspaceContext } from "./DevSpaceProvider"
 import { useProviderManager } from "./useProviderManager"
 
-export function useProviders(): [TDevpodContext["providers"] | [undefined], TProviderManager] {
-  const providers = useContext(DevPodContext)?.providers ?? [undefined]
+export function useProviders(): [TDevspaceContext["providers"] | [undefined], TProviderManager] {
+  const providers = useContext(DevSpaceContext)?.providers ?? [undefined]
   const manager = useProviderManager()
 
   return [providers, manager]

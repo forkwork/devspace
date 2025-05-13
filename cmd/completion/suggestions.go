@@ -29,12 +29,12 @@ func RegisterFlagCompletionFuns(rootCmd *cobra.Command, globalFlags *flags.Globa
 }
 
 func GetWorkspaceSuggestions(rootCmd *cobra.Command, context, provider string, args []string, toComplete string, owner platform.OwnerFilter, logger log.Logger) ([]string, cobra.ShellCompDirective) {
-	devPodConfig, err := config.LoadConfig(context, provider)
+	devSpaceConfig, err := config.LoadConfig(context, provider)
 	if err != nil {
 		return nil, cobra.ShellCompDirectiveError
 	}
 
-	workspaces, err := workspace.List(rootCmd.Context(), devPodConfig, false, owner, logger)
+	workspaces, err := workspace.List(rootCmd.Context(), devSpaceConfig, false, owner, logger)
 	if err != nil {
 		return nil, cobra.ShellCompDirectiveError
 	}
@@ -49,12 +49,12 @@ func GetWorkspaceSuggestions(rootCmd *cobra.Command, context, provider string, a
 }
 
 func GetProviderSuggestions(rootCmd *cobra.Command, context, provider string, args []string, toComplete string, owner platform.OwnerFilter, logger log.Logger) ([]string, cobra.ShellCompDirective) {
-	devPodConfig, err := config.LoadConfig(context, provider)
+	devSpaceConfig, err := config.LoadConfig(context, provider)
 	if err != nil {
 		return nil, cobra.ShellCompDirectiveError
 	}
 
-	providers, err := workspace.LoadAllProviders(devPodConfig, log.Default.ErrorStreamOnly())
+	providers, err := workspace.LoadAllProviders(devSpaceConfig, log.Default.ErrorStreamOnly())
 	if err != nil {
 		return nil, cobra.ShellCompDirectiveError
 	}
@@ -69,13 +69,13 @@ func GetProviderSuggestions(rootCmd *cobra.Command, context, provider string, ar
 }
 
 func GetContextSuggestions(rootCmd *cobra.Command, context, provider string, args []string, toComplete string, owner platform.OwnerFilter, logger log.Logger) ([]string, cobra.ShellCompDirective) {
-	devPodConfig, err := config.LoadConfig(context, provider)
+	devSpaceConfig, err := config.LoadConfig(context, provider)
 	if err != nil {
 		return nil, cobra.ShellCompDirectiveError
 	}
 
 	var suggestions []string
-	for contextName, _ := range devPodConfig.Contexts {
+	for contextName, _ := range devSpaceConfig.Contexts {
 		if strings.HasPrefix(contextName, toComplete) {
 			suggestions = append(suggestions, contextName)
 		}

@@ -9,10 +9,10 @@ scale 1920x1080
 HIDE_STEREOTYPE()
 LAYOUT_TOP_DOWN()
 
-title Component diagram for DevPod with kubernetes
+title Component diagram for DevSpace with kubernetes
 
-Person(user, "DevPod", "CLI or UI")
-System(prov, "Kubernetes Provider", "Devpod Provider")
+Person(user, "DevSpace", "CLI or UI")
+System(prov, "Kubernetes Provider", "Devspace Provider")
 Component(ide, "IDE", "Local IDE")
 Component(ctx, "Context", "Config, working dir etc.")
 Component(env, "Local Env", "Shell variables, git credentials etc.")

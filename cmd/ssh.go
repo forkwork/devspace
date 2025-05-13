@@ -71,7 +71,7 @@ func NewSSHCmd(f *flags.GlobalFlags) *cobra.Command {
 		Use:   "ssh [flags] [workspace-folder|workspace-name]",
 		Short: "Starts a new ssh session to a workspace",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 			if err != nil {
 				return err
 			}
@@ -82,12 +82,12 @@ func NewSSHCmd(f *flags.GlobalFlags) *cobra.Command {
 			}
 
 			ctx := cobraCmd.Context()
-			client, err := workspace2.Get(ctx, devPodConfig, args, true, cmd.Owner, localOnly, log.Default.ErrorStreamOnly())
+			client, err := workspace2.Get(ctx, devSpaceConfig, args, true, cmd.Owner, localOnly, log.Default.ErrorStreamOnly())
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(ctx, devPodConfig, client, log.Default.ErrorStreamOnly())
+			return cmd.Run(ctx, devSpaceConfig, client, log.Default.ErrorStreamOnly())
 		},
 		ValidArgsFunction: func(rootCmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 			return completion.GetWorkspaceSuggestions(rootCmd, cmd.Context, cmd.Provider, args, toComplete, cmd.Owner, log.Default)
@@ -116,11 +116,11 @@ func NewSSHCmd(f *flags.GlobalFlags) *cobra.Command {
 // Run runs the command logic
 func (cmd *SSHCmd) Run(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	client client2.BaseWorkspaceClient,
 	log log.Logger) error {
 	// add ssh keys to agent
-	if devPodConfig.ContextOption(config.ContextOptionSSHAgentForwarding) == "true" && devPodConfig.ContextOption(config.ContextOptionSSHAddPrivateKeys) == "true" {
+	if devSpaceConfig.ContextOption(config.ContextOptionSSHAgentForwarding) == "true" && devSpaceConfig.ContextOption(config.ContextOptionSSHAddPrivateKeys) == "true" {
 		log.Debug("Adding ssh keys to agent, disable via 'devspace context set-options -o SSH_ADD_PRIVATE_KEYS=false'")
 		err := devssh.AddPrivateKeysToAgent(ctx, log)
 		if err != nil {
@@ -139,20 +139,20 @@ func (cmd *SSHCmd) Run(
 
 	// set default context if needed
 	if cmd.Context == "" {
-		cmd.Context = devPodConfig.DefaultContext
+		cmd.Context = devSpaceConfig.DefaultContext
 	}
 
 	workspaceClient, ok := client.(client2.WorkspaceClient)
 	if ok {
-		return cmd.jumpContainer(ctx, devPodConfig, workspaceClient, log)
+		return cmd.jumpContainer(ctx, devSpaceConfig, workspaceClient, log)
 	}
 	proxyClient, ok := client.(client2.ProxyClient)
 	if ok {
-		return cmd.startProxyTunnel(ctx, devPodConfig, proxyClient, log)
+		return cmd.startProxyTunnel(ctx, devSpaceConfig, proxyClient, log)
 	}
 	daemonClient, ok := client.(client2.DaemonClient)
 	if ok {
-		return cmd.jumpContainerTailscale(ctx, devPodConfig, daemonClient, log)
+		return cmd.jumpContainerTailscale(ctx, devSpaceConfig, daemonClient, log)
 	}
 
 	return nil
@@ -160,7 +160,7 @@ func (cmd *SSHCmd) Run(
 
 func (cmd *SSHCmd) jumpContainerTailscale(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	client client2.DaemonClient,
 	log log.Logger,
 ) error {
@@ -191,7 +191,7 @@ func (cmd *SSHCmd) jumpContainerTailscale(
 	if cmd.StartServices {
 		go func() {
 			err = startServicesDaemon(ctx,
-				devPodConfig,
+				devSpaceConfig,
 				client,
 				toolSSHClient,
 				cmd.User,
@@ -206,7 +206,7 @@ func (cmd *SSHCmd) jumpContainerTailscale(
 	}
 
 	// Handle GPG agent forwarding
-	if cmd.GPGAgentForwarding || devPodConfig.ContextOption(config.ContextOptionGPGAgentForwarding) == "true" {
+	if cmd.GPGAgentForwarding || devSpaceConfig.ContextOption(config.ContextOptionGPGAgentForwarding) == "true" {
 		if gpg.IsGpgTunnelRunning(cmd.User, ctx, toolSSHClient, log) {
 			log.Debugf("[GPG] exporting already running, skipping")
 		} else if err := cmd.setupGPGAgent(ctx, toolSSHClient, log); err != nil {
@@ -235,7 +235,7 @@ func (cmd *SSHCmd) jumpContainerTailscale(
 
 func (cmd *SSHCmd) startProxyTunnel(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	client client2.ProxyClient,
 	log log.Logger,
 ) error {
@@ -250,7 +250,7 @@ func (cmd *SSHCmd) startProxyTunnel(
 			})
 		},
 		func(ctx context.Context, containerClient *ssh.Client) error {
-			return cmd.startTunnel(ctx, devPodConfig, containerClient, client, log)
+			return cmd.startTunnel(ctx, devSpaceConfig, containerClient, client, log)
 		},
 	)
 }
@@ -283,7 +283,7 @@ func startWait(
 					return errors.Wrap(err, "start workspace")
 				}
 			} else {
-				return fmt.Errorf("DevPod workspace is stopped")
+				return fmt.Errorf("DevSpace workspace is stopped")
 			}
 		} else if instanceStatus == client2.StatusNotFound {
 			if create {
@@ -293,7 +293,7 @@ func startWait(
 					return err
 				}
 			} else {
-				return fmt.Errorf("DevPod workspace wasn't found")
+				return fmt.Errorf("DevSpace workspace wasn't found")
 			}
 		}
 
@@ -322,7 +322,7 @@ func (cmd *SSHCmd) retrieveEnVars() (map[string]string, error) {
 
 func (cmd *SSHCmd) jumpContainer(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	client client2.WorkspaceClient,
 	log log.Logger,
 ) error {
@@ -351,8 +351,8 @@ func (cmd *SSHCmd) jumpContainer(
 			client.Unlock()
 
 			// start ssh tunnel
-			return cmd.startTunnel(ctx, devPodConfig, containerClient, client, log)
-		}, devPodConfig, envVars)
+			return cmd.startTunnel(ctx, devSpaceConfig, containerClient, client, log)
+		}, devSpaceConfig, envVars)
 }
 
 func (cmd *SSHCmd) forwardTimeout(log log.Logger) (time.Duration, error) {
@@ -459,7 +459,7 @@ func (cmd *SSHCmd) forwardPorts(
 	return <-errChan
 }
 
-func (cmd *SSHCmd) startTunnel(ctx context.Context, devPodConfig *config.Config, containerClient *ssh.Client, workspaceClient client2.BaseWorkspaceClient, log log.Logger) error {
+func (cmd *SSHCmd) startTunnel(ctx context.Context, devSpaceConfig *config.Config, containerClient *ssh.Client, workspaceClient client2.BaseWorkspaceClient, log log.Logger) error {
 	// check if we should forward ports
 	if len(cmd.ForwardPorts) > 0 {
 		return cmd.forwardPorts(ctx, containerClient, log)
@@ -471,18 +471,18 @@ func (cmd *SSHCmd) startTunnel(ctx context.Context, devPodConfig *config.Config,
 	}
 
 	if cmd.StartServices {
-		configureDockerCredentials := devPodConfig.ContextOption(config.ContextOptionSSHInjectDockerCredentials) == "true"
-		configureGitCredentials := devPodConfig.ContextOption(config.ContextOptionSSHInjectGitCredentials) == "true"
-		configureGitSSHSignatureHelper := devPodConfig.ContextOption(config.ContextOptionGitSSHSignatureForwarding) == "true"
+		configureDockerCredentials := devSpaceConfig.ContextOption(config.ContextOptionSSHInjectDockerCredentials) == "true"
+		configureGitCredentials := devSpaceConfig.ContextOption(config.ContextOptionSSHInjectGitCredentials) == "true"
+		configureGitSSHSignatureHelper := devSpaceConfig.ContextOption(config.ContextOptionGitSSHSignatureForwarding) == "true"
 
-		go cmd.startServices(ctx, devPodConfig, containerClient, workspaceClient.WorkspaceConfig(), configureDockerCredentials, configureGitCredentials, configureGitSSHSignatureHelper, log)
+		go cmd.startServices(ctx, devSpaceConfig, containerClient, workspaceClient.WorkspaceConfig(), configureDockerCredentials, configureGitCredentials, configureGitSSHSignatureHelper, log)
 	}
 	// start ssh
 	writer := log.ErrorStreamOnly().Writer(logrus.InfoLevel, false)
 	defer writer.Close()
 
 	// check if we should do gpg agent forwarding
-	if cmd.GPGAgentForwarding || devPodConfig.ContextOption(config.ContextOptionGPGAgentForwarding) == "true" {
+	if cmd.GPGAgentForwarding || devSpaceConfig.ContextOption(config.ContextOptionGPGAgentForwarding) == "true" {
 		// Check if a forwarding is already enabled and running, in that case
 		// we skip the forwarding and keep using the original one
 		if gpg.IsGpgTunnelRunning(cmd.User, ctx, containerClient, log) {
@@ -501,7 +501,7 @@ func (cmd *SSHCmd) startTunnel(ctx context.Context, devPodConfig *config.Config,
 	}
 
 	log.Debugf("Run outer container tunnel")
-	command := fmt.Sprintf("'%s' helper ssh-server --track-activity --stdio --workdir '%s'", agent.ContainerDevPodHelperLocation, workdir)
+	command := fmt.Sprintf("'%s' helper ssh-server --track-activity --stdio --workdir '%s'", agent.ContainerDevSpaceHelperLocation, workdir)
 	if cmd.ReuseSSHAuthSock != "" {
 		log.Debug("Reusing SSH_AUTH_SOCK")
 		command += fmt.Sprintf(" --reuse-ssh-auth-sock=%s", cmd.ReuseSSHAuthSock)
@@ -527,7 +527,7 @@ func (cmd *SSHCmd) startTunnel(ctx context.Context, devPodConfig *config.Config,
 		ctx,
 		cmd.User,
 		cmd.Command,
-		cmd.AgentForwarding && devPodConfig.ContextOption(config.ContextOptionSSHAgentForwarding) == "true",
+		cmd.AgentForwarding && devSpaceConfig.ContextOption(config.ContextOptionSSHAgentForwarding) == "true",
 		func(ctx context.Context, stdin io.Reader, stdout io.Writer, stderr io.Writer) error {
 			if cmd.SSHKeepAliveInterval != DisableSSHKeepAlive {
 				go startSSHKeepAlive(ctx, containerClient, cmd.SSHKeepAliveInterval, log)
@@ -540,7 +540,7 @@ func (cmd *SSHCmd) startTunnel(ctx context.Context, devPodConfig *config.Config,
 
 func (cmd *SSHCmd) startServices(
 	ctx context.Context,
-	devPodConfig *config.Config,
+	devSpaceConfig *config.Config,
 	containerClient *ssh.Client,
 	workspace *provider.Workspace,
 	configureDockerCredentials, configureGitCredentials, configureGitSSHSignatureHelper bool,
@@ -549,7 +549,7 @@ func (cmd *SSHCmd) startServices(
 	if cmd.User != "" {
 		err := tunnel.RunServices(
 			ctx,
-			devPodConfig,
+			devSpaceConfig,
 			containerClient,
 			cmd.User,
 			false,
@@ -604,7 +604,7 @@ func (cmd *SSHCmd) setupGPGAgent(
 
 	// Now we forward the agent socket to the remote, and setup remote gpg to use it
 	forwardAgent := []string{
-		agent.ContainerDevPodHelperLocation,
+		agent.ContainerDevSpaceHelperLocation,
 		"agent",
 		"workspace",
 		"setup-gpg",
@@ -665,15 +665,15 @@ func startSSHKeepAlive(ctx context.Context, client *ssh.Client, interval time.Du
 	}
 }
 
-func startServicesDaemon(ctx context.Context, devPodConfig *config.Config, client client2.DaemonClient, sshClient *ssh.Client, user string, log log.Logger, forwardPorts bool, extraPorts []string) error {
+func startServicesDaemon(ctx context.Context, devSpaceConfig *config.Config, client client2.DaemonClient, sshClient *ssh.Client, user string, log log.Logger, forwardPorts bool, extraPorts []string) error {
 	workspace, err := daemon.NewLocalClient(client.Provider()).GetWorkspace(ctx, client.WorkspaceConfig().UID)
 	if err != nil {
 		return err
 	}
 
-	configureDockerCredentials := devPodConfig.ContextOption(config.ContextOptionSSHInjectDockerCredentials) == "true"
-	configureGitCredentials := devPodConfig.ContextOption(config.ContextOptionSSHInjectGitCredentials) == "true"
-	configureGitSSHSignatureHelper := devPodConfig.ContextOption(config.ContextOptionGitSSHSignatureForwarding) == "true"
+	configureDockerCredentials := devSpaceConfig.ContextOption(config.ContextOptionSSHInjectDockerCredentials) == "true"
+	configureGitCredentials := devSpaceConfig.ContextOption(config.ContextOptionSSHInjectGitCredentials) == "true"
+	configureGitSSHSignatureHelper := devSpaceConfig.ContextOption(config.ContextOptionGitSSHSignatureForwarding) == "true"
 
 	if workspace != nil && workspace.Status.Instance != nil && workspace.Status.Instance.CredentialForwarding != nil {
 		if workspace.Status.Instance.CredentialForwarding.Docker != nil {
@@ -688,7 +688,7 @@ func startServicesDaemon(ctx context.Context, devPodConfig *config.Config, clien
 	if user != "" {
 		return tunnel.RunServices(
 			ctx,
-			devPodConfig,
+			devSpaceConfig,
 			sshClient,
 			user,
 			forwardPorts,

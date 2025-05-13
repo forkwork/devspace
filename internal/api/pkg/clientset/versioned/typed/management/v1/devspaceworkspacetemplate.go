@@ -13,41 +13,41 @@ import (
 	gentype "k8s.io/client-go/gentype"
 )
 
-// DevPodWorkspaceTemplatesGetter has a method to return a DevPodWorkspaceTemplateInterface.
+// DevSpaceWorkspaceTemplatesGetter has a method to return a DevSpaceWorkspaceTemplateInterface.
 // A group's client should implement this interface.
-type DevPodWorkspaceTemplatesGetter interface {
-	DevPodWorkspaceTemplates() DevPodWorkspaceTemplateInterface
+type DevSpaceWorkspaceTemplatesGetter interface {
+	DevSpaceWorkspaceTemplates() DevSpaceWorkspaceTemplateInterface
 }
 
-// DevPodWorkspaceTemplateInterface has methods to work with DevPodWorkspaceTemplate resources.
-type DevPodWorkspaceTemplateInterface interface {
-	Create(ctx context.Context, devPodWorkspaceTemplate *v1.DevPodWorkspaceTemplate, opts metav1.CreateOptions) (*v1.DevPodWorkspaceTemplate, error)
-	Update(ctx context.Context, devPodWorkspaceTemplate *v1.DevPodWorkspaceTemplate, opts metav1.UpdateOptions) (*v1.DevPodWorkspaceTemplate, error)
+// DevSpaceWorkspaceTemplateInterface has methods to work with DevSpaceWorkspaceTemplate resources.
+type DevSpaceWorkspaceTemplateInterface interface {
+	Create(ctx context.Context, devSpaceWorkspaceTemplate *v1.DevSpaceWorkspaceTemplate, opts metav1.CreateOptions) (*v1.DevSpaceWorkspaceTemplate, error)
+	Update(ctx context.Context, devSpaceWorkspaceTemplate *v1.DevSpaceWorkspaceTemplate, opts metav1.UpdateOptions) (*v1.DevSpaceWorkspaceTemplate, error)
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, devPodWorkspaceTemplate *v1.DevPodWorkspaceTemplate, opts metav1.UpdateOptions) (*v1.DevPodWorkspaceTemplate, error)
+	UpdateStatus(ctx context.Context, devSpaceWorkspaceTemplate *v1.DevSpaceWorkspaceTemplate, opts metav1.UpdateOptions) (*v1.DevSpaceWorkspaceTemplate, error)
 	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevPodWorkspaceTemplate, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevPodWorkspaceTemplateList, error)
+	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevSpaceWorkspaceTemplate, error)
+	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevSpaceWorkspaceTemplateList, error)
 	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevPodWorkspaceTemplate, err error)
-	DevPodWorkspaceTemplateExpansion
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevSpaceWorkspaceTemplate, err error)
+	DevSpaceWorkspaceTemplateExpansion
 }
 
-// devPodWorkspaceTemplates implements DevPodWorkspaceTemplateInterface
-type devPodWorkspaceTemplates struct {
-	*gentype.ClientWithList[*v1.DevPodWorkspaceTemplate, *v1.DevPodWorkspaceTemplateList]
+// devSpaceWorkspaceTemplates implements DevSpaceWorkspaceTemplateInterface
+type devSpaceWorkspaceTemplates struct {
+	*gentype.ClientWithList[*v1.DevSpaceWorkspaceTemplate, *v1.DevSpaceWorkspaceTemplateList]
 }
 
-// newDevPodWorkspaceTemplates returns a DevPodWorkspaceTemplates
-func newDevPodWorkspaceTemplates(c *ManagementV1Client) *devPodWorkspaceTemplates {
-	return &devPodWorkspaceTemplates{
-		gentype.NewClientWithList[*v1.DevPodWorkspaceTemplate, *v1.DevPodWorkspaceTemplateList](
+// newDevSpaceWorkspaceTemplates returns a DevSpaceWorkspaceTemplates
+func newDevSpaceWorkspaceTemplates(c *ManagementV1Client) *devSpaceWorkspaceTemplates {
+	return &devSpaceWorkspaceTemplates{
+		gentype.NewClientWithList[*v1.DevSpaceWorkspaceTemplate, *v1.DevSpaceWorkspaceTemplateList](
 			"devspaceworkspacetemplates",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *v1.DevPodWorkspaceTemplate { return &v1.DevPodWorkspaceTemplate{} },
-			func() *v1.DevPodWorkspaceTemplateList { return &v1.DevPodWorkspaceTemplateList{} }),
+			func() *v1.DevSpaceWorkspaceTemplate { return &v1.DevSpaceWorkspaceTemplate{} },
+			func() *v1.DevSpaceWorkspaceTemplateList { return &v1.DevSpaceWorkspaceTemplateList{} }),
 	}
 }

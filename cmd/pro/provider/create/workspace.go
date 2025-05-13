@@ -55,7 +55,7 @@ func (cmd *WorkspaceCmd) Run(ctx context.Context, stdin io.Reader, stdout io.Wri
 	// fully serialized intance, right now only used by GUI
 	instanceEnv := os.Getenv(platform.WorkspaceInstanceEnv)
 	if instanceEnv != "" {
-		instance := &managementv1.DevPodWorkspaceInstance{} // init pointer
+		instance := &managementv1.DevSpaceWorkspaceInstance{} // init pointer
 		err := json.Unmarshal([]byte(instanceEnv), instance)
 		if err != nil {
 			return fmt.Errorf("unmarshal workpace instance %s: %w", instanceEnv, err)
@@ -127,14 +127,14 @@ func (cmd *WorkspaceCmd) Run(ctx context.Context, stdin io.Reader, stdout io.Wri
 	return nil
 }
 
-func createInstance(ctx context.Context, client client.Client, instance *managementv1.DevPodWorkspaceInstance, log log.Logger) (*managementv1.DevPodWorkspaceInstance, error) {
+func createInstance(ctx context.Context, client client.Client, instance *managementv1.DevSpaceWorkspaceInstance, log log.Logger) (*managementv1.DevSpaceWorkspaceInstance, error) {
 	managementClient, err := client.Management()
 	if err != nil {
 		return nil, err
 	}
 
 	updatedInstance, err := managementClient.Loft().ManagementV1().
-		DevPodWorkspaceInstances(instance.GetNamespace()).
+		DevSpaceWorkspaceInstances(instance.GetNamespace()).
 		Create(ctx, instance, metav1.CreateOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("create workspace instance: %w", err)

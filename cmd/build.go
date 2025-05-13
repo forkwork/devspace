@@ -42,7 +42,7 @@ func NewBuildCmd(flags *flags.GlobalFlags) *cobra.Command {
 		Short: "Builds a workspace",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
 			ctx := cobraCmd.Context()
-			devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 			if err != nil {
 				return err
 			}
@@ -62,12 +62,12 @@ func NewBuildCmd(flags *flags.GlobalFlags) *cobra.Command {
 				}
 			}
 
-			if devPodConfig.ContextOption(config.ContextOptionSSHStrictHostKeyChecking) == "true" {
+			if devSpaceConfig.ContextOption(config.ContextOptionSSHStrictHostKeyChecking) == "true" {
 				cmd.StrictHostKeyChecking = true
 			}
 
 			// create a temporary workspace
-			exists := workspace2.Exists(ctx, devPodConfig, args, "", cmd.Owner, log.Default)
+			exists := workspace2.Exists(ctx, devSpaceConfig, args, "", cmd.Owner, log.Default)
 			sshConfigFile, err := os.CreateTemp("", "devspacessh.config")
 			if err != nil {
 				return err
@@ -78,7 +78,7 @@ func NewBuildCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 			baseWorkspaceClient, err := workspace2.Resolve(
 				ctx,
-				devPodConfig,
+				devSpaceConfig,
 				"",
 				nil,
 				args,
@@ -128,7 +128,7 @@ func NewBuildCmd(flags *flags.GlobalFlags) *cobra.Command {
 	buildCmd.Flags().StringSliceVar(&cmd.Tag, "tag", []string{}, "Image Tag(s) in the form of a comma separated list --tag latest,arm64 or multiple flags --tag latest --tag arm64")
 	buildCmd.Flags().StringSliceVar(&cmd.Platforms, "platform", []string{}, "Set target platform for build")
 	buildCmd.Flags().BoolVar(&cmd.SkipPush, "skip-push", false, "If true will not push the image to the repository, useful for testing")
-	buildCmd.Flags().Var(&cmd.GitCloneStrategy, "git-clone-strategy", "The git clone strategy DevPod uses to checkout git based workspaces. Can be full (default), blobless, treeless or shallow")
+	buildCmd.Flags().Var(&cmd.GitCloneStrategy, "git-clone-strategy", "The git clone strategy DevSpace uses to checkout git based workspaces. Can be full (default), blobless, treeless or shallow")
 	buildCmd.Flags().BoolVar(&cmd.GitCloneRecursiveSubmodules, "git-clone-recursive-submodules", false, "If true will clone git submodule repositories recursively")
 
 	// TESTING

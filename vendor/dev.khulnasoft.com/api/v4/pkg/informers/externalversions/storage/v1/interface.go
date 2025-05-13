@@ -18,14 +18,14 @@ type Interface interface {
 	ClusterAccesses() ClusterAccessInformer
 	// ClusterRoleTemplates returns a ClusterRoleTemplateInformer.
 	ClusterRoleTemplates() ClusterRoleTemplateInformer
-	// DevPodEnvironmentTemplates returns a DevPodEnvironmentTemplateInformer.
-	DevPodEnvironmentTemplates() DevPodEnvironmentTemplateInformer
-	// DevPodWorkspaceInstances returns a DevPodWorkspaceInstanceInformer.
-	DevPodWorkspaceInstances() DevPodWorkspaceInstanceInformer
-	// DevPodWorkspacePresets returns a DevPodWorkspacePresetInformer.
-	DevPodWorkspacePresets() DevPodWorkspacePresetInformer
-	// DevPodWorkspaceTemplates returns a DevPodWorkspaceTemplateInformer.
-	DevPodWorkspaceTemplates() DevPodWorkspaceTemplateInformer
+	// DevSpaceEnvironmentTemplates returns a DevSpaceEnvironmentTemplateInformer.
+	DevSpaceEnvironmentTemplates() DevSpaceEnvironmentTemplateInformer
+	// DevSpaceWorkspaceInstances returns a DevSpaceWorkspaceInstanceInformer.
+	DevSpaceWorkspaceInstances() DevSpaceWorkspaceInstanceInformer
+	// DevSpaceWorkspacePresets returns a DevSpaceWorkspacePresetInformer.
+	DevSpaceWorkspacePresets() DevSpaceWorkspacePresetInformer
+	// DevSpaceWorkspaceTemplates returns a DevSpaceWorkspaceTemplateInformer.
+	DevSpaceWorkspaceTemplates() DevSpaceWorkspaceTemplateInformer
 	// NetworkPeers returns a NetworkPeerInformer.
 	NetworkPeers() NetworkPeerInformer
 	// Projects returns a ProjectInformer.
@@ -86,24 +86,24 @@ func (v *version) ClusterRoleTemplates() ClusterRoleTemplateInformer {
 	return &clusterRoleTemplateInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// DevPodEnvironmentTemplates returns a DevPodEnvironmentTemplateInformer.
-func (v *version) DevPodEnvironmentTemplates() DevPodEnvironmentTemplateInformer {
-	return &devPodEnvironmentTemplateInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// DevSpaceEnvironmentTemplates returns a DevSpaceEnvironmentTemplateInformer.
+func (v *version) DevSpaceEnvironmentTemplates() DevSpaceEnvironmentTemplateInformer {
+	return &devSpaceEnvironmentTemplateInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// DevPodWorkspaceInstances returns a DevPodWorkspaceInstanceInformer.
-func (v *version) DevPodWorkspaceInstances() DevPodWorkspaceInstanceInformer {
-	return &devPodWorkspaceInstanceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// DevSpaceWorkspaceInstances returns a DevSpaceWorkspaceInstanceInformer.
+func (v *version) DevSpaceWorkspaceInstances() DevSpaceWorkspaceInstanceInformer {
+	return &devSpaceWorkspaceInstanceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
-// DevPodWorkspacePresets returns a DevPodWorkspacePresetInformer.
-func (v *version) DevPodWorkspacePresets() DevPodWorkspacePresetInformer {
-	return &devPodWorkspacePresetInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// DevSpaceWorkspacePresets returns a DevSpaceWorkspacePresetInformer.
+func (v *version) DevSpaceWorkspacePresets() DevSpaceWorkspacePresetInformer {
+	return &devSpaceWorkspacePresetInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// DevPodWorkspaceTemplates returns a DevPodWorkspaceTemplateInformer.
-func (v *version) DevPodWorkspaceTemplates() DevPodWorkspaceTemplateInformer {
-	return &devPodWorkspaceTemplateInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// DevSpaceWorkspaceTemplates returns a DevSpaceWorkspaceTemplateInformer.
+func (v *version) DevSpaceWorkspaceTemplates() DevSpaceWorkspaceTemplateInformer {
+	return &devSpaceWorkspaceTemplateInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
 // NetworkPeers returns a NetworkPeerInformer.

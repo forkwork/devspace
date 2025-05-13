@@ -16,58 +16,58 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// DevPodWorkspacePresetInformer provides access to a shared informer and lister for
-// DevPodWorkspacePresets.
-type DevPodWorkspacePresetInformer interface {
+// DevSpaceWorkspacePresetInformer provides access to a shared informer and lister for
+// DevSpaceWorkspacePresets.
+type DevSpaceWorkspacePresetInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1.DevPodWorkspacePresetLister
+	Lister() v1.DevSpaceWorkspacePresetLister
 }
 
-type devPodWorkspacePresetInformer struct {
+type devSpaceWorkspacePresetInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 }
 
-// NewDevPodWorkspacePresetInformer constructs a new informer for DevPodWorkspacePreset type.
+// NewDevSpaceWorkspacePresetInformer constructs a new informer for DevSpaceWorkspacePreset type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewDevPodWorkspacePresetInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredDevPodWorkspacePresetInformer(client, resyncPeriod, indexers, nil)
+func NewDevSpaceWorkspacePresetInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredDevSpaceWorkspacePresetInformer(client, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredDevPodWorkspacePresetInformer constructs a new informer for DevPodWorkspacePreset type.
+// NewFilteredDevSpaceWorkspacePresetInformer constructs a new informer for DevSpaceWorkspacePreset type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredDevPodWorkspacePresetInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredDevSpaceWorkspacePresetInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.StorageV1().DevPodWorkspacePresets().List(context.TODO(), options)
+				return client.StorageV1().DevSpaceWorkspacePresets().List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.StorageV1().DevPodWorkspacePresets().Watch(context.TODO(), options)
+				return client.StorageV1().DevSpaceWorkspacePresets().Watch(context.TODO(), options)
 			},
 		},
-		&storagev1.DevPodWorkspacePreset{},
+		&storagev1.DevSpaceWorkspacePreset{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *devPodWorkspacePresetInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredDevPodWorkspacePresetInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *devSpaceWorkspacePresetInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredDevSpaceWorkspacePresetInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *devPodWorkspacePresetInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&storagev1.DevPodWorkspacePreset{}, f.defaultInformer)
+func (f *devSpaceWorkspacePresetInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&storagev1.DevSpaceWorkspacePreset{}, f.defaultInformer)
 }
 
-func (f *devPodWorkspacePresetInformer) Lister() v1.DevPodWorkspacePresetLister {
-	return v1.NewDevPodWorkspacePresetLister(f.Informer().GetIndexer())
+func (f *devSpaceWorkspacePresetInformer) Lister() v1.DevSpaceWorkspacePresetLister {
+	return v1.NewDevSpaceWorkspacePresetLister(f.Informer().GetIndexer())
 }

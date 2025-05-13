@@ -3,7 +3,7 @@
 ## Development Setup
 
 1. Clone the repository locally
-2. If you want to change something in DevPod agent code:
+2. If you want to change something in DevSpace agent code:
    1. Exchange the URL in [DefaultAgentDownloadURL](./pkg/agent/agent.go) with a
       custom public repository release you have created.
    2. Build devspace via: `./hack/rebuild.sh`
@@ -62,7 +62,7 @@ to get your provider featured both in the documentation and the UI
 
 ## Deeplinks
 
-DevPod Desktop can handle deep links to perform various actions, like opening or
+DevSpace Desktop can handle deep links to perform various actions, like opening or
 importing workspaces.
 The scheme is:
 
@@ -84,7 +84,7 @@ searchParams: `source` (required), `workspace`, `provider`, `ide`
 
 ### Import Workspace
 
-Import a remote DevPod.Pro workspace into your local client
+Import a remote DevSpace.Pro workspace into your local client
 
 host: `import`
 searchParams: `workspace_id` (required), `workspace_uid` (required),

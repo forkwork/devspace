@@ -60,18 +60,18 @@ var _ = ginkgo.Describe("[integration]: devspace provider ssh test suite", ginkg
 		ginkgo.It("should add provider to devspace", func() {
 			f := framework.NewDefaultFramework(initialDir + "/bin")
 			// ensure we don't have the ssh provider present
-			err := f.DevPodProviderDelete(ctx, "ssh")
+			err := f.DevSpaceProviderDelete(ctx, "ssh")
 			if err != nil {
 				fmt.Println("warning: " + err.Error())
 			}
 
-			err = f.DevPodProviderAdd(ctx, "ssh", "-o", "HOST=localhost")
+			err = f.DevSpaceProviderAdd(ctx, "ssh", "-o", "HOST=localhost")
 			framework.ExpectNoError(err)
 		})
 
 		ginkgo.It("should run devspace up", func(ctx context.Context) {
 			f := framework.NewDefaultFramework(initialDir + "/bin")
-			err := f.DevPodUp(ctx, "tests/integration/testdata/")
+			err := f.DevSpaceUp(ctx, "tests/integration/testdata/")
 			framework.ExpectNoError(err)
 		})
 
@@ -85,7 +85,7 @@ var _ = ginkgo.Describe("[integration]: devspace provider ssh test suite", ginkg
 
 		ginkgo.It("should cleanup devspace workspace", func(ctx context.Context) {
 			f := framework.NewDefaultFramework(initialDir + "/bin")
-			err := f.DevPodWorkspaceDelete(ctx, "testdata")
+			err := f.DevSpaceWorkspaceDelete(ctx, "testdata")
 			framework.ExpectNoError(err)
 		})
 	})

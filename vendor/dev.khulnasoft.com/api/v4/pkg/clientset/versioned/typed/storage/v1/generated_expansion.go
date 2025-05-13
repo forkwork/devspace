@@ -12,13 +12,13 @@ type ClusterAccessExpansion interface{}
 
 type ClusterRoleTemplateExpansion interface{}
 
-type DevPodEnvironmentTemplateExpansion interface{}
+type DevSpaceEnvironmentTemplateExpansion interface{}
 
-type DevPodWorkspaceInstanceExpansion interface{}
+type DevSpaceWorkspaceInstanceExpansion interface{}
 
-type DevPodWorkspacePresetExpansion interface{}
+type DevSpaceWorkspacePresetExpansion interface{}
 
-type DevPodWorkspaceTemplateExpansion interface{}
+type DevSpaceWorkspaceTemplateExpansion interface{}
 
 type NetworkPeerExpansion interface{}
 

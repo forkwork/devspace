@@ -14,7 +14,7 @@ import (
 	"dev.khulnasoft.com/pkg/platform"
 )
 
-const devPodClientPrefix = 0x01
+const devSpaceClientPrefix = 0x01
 
 type LocalClient struct {
 	httpClient *http.Client
@@ -29,7 +29,7 @@ func NewLocalClient(provider string) *LocalClient {
 		if err != nil {
 			return nil, err
 		}
-		_, err = conn.Write([]byte{devPodClientPrefix})
+		_, err = conn.Write([]byte{devSpaceClientPrefix})
 		if err != nil {
 			return nil, err
 		}
@@ -60,7 +60,7 @@ func (c *LocalClient) Status(ctx context.Context, debug bool) (Status, error) {
 	return status, nil
 }
 
-func (c *LocalClient) GetWorkspace(ctx context.Context, uid string) (*managementv1.DevPodWorkspaceInstance, error) {
+func (c *LocalClient) GetWorkspace(ctx context.Context, uid string) (*managementv1.DevSpaceWorkspaceInstance, error) {
 	b, err := c.doRequest(ctx, http.MethodGet, routeGetWorkspace+fmt.Sprintf("?uid=%s", uid), nil)
 	if err != nil {
 		return nil, err
@@ -69,7 +69,7 @@ func (c *LocalClient) GetWorkspace(ctx context.Context, uid string) (*management
 	if len(b) == 0 {
 		return nil, nil
 	}
-	instance := &managementv1.DevPodWorkspaceInstance{}
+	instance := &managementv1.DevSpaceWorkspaceInstance{}
 	err = json.Unmarshal(b, instance)
 	if err != nil {
 		return nil, err
@@ -78,13 +78,13 @@ func (c *LocalClient) GetWorkspace(ctx context.Context, uid string) (*management
 	return instance, nil
 }
 
-func (c *LocalClient) ListWorkspaces(ctx context.Context, ownerFilter platform.OwnerFilter) ([]managementv1.DevPodWorkspaceInstance, error) {
+func (c *LocalClient) ListWorkspaces(ctx context.Context, ownerFilter platform.OwnerFilter) ([]managementv1.DevSpaceWorkspaceInstance, error) {
 	b, err := c.doRequest(ctx, http.MethodGet, routeListWorkspaces+"?owner="+ownerFilter.String(), nil)
 	if err != nil {
 		return nil, err
 	}
 
-	instances := []managementv1.DevPodWorkspaceInstance{}
+	instances := []managementv1.DevSpaceWorkspaceInstance{}
 	err = json.Unmarshal(b, &instances)
 	if err != nil {
 		return nil, err
@@ -93,7 +93,7 @@ func (c *LocalClient) ListWorkspaces(ctx context.Context, ownerFilter platform.O
 	return instances, nil
 }
 
-func (c *LocalClient) CreateWorkspace(ctx context.Context, workspace *managementv1.DevPodWorkspaceInstance) (*managementv1.DevPodWorkspaceInstance, error) {
+func (c *LocalClient) CreateWorkspace(ctx context.Context, workspace *managementv1.DevSpaceWorkspaceInstance) (*managementv1.DevSpaceWorkspaceInstance, error) {
 	body, err := json.Marshal(workspace)
 	if err != nil {
 		return nil, err
@@ -102,7 +102,7 @@ func (c *LocalClient) CreateWorkspace(ctx context.Context, workspace *management
 	if err != nil {
 		return nil, err
 	}
-	newInstance := &managementv1.DevPodWorkspaceInstance{}
+	newInstance := &managementv1.DevSpaceWorkspaceInstance{}
 	err = json.Unmarshal(b, newInstance)
 	if err != nil {
 		return nil, err
@@ -111,7 +111,7 @@ func (c *LocalClient) CreateWorkspace(ctx context.Context, workspace *management
 	return newInstance, nil
 }
 
-func (c *LocalClient) UpdateWorkspace(ctx context.Context, workspace *managementv1.DevPodWorkspaceInstance) (*managementv1.DevPodWorkspaceInstance, error) {
+func (c *LocalClient) UpdateWorkspace(ctx context.Context, workspace *managementv1.DevSpaceWorkspaceInstance) (*managementv1.DevSpaceWorkspaceInstance, error) {
 	body, err := json.Marshal(workspace)
 	if err != nil {
 		return nil, err
@@ -120,7 +120,7 @@ func (c *LocalClient) UpdateWorkspace(ctx context.Context, workspace *management
 	if err != nil {
 		return nil, err
 	}
-	newInstance := &managementv1.DevPodWorkspaceInstance{}
+	newInstance := &managementv1.DevSpaceWorkspaceInstance{}
 	err = json.Unmarshal(b, newInstance)
 	if err != nil {
 		return nil, err

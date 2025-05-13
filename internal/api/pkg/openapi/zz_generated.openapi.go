@@ -161,37 +161,37 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.CostControlGlobalConfig":                    schema_pkg_apis_management_v1_CostControlGlobalConfig(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.CostControlResourcePrice":                   schema_pkg_apis_management_v1_CostControlResourcePrice(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.CostControlSettings":                        schema_pkg_apis_management_v1_CostControlSettings(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodDeleteOptions":                        schema_pkg_apis_management_v1_DevPodDeleteOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodDeleteOptionsList":                    schema_pkg_apis_management_v1_DevPodDeleteOptionsList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplate":                  schema_pkg_apis_management_v1_DevPodEnvironmentTemplate(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplateList":              schema_pkg_apis_management_v1_DevPodEnvironmentTemplateList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplateSpec":              schema_pkg_apis_management_v1_DevPodEnvironmentTemplateSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplateStatus":            schema_pkg_apis_management_v1_DevPodEnvironmentTemplateStatus(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodSshOptions":                           schema_pkg_apis_management_v1_DevPodSshOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodSshOptionsList":                       schema_pkg_apis_management_v1_DevPodSshOptionsList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStatusOptions":                        schema_pkg_apis_management_v1_DevPodStatusOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStatusOptionsList":                    schema_pkg_apis_management_v1_DevPodStatusOptionsList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStopOptions":                          schema_pkg_apis_management_v1_DevPodStopOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStopOptionsList":                      schema_pkg_apis_management_v1_DevPodStopOptionsList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodUpOptions":                            schema_pkg_apis_management_v1_DevPodUpOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodUpOptionsList":                        schema_pkg_apis_management_v1_DevPodUpOptionsList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstance":                    schema_pkg_apis_management_v1_DevPodWorkspaceInstance(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceList":                schema_pkg_apis_management_v1_DevPodWorkspaceInstanceList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceSpec":                schema_pkg_apis_management_v1_DevPodWorkspaceInstanceSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceState":               schema_pkg_apis_management_v1_DevPodWorkspaceInstanceState(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceStateList":           schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStateList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceStatus":              schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStatus(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceTroubleshoot":        schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshoot(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceTroubleshootList":    schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshootList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePreset":                      schema_pkg_apis_management_v1_DevPodWorkspacePreset(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetList":                  schema_pkg_apis_management_v1_DevPodWorkspacePresetList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetSource":                schema_pkg_apis_management_v1_DevPodWorkspacePresetSource(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetSpec":                  schema_pkg_apis_management_v1_DevPodWorkspacePresetSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetStatus":                schema_pkg_apis_management_v1_DevPodWorkspacePresetStatus(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplate":                    schema_pkg_apis_management_v1_DevPodWorkspaceTemplate(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplateList":                schema_pkg_apis_management_v1_DevPodWorkspaceTemplateList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplateSpec":                schema_pkg_apis_management_v1_DevPodWorkspaceTemplateSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplateStatus":              schema_pkg_apis_management_v1_DevPodWorkspaceTemplateStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceDeleteOptions":                        schema_pkg_apis_management_v1_DevSpaceDeleteOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceDeleteOptionsList":                    schema_pkg_apis_management_v1_DevSpaceDeleteOptionsList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplate":                  schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplate(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplateList":              schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplateList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplateSpec":              schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplateSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplateStatus":            schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplateStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceSshOptions":                           schema_pkg_apis_management_v1_DevSpaceSshOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceSshOptionsList":                       schema_pkg_apis_management_v1_DevSpaceSshOptionsList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStatusOptions":                        schema_pkg_apis_management_v1_DevSpaceStatusOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStatusOptionsList":                    schema_pkg_apis_management_v1_DevSpaceStatusOptionsList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStopOptions":                          schema_pkg_apis_management_v1_DevSpaceStopOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStopOptionsList":                      schema_pkg_apis_management_v1_DevSpaceStopOptionsList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceUpOptions":                            schema_pkg_apis_management_v1_DevSpaceUpOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceUpOptionsList":                        schema_pkg_apis_management_v1_DevSpaceUpOptionsList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstance":                    schema_pkg_apis_management_v1_DevSpaceWorkspaceInstance(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceList":                schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceSpec":                schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceState":               schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceState(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceStateList":           schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceStateList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceStatus":              schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceTroubleshoot":        schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceTroubleshoot(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceTroubleshootList":    schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceTroubleshootList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePreset":                      schema_pkg_apis_management_v1_DevSpaceWorkspacePreset(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetList":                  schema_pkg_apis_management_v1_DevSpaceWorkspacePresetList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetSource":                schema_pkg_apis_management_v1_DevSpaceWorkspacePresetSource(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetSpec":                  schema_pkg_apis_management_v1_DevSpaceWorkspacePresetSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetStatus":                schema_pkg_apis_management_v1_DevSpaceWorkspacePresetStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplate":                    schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplate(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplateList":                schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplateList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplateSpec":                schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplateSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplateStatus":              schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplateStatus(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DirectClusterEndpointToken":                 schema_pkg_apis_management_v1_DirectClusterEndpointToken(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DirectClusterEndpointTokenList":             schema_pkg_apis_management_v1_DirectClusterEndpointTokenList(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DirectClusterEndpointTokenSpec":             schema_pkg_apis_management_v1_DirectClusterEndpointTokenSpec(ref),
@@ -427,38 +427,38 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ClusterSpec":                                   schema_pkg_apis_storage_v1_ClusterSpec(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ClusterStatus":                                 schema_pkg_apis_storage_v1_ClusterStatus(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.CredentialForwarding":                          schema_pkg_apis_storage_v1_CredentialForwarding(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodCommandDeleteOptions":                    schema_pkg_apis_storage_v1_DevPodCommandDeleteOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodCommandStatusOptions":                    schema_pkg_apis_storage_v1_DevPodCommandStatusOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodCommandStopOptions":                      schema_pkg_apis_storage_v1_DevPodCommandStopOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodCommandUpOptions":                        schema_pkg_apis_storage_v1_DevPodCommandUpOptions(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplate":                     schema_pkg_apis_storage_v1_DevPodEnvironmentTemplate(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateDefinition":           schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateDefinition(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateList":                 schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateSpec":                 schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateStatus":               schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateStatus(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateVersion":              schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateVersion(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProjectSpec":                             schema_pkg_apis_storage_v1_DevPodProjectSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOption":                          schema_pkg_apis_storage_v1_DevPodProviderOption(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOptionFrom":                      schema_pkg_apis_storage_v1_DevPodProviderOptionFrom(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderSource":                          schema_pkg_apis_storage_v1_DevPodProviderSource(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstance":                       schema_pkg_apis_storage_v1_DevPodWorkspaceInstance(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceList":                   schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceSpec":                   schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceStatus":                 schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceStatus(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceTemplateDefinition":     schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceTemplateDefinition(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePreset":                         schema_pkg_apis_storage_v1_DevPodWorkspacePreset(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetList":                     schema_pkg_apis_storage_v1_DevPodWorkspacePresetList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSource":                   schema_pkg_apis_storage_v1_DevPodWorkspacePresetSource(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSpec":                     schema_pkg_apis_storage_v1_DevPodWorkspacePresetSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetStatus":                   schema_pkg_apis_storage_v1_DevPodWorkspacePresetStatus(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetVersion":                  schema_pkg_apis_storage_v1_DevPodWorkspacePresetVersion(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceProvider":                       schema_pkg_apis_storage_v1_DevPodWorkspaceProvider(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplate":                       schema_pkg_apis_storage_v1_DevPodWorkspaceTemplate(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition":             schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateDefinition(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateList":                   schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateList(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateSpec":                   schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateSpec(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateStatus":                 schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateStatus(ref),
-		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateVersion":                schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateVersion(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceCommandDeleteOptions":                    schema_pkg_apis_storage_v1_DevSpaceCommandDeleteOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceCommandStatusOptions":                    schema_pkg_apis_storage_v1_DevSpaceCommandStatusOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceCommandStopOptions":                      schema_pkg_apis_storage_v1_DevSpaceCommandStopOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceCommandUpOptions":                        schema_pkg_apis_storage_v1_DevSpaceCommandUpOptions(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplate":                     schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplate(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateDefinition":           schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateDefinition(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateList":                 schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateSpec":                 schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateStatus":               schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateVersion":              schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateVersion(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProjectSpec":                             schema_pkg_apis_storage_v1_DevSpaceProjectSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOption":                          schema_pkg_apis_storage_v1_DevSpaceProviderOption(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOptionFrom":                      schema_pkg_apis_storage_v1_DevSpaceProviderOptionFrom(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderSource":                          schema_pkg_apis_storage_v1_DevSpaceProviderSource(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstance":                       schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstance(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceList":                   schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceSpec":                   schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceStatus":                 schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceTemplateDefinition":     schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceTemplateDefinition(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePreset":                         schema_pkg_apis_storage_v1_DevSpaceWorkspacePreset(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetList":                     schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSource":                   schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetSource(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSpec":                     schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetStatus":                   schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetVersion":                  schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetVersion(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceProvider":                       schema_pkg_apis_storage_v1_DevSpaceWorkspaceProvider(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplate":                       schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplate(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition":             schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateDefinition(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateList":                   schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateList(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateSpec":                   schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateSpec(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateStatus":                 schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateStatus(ref),
+		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateVersion":                schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateVersion(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DockerCredentialForwarding":                    schema_pkg_apis_storage_v1_DockerCredentialForwarding(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EntityInfo":                                    schema_pkg_apis_storage_v1_EntityInfo(ref),
 		"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef":                                schema_pkg_apis_storage_v1_EnvironmentRef(ref),
@@ -8473,9 +8473,9 @@ func schema_pkg_apis_management_v1_ConfigStatus(ref common.ReferenceCallback) co
 							Format:      "",
 						},
 					},
-					"devPodSubDomain": {
+					"devSpaceSubDomain": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DevPodSubDomain holds a subdomain in the following form *.workspace.my-domain.com",
+							Description: "DevSpaceSubDomain holds a subdomain in the following form *.workspace.my-domain.com",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -8952,7 +8952,7 @@ func schema_pkg_apis_management_v1_CostControlSettings(ref common.ReferenceCallb
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodDeleteOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceDeleteOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -8985,7 +8985,7 @@ func schema_pkg_apis_management_v1_DevPodDeleteOptions(ref common.ReferenceCallb
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodDeleteOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceDeleteOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9018,7 +9018,7 @@ func schema_pkg_apis_management_v1_DevPodDeleteOptionsList(ref common.ReferenceC
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodDeleteOptions"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceDeleteOptions"),
 									},
 								},
 							},
@@ -9029,15 +9029,15 @@ func schema_pkg_apis_management_v1_DevPodDeleteOptionsList(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodDeleteOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceDeleteOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodEnvironmentTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodEnvironmentTemplate holds the DevPodEnvironmentTemplate information",
+				Description: "DevSpaceEnvironmentTemplate holds the DevSpaceEnvironmentTemplate information",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -9063,24 +9063,24 @@ func schema_pkg_apis_management_v1_DevPodEnvironmentTemplate(ref common.Referenc
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplateSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplateSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplateStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplateStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9113,7 +9113,7 @@ func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateList(ref common.Refe
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplate"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplate"),
 									},
 								},
 							},
@@ -9124,15 +9124,15 @@ func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateList(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodEnvironmentTemplateSpec holds the specification",
+				Description: "DevSpaceEnvironmentTemplateSpec holds the specification",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"displayName": {
@@ -9157,7 +9157,7 @@ func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateSpec(ref common.Refe
 					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Access to the DevPod machine instance object itself",
+							Description: "Access to the DevSpace machine instance object itself",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -9171,8 +9171,8 @@ func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateSpec(ref common.Refe
 					},
 					"template": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Template is the inline template to use for DevPod environments",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateDefinition"),
+							Description: "Template is the inline template to use for DevSpace environments",
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateDefinition"),
 						},
 					},
 					"versions": {
@@ -9183,7 +9183,7 @@ func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateSpec(ref common.Refe
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateVersion"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateVersion"),
 									},
 								},
 							},
@@ -9193,22 +9193,22 @@ func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateSpec(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodEnvironmentTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceEnvironmentTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodEnvironmentTemplateStatus holds the status",
+				Description: "DevSpaceEnvironmentTemplateStatus holds the status",
 				Type:        []string{"object"},
 			},
 		},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodSshOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceSshOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9241,7 +9241,7 @@ func schema_pkg_apis_management_v1_DevPodSshOptions(ref common.ReferenceCallback
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodSshOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceSshOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9274,7 +9274,7 @@ func schema_pkg_apis_management_v1_DevPodSshOptionsList(ref common.ReferenceCall
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodSshOptions"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceSshOptions"),
 									},
 								},
 							},
@@ -9285,11 +9285,11 @@ func schema_pkg_apis_management_v1_DevPodSshOptionsList(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodSshOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceSshOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodStatusOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceStatusOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9322,7 +9322,7 @@ func schema_pkg_apis_management_v1_DevPodStatusOptions(ref common.ReferenceCallb
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodStatusOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceStatusOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9355,7 +9355,7 @@ func schema_pkg_apis_management_v1_DevPodStatusOptionsList(ref common.ReferenceC
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStatusOptions"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStatusOptions"),
 									},
 								},
 							},
@@ -9366,11 +9366,11 @@ func schema_pkg_apis_management_v1_DevPodStatusOptionsList(ref common.ReferenceC
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStatusOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStatusOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodStopOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceStopOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9403,7 +9403,7 @@ func schema_pkg_apis_management_v1_DevPodStopOptions(ref common.ReferenceCallbac
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodStopOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceStopOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9436,7 +9436,7 @@ func schema_pkg_apis_management_v1_DevPodStopOptionsList(ref common.ReferenceCal
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStopOptions"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStopOptions"),
 									},
 								},
 							},
@@ -9447,11 +9447,11 @@ func schema_pkg_apis_management_v1_DevPodStopOptionsList(ref common.ReferenceCal
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodStopOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceStopOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodUpOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceUpOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9505,7 +9505,7 @@ func schema_pkg_apis_management_v1_DevPodUpOptions(ref common.ReferenceCallback)
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodUpOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceUpOptionsList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9538,7 +9538,7 @@ func schema_pkg_apis_management_v1_DevPodUpOptionsList(ref common.ReferenceCallb
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodUpOptions"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceUpOptions"),
 									},
 								},
 							},
@@ -9549,15 +9549,15 @@ func schema_pkg_apis_management_v1_DevPodUpOptionsList(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodUpOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceUpOptions", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstance(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstance(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceInstance holds the DevPodWorkspaceInstance information",
+				Description: "DevSpaceWorkspaceInstance holds the DevSpaceWorkspaceInstance information",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -9583,24 +9583,24 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstance(ref common.ReferenceC
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9633,7 +9633,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceList(ref common.Refere
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstance"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstance"),
 									},
 								},
 							},
@@ -9644,15 +9644,15 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceList(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstance", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstance", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceInstanceSpec holds the specification",
+				Description: "DevSpaceWorkspaceInstanceSpec holds the specification",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"displayName": {
@@ -9664,7 +9664,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceSpec(ref common.Refere
 					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Description describes a DevPod machine instance",
+							Description: "Description describes a DevSpace machine instance",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -9677,26 +9677,26 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceSpec(ref common.Refere
 					},
 					"presetRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "PresetRef holds the DevPodWorkspacePreset template reference",
+							Description: "PresetRef holds the DevSpaceWorkspacePreset template reference",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.PresetRef"),
 						},
 					},
 					"templateRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "TemplateRef holds the DevPod machine template reference",
+							Description: "TemplateRef holds the DevSpace machine template reference",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"),
 						},
 					},
 					"environmentRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "EnvironmentRef is the reference to DevPodEnvironmentTemplate that should be used",
+							Description: "EnvironmentRef is the reference to DevSpaceEnvironmentTemplate that should be used",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef"),
 						},
 					},
 					"template": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Template is the inline template to use for DevPod machine creation. This is mutually exclusive with templateRef.",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"),
+							Description: "Template is the inline template to use for DevSpace machine creation. This is mutually exclusive with templateRef.",
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"),
 						},
 					},
 					"runnerRef": {
@@ -9715,7 +9715,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceSpec(ref common.Refere
 					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Access to the DevPod machine instance object itself",
+							Description: "Access to the DevSpace machine instance object itself",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -9738,11 +9738,11 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.PresetRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RunnerRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.PresetRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RunnerRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceState(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceState(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9783,7 +9783,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceState(ref common.Refer
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceStateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9816,7 +9816,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStateList(ref common.R
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceState"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceState"),
 									},
 								},
 							},
@@ -9827,15 +9827,15 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStateList(ref common.R
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceState", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceState", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceInstanceStatus holds the status",
+				Description: "DevSpaceWorkspaceInstanceStatus holds the status",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"lastWorkspaceStatus": {
@@ -9847,7 +9847,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStatus(ref common.Refe
 					},
 					"phase": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Phase describes the current phase the DevPod machine instance is in",
+							Description: "Phase describes the current phase the DevSpace machine instance is in",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -9861,14 +9861,14 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStatus(ref common.Refe
 					},
 					"message": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Message describes the reason in human-readable form why the DevPod machine is in the current phase",
+							Description: "Message describes the reason in human-readable form why the DevSpace machine is in the current phase",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 					"conditions": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Conditions holds several conditions the DevPod machine might be in",
+							Description: "Conditions holds several conditions the DevSpace machine might be in",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -9883,7 +9883,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStatus(ref common.Refe
 					"instance": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Instance is the template rendered with all the parameters",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"),
 						},
 					},
 					"ignoreReconciliation": {
@@ -9909,11 +9909,11 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceStatus(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/v4/pkg/apis/loft/cluster/v1.SleepModeConfig", "dev.khulnasoft.com/agentapi/v4/pkg/apis/loft/storage/v1.Condition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ClusterRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"},
+			"dev.khulnasoft.com/agentapi/v4/pkg/apis/loft/cluster/v1.SleepModeConfig", "dev.khulnasoft.com/agentapi/v4/pkg/apis/loft/storage/v1.Condition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ClusterRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshoot(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceTroubleshoot(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -9949,13 +9949,13 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshoot(ref commo
 					"workspace": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Workspace holds the workspace's instance object data",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstance"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstance"),
 						},
 					},
 					"template": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Template holds the workspace instance's template used to create it. This is the raw template, not the rendered one.",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplate"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplate"),
 						},
 					},
 					"pods": {
@@ -10005,11 +10005,11 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshoot(ref commo
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstance", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplate", "k8s.io/api/core/v1.PersistentVolumeClaim", "k8s.io/api/core/v1.Pod", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstance", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplate", "k8s.io/api/core/v1.PersistentVolumeClaim", "k8s.io/api/core/v1.Pod", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshootList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceInstanceTroubleshootList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -10042,7 +10042,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshootList(ref c
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceTroubleshoot"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceTroubleshoot"),
 									},
 								},
 							},
@@ -10053,15 +10053,15 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceInstanceTroubleshootList(ref c
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceInstanceTroubleshoot", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceInstanceTroubleshoot", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspacePreset(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspacePreset(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspacePreset",
+				Description: "DevSpaceWorkspacePreset",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -10087,24 +10087,24 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePreset(ref common.ReferenceCal
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePresetStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePresetStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspacePresetList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspacePresetList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -10137,7 +10137,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePresetList(ref common.Referenc
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePreset"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePreset"),
 									},
 								},
 							},
@@ -10148,15 +10148,15 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePresetList(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePreset", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePreset", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspacePresetSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspacePresetSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspacePresetSource",
+				Description: "DevSpaceWorkspacePresetSource",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"git": {
@@ -10179,11 +10179,11 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePresetSource(ref common.Refere
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspacePresetSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspacePresetSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspacePresetSpec holds the specification",
+				Description: "DevSpaceWorkspacePresetSpec holds the specification",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"displayName": {
@@ -10196,18 +10196,18 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePresetSpec(ref common.Referenc
 					"source": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Source stores inline path of project source",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSource"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSource"),
 						},
 					},
 					"infrastructureRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "InfrastructureRef stores reference to DevPodWorkspaceTemplate to use",
+							Description: "InfrastructureRef stores reference to DevSpaceWorkspaceTemplate to use",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"),
 						},
 					},
 					"environmentRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "EnvironmentRef stores reference to DevPodEnvironmentTemplate",
+							Description: "EnvironmentRef stores reference to DevSpaceEnvironmentTemplate",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef"),
 						},
 					},
@@ -10226,7 +10226,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePresetSpec(ref common.Referenc
 					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Access to the DevPod machine instance object itself",
+							Description: "Access to the DevSpace machine instance object itself",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -10246,7 +10246,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePresetSpec(ref common.Referenc
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetVersion"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetVersion"),
 									},
 								},
 							},
@@ -10257,26 +10257,26 @@ func schema_pkg_apis_management_v1_DevPodWorkspacePresetSpec(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSource", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSource", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspacePresetStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspacePresetStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspacePresetStatus holds the status",
+				Description: "DevSpaceWorkspacePresetStatus holds the status",
 				Type:        []string{"object"},
 			},
 		},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceTemplate holds the information",
+				Description: "DevSpaceWorkspaceTemplate holds the information",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -10302,24 +10302,24 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceTemplate(ref common.ReferenceC
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplateSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplateSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplateStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplateStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -10352,7 +10352,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateList(ref common.Refere
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplate"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplate"),
 									},
 								},
 							},
@@ -10363,15 +10363,15 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateList(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceTemplateSpec holds the specification",
+				Description: "DevSpaceWorkspaceTemplateSpec holds the specification",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"displayName": {
@@ -10410,9 +10410,9 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateSpec(ref common.Refere
 					},
 					"template": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Template holds the DevPod workspace template",
+							Description: "Template holds the DevSpace workspace template",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"),
 						},
 					},
 					"versions": {
@@ -10423,7 +10423,7 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateSpec(ref common.Refere
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateVersion"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateVersion"),
 									},
 								},
 							},
@@ -10447,15 +10447,15 @@ func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateSpec(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AppParameter", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AppParameter", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_management_v1_DevPodWorkspaceTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_management_v1_DevSpaceWorkspaceTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceTemplateStatus holds the status",
+				Description: "DevSpaceWorkspaceTemplateStatus holds the status",
 				Type:        []string{"object"},
 			},
 		},
@@ -13787,7 +13787,7 @@ func schema_pkg_apis_management_v1_ProjectSpec(ref common.ReferenceCallback) com
 					},
 					"allowedRunners": {
 						SchemaProps: spec.SchemaProps{
-							Description: "AllowedRunners are target runners that are allowed to target with DevPod environments.",
+							Description: "AllowedRunners are target runners that are allowed to target with DevSpace environments.",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -13879,17 +13879,17 @@ func schema_pkg_apis_management_v1_ProjectSpec(ref common.ReferenceCallback) com
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RancherIntegrationSpec"),
 						},
 					},
-					"devPod": {
+					"devSpace": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DevPod holds DevPod specific configuration for project",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProjectSpec"),
+							Description: "DevSpace holds DevSpace specific configuration for project",
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProjectSpec"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedCluster", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedRunner", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ArgoIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProjectSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Member", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.NamespacePattern", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Quotas", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RancherIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequirePreset", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequireTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.VaultIntegrationSpec"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedCluster", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedRunner", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ArgoIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProjectSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Member", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.NamespacePattern", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Quotas", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RancherIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequirePreset", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequireTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.VaultIntegrationSpec"},
 	}
 }
 
@@ -13996,58 +13996,58 @@ func schema_pkg_apis_management_v1_ProjectTemplates(ref common.ReferenceCallback
 							},
 						},
 					},
-					"defaultDevPodWorkspaceTemplate": {
+					"defaultDevSpaceWorkspaceTemplate": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DefaultDevPodWorkspaceTemplate",
+							Description: "DefaultDevSpaceWorkspaceTemplate",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"devPodWorkspaceTemplates": {
+					"devSpaceWorkspaceTemplates": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DevPodWorkspaceTemplates holds all the allowed space templates",
+							Description: "DevSpaceWorkspaceTemplates holds all the allowed space templates",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplate"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplate"),
 									},
 								},
 							},
 						},
 					},
-					"devPodEnvironmentTemplates": {
+					"devSpaceEnvironmentTemplates": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DevPodEnvironmentTemplates holds all the allowed environment templates",
+							Description: "DevSpaceEnvironmentTemplates holds all the allowed environment templates",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplate"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplate"),
 									},
 								},
 							},
 						},
 					},
-					"devPodWorkspacePresets": {
+					"devSpaceWorkspacePresets": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DevPodWorkspacePresets holds all the allowed workspace presets",
+							Description: "DevSpaceWorkspacePresets holds all the allowed workspace presets",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePreset"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePreset"),
 									},
 								},
 							},
 						},
 					},
-					"defaultDevPodEnvironmentTemplate": {
+					"defaultDevSpaceEnvironmentTemplate": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DefaultDevPodEnvironmentTemplate",
+							Description: "DefaultDevSpaceEnvironmentTemplate",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -14056,7 +14056,7 @@ func schema_pkg_apis_management_v1_ProjectTemplates(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodEnvironmentTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspacePreset", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevPodWorkspaceTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.SpaceTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.VirtualClusterTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceEnvironmentTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspacePreset", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.DevSpaceWorkspaceTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.SpaceTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/management/v1.VirtualClusterTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
@@ -15014,7 +15014,7 @@ func schema_pkg_apis_management_v1_RunnerSpec(ref common.ReferenceCallback) comm
 					},
 					"unusable": {
 						SchemaProps: spec.SchemaProps{
-							Description: "If unusable is true, no DevPod workspaces can be scheduled on this runner.",
+							Description: "If unusable is true, no DevSpace workspaces can be scheduled on this runner.",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
@@ -20245,7 +20245,7 @@ func schema_pkg_apis_storage_v1_AllowedTemplate(ref common.ReferenceCallback) co
 				Properties: map[string]spec.Schema{
 					"kind": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind of the template that is allowed. Currently only supports DevPodWorkspaceTemplate, VirtualClusterTemplate & SpaceTemplate",
+							Description: "Kind of the template that is allowed. Currently only supports DevSpaceWorkspaceTemplate, VirtualClusterTemplate & SpaceTemplate",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -21996,7 +21996,7 @@ func schema_pkg_apis_storage_v1_CredentialForwarding(ref common.ReferenceCallbac
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodCommandDeleteOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceCommandDeleteOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22026,7 +22026,7 @@ func schema_pkg_apis_storage_v1_DevPodCommandDeleteOptions(ref common.ReferenceC
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodCommandStatusOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceCommandStatusOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22044,7 +22044,7 @@ func schema_pkg_apis_storage_v1_DevPodCommandStatusOptions(ref common.ReferenceC
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodCommandStopOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceCommandStopOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22054,7 +22054,7 @@ func schema_pkg_apis_storage_v1_DevPodCommandStopOptions(ref common.ReferenceCal
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodCommandUpOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceCommandUpOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22197,11 +22197,11 @@ func schema_pkg_apis_storage_v1_DevPodCommandUpOptions(ref common.ReferenceCallb
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceEnvironmentSource",
+				Description: "DevSpaceWorkspaceEnvironmentSource",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -22227,24 +22227,24 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplate(ref common.ReferenceCa
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateDefinition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateDefinition(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22271,11 +22271,11 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateDefinition(ref common.R
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodEnvironmentTemplateList contains a list of DevPodEnvironmentTemplate objects",
+				Description: "DevSpaceEnvironmentTemplateList contains a list of DevSpaceEnvironmentTemplate objects",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -22305,7 +22305,7 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateList(ref common.Referen
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplate"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplate"),
 									},
 								},
 							},
@@ -22316,11 +22316,11 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateList(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22348,7 +22348,7 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateSpec(ref common.Referen
 					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Access to the DevPod machine instance object itself",
+							Description: "Access to the DevSpace machine instance object itself",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -22362,8 +22362,8 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateSpec(ref common.Referen
 					},
 					"template": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Template is the inline template to use for DevPod environments",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateDefinition"),
+							Description: "Template is the inline template to use for DevSpace environments",
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateDefinition"),
 						},
 					},
 					"versions": {
@@ -22374,7 +22374,7 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateSpec(ref common.Referen
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateVersion"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateVersion"),
 									},
 								},
 							},
@@ -22384,22 +22384,22 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateSpec(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodEnvironmentTemplateStatus holds the status",
+				Description: "DevSpaceEnvironmentTemplateStatus holds the status",
 				Type:        []string{"object"},
 			},
 		},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceEnvironmentTemplateVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22409,7 +22409,7 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateVersion(ref common.Refe
 						SchemaProps: spec.SchemaProps{
 							Description: "Template holds the environment template definition",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateDefinition"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateDefinition"),
 						},
 					},
 					"version": {
@@ -22423,11 +22423,11 @@ func schema_pkg_apis_storage_v1_DevPodEnvironmentTemplateVersion(ref common.Refe
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodEnvironmentTemplateDefinition"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceEnvironmentTemplateDefinition"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodProjectSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceProjectSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22460,7 +22460,7 @@ func schema_pkg_apis_storage_v1_DevPodProjectSpec(ref common.ReferenceCallback) 
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodProviderOption(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceProviderOption(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22476,18 +22476,18 @@ func schema_pkg_apis_storage_v1_DevPodProviderOption(ref common.ReferenceCallbac
 					"valueFrom": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ValueFrom specifies a secret where this value should be taken from.",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOptionFrom"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOptionFrom"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOptionFrom"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOptionFrom"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodProviderOptionFrom(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceProviderOptionFrom(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22513,7 +22513,7 @@ func schema_pkg_apis_storage_v1_DevPodProviderOptionFrom(ref common.ReferenceCal
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodProviderSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceProviderSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22546,11 +22546,11 @@ func schema_pkg_apis_storage_v1_DevPodProviderSource(ref common.ReferenceCallbac
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceInstance(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstance(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceInstance",
+				Description: "DevSpaceWorkspaceInstance",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -22576,28 +22576,28 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstance(ref common.ReferenceCall
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceInstanceList contains a list of DevPodWorkspaceInstance objects",
+				Description: "DevSpaceWorkspaceInstanceList contains a list of DevSpaceWorkspaceInstance objects",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -22627,7 +22627,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceList(ref common.Reference
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstance"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstance"),
 									},
 								},
 							},
@@ -22638,11 +22638,11 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceList(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstance", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstance", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22657,7 +22657,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceSpec(ref common.Reference
 					},
 					"description": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Description describes a DevPod machine instance",
+							Description: "Description describes a DevSpace machine instance",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -22670,26 +22670,26 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceSpec(ref common.Reference
 					},
 					"presetRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "PresetRef holds the DevPodWorkspacePreset template reference",
+							Description: "PresetRef holds the DevSpaceWorkspacePreset template reference",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.PresetRef"),
 						},
 					},
 					"templateRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "TemplateRef holds the DevPod machine template reference",
+							Description: "TemplateRef holds the DevSpace machine template reference",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"),
 						},
 					},
 					"environmentRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "EnvironmentRef is the reference to DevPodEnvironmentTemplate that should be used",
+							Description: "EnvironmentRef is the reference to DevSpaceEnvironmentTemplate that should be used",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef"),
 						},
 					},
 					"template": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Template is the inline template to use for DevPod machine creation. This is mutually exclusive with templateRef.",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"),
+							Description: "Template is the inline template to use for DevSpace machine creation. This is mutually exclusive with templateRef.",
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"),
 						},
 					},
 					"runnerRef": {
@@ -22708,7 +22708,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceSpec(ref common.Reference
 					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Access to the DevPod machine instance object itself",
+							Description: "Access to the DevSpace machine instance object itself",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -22731,11 +22731,11 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.PresetRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RunnerRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.PresetRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RunnerRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22750,7 +22750,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceStatus(ref common.Referen
 					},
 					"phase": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Phase describes the current phase the DevPod machine instance is in",
+							Description: "Phase describes the current phase the DevSpace machine instance is in",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -22764,14 +22764,14 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceStatus(ref common.Referen
 					},
 					"message": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Message describes the reason in human-readable form why the DevPod machine is in the current phase",
+							Description: "Message describes the reason in human-readable form why the DevSpace machine is in the current phase",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 					"conditions": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Conditions holds several conditions the DevPod machine might be in",
+							Description: "Conditions holds several conditions the DevSpace machine might be in",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -22786,7 +22786,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceStatus(ref common.Referen
 					"instance": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Instance is the template rendered with all the parameters",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"),
 						},
 					},
 					"ignoreReconciliation": {
@@ -22806,11 +22806,11 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceStatus(ref common.Referen
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/v4/pkg/apis/loft/storage/v1.Condition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ClusterRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"},
+			"dev.khulnasoft.com/agentapi/v4/pkg/apis/loft/storage/v1.Condition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ClusterRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceTemplateDefinition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceInstanceTemplateDefinition(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22831,11 +22831,11 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceInstanceTemplateDefinition(ref co
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspacePreset(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspacePreset(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspacePreset",
+				Description: "DevSpaceWorkspacePreset",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -22861,28 +22861,28 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePreset(ref common.ReferenceCallba
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspacePresetList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspacePresetList contains a list of DevPodWorkspacePreset objects",
+				Description: "DevSpaceWorkspacePresetList contains a list of DevSpaceWorkspacePreset objects",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -22912,7 +22912,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetList(ref common.ReferenceCa
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePreset"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePreset"),
 									},
 								},
 							},
@@ -22923,11 +22923,11 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetList(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePreset", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePreset", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspacePresetSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22953,7 +22953,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetSource(ref common.Reference
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspacePresetSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -22969,18 +22969,18 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetSpec(ref common.ReferenceCa
 					"source": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Source stores inline path of project source",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSource"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSource"),
 						},
 					},
 					"infrastructureRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "InfrastructureRef stores reference to DevPodWorkspaceTemplate to use",
+							Description: "InfrastructureRef stores reference to DevSpaceWorkspaceTemplate to use",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"),
 						},
 					},
 					"environmentRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "EnvironmentRef stores reference to DevPodEnvironmentTemplate",
+							Description: "EnvironmentRef stores reference to DevSpaceEnvironmentTemplate",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef"),
 						},
 					},
@@ -22999,7 +22999,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetSpec(ref common.ReferenceCa
 					},
 					"access": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Access to the DevPod machine instance object itself",
+							Description: "Access to the DevSpace machine instance object itself",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -23019,7 +23019,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetSpec(ref common.ReferenceCa
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetVersion"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetVersion"),
 									},
 								},
 							},
@@ -23030,22 +23030,22 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetSpec(ref common.ReferenceCa
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSource", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSource", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspacePresetStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspacePresetStatus holds the status",
+				Description: "DevSpaceWorkspacePresetStatus holds the status",
 				Type:        []string{"object"},
 			},
 		},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspacePresetVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspacePresetVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -23061,18 +23061,18 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetVersion(ref common.Referenc
 					"source": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Source stores inline path of project source",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSource"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSource"),
 						},
 					},
 					"infrastructureRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "InfrastructureRef stores reference to DevPodWorkspaceTemplate to use",
+							Description: "InfrastructureRef stores reference to DevSpaceWorkspaceTemplate to use",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"),
 						},
 					},
 					"environmentRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "EnvironmentRef stores reference to DevPodEnvironmentTemplate",
+							Description: "EnvironmentRef stores reference to DevSpaceEnvironmentTemplate",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef"),
 						},
 					},
@@ -23087,11 +23087,11 @@ func schema_pkg_apis_storage_v1_DevPodWorkspacePresetVersion(ref common.Referenc
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspacePresetSource", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspacePresetSource", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.EnvironmentRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -23114,7 +23114,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceProvider(ref common.ReferenceCall
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOption"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOption"),
 									},
 								},
 							},
@@ -23129,7 +23129,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceProvider(ref common.ReferenceCall
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOption"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOption"),
 									},
 								},
 							},
@@ -23140,15 +23140,15 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceProvider(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOption"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOption"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplate(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceTemplate holds the DevPodWorkspaceTemplate information",
+				Description: "DevSpaceWorkspaceTemplate holds the DevSpaceWorkspaceTemplate information",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -23174,24 +23174,24 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplate(ref common.ReferenceCall
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateSpec"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateStatus"),
+							Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateDefinition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateDefinition(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -23199,32 +23199,32 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateDefinition(ref common.Ref
 				Properties: map[string]spec.Schema{
 					"provider": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Provider holds the DevPod provider configuration",
+							Description: "Provider holds the DevSpace provider configuration",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceProvider"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceProvider"),
 						},
 					},
 					"spaceTemplateRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "SpaceTemplateRef is a reference to the space that should get created for this DevPod. If this is specified, the kubernetes provider will be selected automatically.",
+							Description: "SpaceTemplateRef is a reference to the space that should get created for this DevSpace. If this is specified, the kubernetes provider will be selected automatically.",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"),
 						},
 					},
 					"spaceTemplate": {
 						SchemaProps: spec.SchemaProps{
-							Description: "SpaceTemplate is the inline template for a space that should get created for this DevPod. If this is specified, the kubernetes provider will be selected automatically.",
+							Description: "SpaceTemplate is the inline template for a space that should get created for this DevSpace. If this is specified, the kubernetes provider will be selected automatically.",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.SpaceTemplateDefinition"),
 						},
 					},
 					"virtualClusterTemplateRef": {
 						SchemaProps: spec.SchemaProps{
-							Description: "VirtualClusterTemplateRef is a reference to the virtual cluster that should get created for this DevPod. If this is specified, the kubernetes provider will be selected automatically.",
+							Description: "VirtualClusterTemplateRef is a reference to the virtual cluster that should get created for this DevSpace. If this is specified, the kubernetes provider will be selected automatically.",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef"),
 						},
 					},
 					"virtualClusterTemplate": {
 						SchemaProps: spec.SchemaProps{
-							Description: "VirtualClusterTemplate is the inline template for a virtual cluster that should get created for this DevPod. If this is specified, the kubernetes provider will be selected automatically.",
+							Description: "VirtualClusterTemplate is the inline template for a virtual cluster that should get created for this DevSpace. If this is specified, the kubernetes provider will be selected automatically.",
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.VirtualClusterTemplateDefinition"),
 						},
 					},
@@ -23237,7 +23237,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateDefinition(ref common.Ref
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOption"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOption"),
 									},
 								},
 							},
@@ -23252,7 +23252,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateDefinition(ref common.Ref
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOption"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOption"),
 									},
 								},
 							},
@@ -23262,7 +23262,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateDefinition(ref common.Ref
 						SchemaProps: spec.SchemaProps{
 							Description: "InstanceTemplate holds the workspace instance template",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceTemplateDefinition"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceTemplateDefinition"),
 						},
 					},
 					"useProjectGitCredentials": {
@@ -23305,15 +23305,15 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateDefinition(ref common.Ref
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.CredentialForwarding", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProviderOption", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceInstanceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceProvider", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.SpaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.VirtualClusterTemplateDefinition"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.CredentialForwarding", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProviderOption", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceInstanceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceProvider", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.SpaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.TemplateRef", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.VirtualClusterTemplateDefinition"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceTemplateList contains a list of DevPodWorkspaceTemplate",
+				Description: "DevSpaceWorkspaceTemplateList contains a list of DevSpaceWorkspaceTemplate",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -23343,7 +23343,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateList(ref common.Reference
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplate"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplate"),
 									},
 								},
 							},
@@ -23354,15 +23354,15 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateList(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplate", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceTemplateSpec holds the specification",
+				Description: "DevSpaceWorkspaceTemplateSpec holds the specification",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"displayName": {
@@ -23401,9 +23401,9 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateSpec(ref common.Reference
 					},
 					"template": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Template holds the DevPod workspace template",
+							Description: "Template holds the DevSpace workspace template",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"),
 						},
 					},
 					"versions": {
@@ -23414,7 +23414,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateSpec(ref common.Reference
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateVersion"),
+										Ref:     ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateVersion"),
 									},
 								},
 							},
@@ -23438,22 +23438,22 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateSpec(ref common.Reference
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AppParameter", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AppParameter", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateVersion", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam"},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "DevPodWorkspaceTemplateStatus holds the status",
+				Description: "DevSpaceWorkspaceTemplateStatus holds the status",
 				Type:        []string{"object"},
 			},
 		},
 	}
 }
 
-func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_storage_v1_DevSpaceWorkspaceTemplateVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -23461,9 +23461,9 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateVersion(ref common.Refere
 				Properties: map[string]spec.Schema{
 					"template": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Template holds the DevPod template",
+							Description: "Template holds the DevSpace template",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"),
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"),
 						},
 					},
 					"parameters": {
@@ -23491,7 +23491,7 @@ func schema_pkg_apis_storage_v1_DevPodWorkspaceTemplateVersion(ref common.Refere
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AppParameter", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodWorkspaceTemplateDefinition"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AppParameter", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceWorkspaceTemplateDefinition"},
 	}
 }
 
@@ -23576,7 +23576,7 @@ func schema_pkg_apis_storage_v1_EnvironmentRef(ref common.ReferenceCallback) com
 				Properties: map[string]spec.Schema{
 					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Name is the name of DevPodEnvironmentTemplate this references",
+							Description: "Name is the name of DevSpaceEnvironmentTemplate this references",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",
@@ -23584,7 +23584,7 @@ func schema_pkg_apis_storage_v1_EnvironmentRef(ref common.ReferenceCallback) com
 					},
 					"version": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Version is the version of DevPodEnvironmentTemplate this references",
+							Description: "Version is the version of DevSpaceEnvironmentTemplate this references",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -24946,7 +24946,7 @@ func schema_pkg_apis_storage_v1_PresetRef(ref common.ReferenceCallback) common.O
 				Properties: map[string]spec.Schema{
 					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Name is the name of DevPodWorkspacePreset",
+							Description: "Name is the name of DevSpaceWorkspacePreset",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",
@@ -25111,7 +25111,7 @@ func schema_pkg_apis_storage_v1_ProjectSpec(ref common.ReferenceCallback) common
 					},
 					"allowedRunners": {
 						SchemaProps: spec.SchemaProps{
-							Description: "AllowedRunners are target runners that are allowed to target with DevPod environments.",
+							Description: "AllowedRunners are target runners that are allowed to target with DevSpace environments.",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -25203,17 +25203,17 @@ func schema_pkg_apis_storage_v1_ProjectSpec(ref common.ReferenceCallback) common
 							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RancherIntegrationSpec"),
 						},
 					},
-					"devPod": {
+					"devSpace": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DevPod holds DevPod specific configuration for project",
-							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProjectSpec"),
+							Description: "DevSpace holds DevSpace specific configuration for project",
+							Ref:         ref("dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProjectSpec"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedCluster", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedRunner", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ArgoIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevPodProjectSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Member", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.NamespacePattern", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Quotas", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RancherIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequirePreset", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequireTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.VaultIntegrationSpec"},
+			"dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Access", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedCluster", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedRunner", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.AllowedTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.ArgoIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.DevSpaceProjectSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Member", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.NamespacePattern", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.Quotas", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RancherIntegrationSpec", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequirePreset", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.RequireTemplate", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.UserOrTeam", "dev.khulnasoft.com/api/v4/pkg/apis/storage/v1.VaultIntegrationSpec"},
 	}
 }
 
@@ -26131,7 +26131,7 @@ func schema_pkg_apis_storage_v1_RunnerSpec(ref common.ReferenceCallback) common.
 					},
 					"unusable": {
 						SchemaProps: spec.SchemaProps{
-							Description: "If unusable is true, no DevPod workspaces can be scheduled on this runner.",
+							Description: "If unusable is true, no DevSpace workspaces can be scheduled on this runner.",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
@@ -29408,7 +29408,7 @@ func schema_pkg_apis_storage_v1_WorkspaceRef(ref common.ReferenceCallback) commo
 				Properties: map[string]spec.Schema{
 					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Name is the name of DevPodWorkspaceTemplate this references",
+							Description: "Name is the name of DevSpaceWorkspaceTemplate this references",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",

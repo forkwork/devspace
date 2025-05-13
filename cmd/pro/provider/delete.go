@@ -62,7 +62,7 @@ func (cmd *DeleteCmd) Run(ctx context.Context, stdin io.Reader, stdout io.Writer
 		return err
 	}
 
-	err = managementClient.Loft().ManagementV1().DevPodWorkspaceInstances(workspace.Namespace).Delete(ctx, workspace.Name, metav1.DeleteOptions{})
+	err = managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(workspace.Namespace).Delete(ctx, workspace.Name, metav1.DeleteOptions{})
 	if err != nil {
 		return fmt.Errorf("delete workspace: %w", err)
 	}

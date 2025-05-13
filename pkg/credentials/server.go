@@ -16,7 +16,7 @@ import (
 )
 
 const DefaultPort = "12049"
-const CredentialsServerPortEnv = "DEVPOD_CREDENTIALS_SERVER_PORT"
+const CredentialsServerPortEnv = "DEVSPACE_CREDENTIALS_SERVER_PORT"
 
 func RunCredentialsServer(
 	ctx context.Context,

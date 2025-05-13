@@ -547,12 +547,12 @@ function mapCommunityProviderInfo(
 
     // probably $ORG/$REPO
     if (segments.length === 2 && segments[0] !== undefined && segments[1] !== undefined) {
-      return { title: { org: segments[0], name: stripDevpodPrefix(segments[1]) }, repository: repo }
+      return { title: { org: segments[0], name: stripDevspacePrefix(segments[1]) }, repository: repo }
     }
 
     const last = segments.pop()
     if (last !== undefined) {
-      return { title: stripDevpodPrefix(last), repository: repo }
+      return { title: stripDevspacePrefix(last), repository: repo }
     }
 
     return undefined
@@ -563,7 +563,7 @@ function mapCommunityProviderInfo(
   }
 }
 
-function stripDevpodPrefix(rawCommunityProvider: string): string {
+function stripDevspacePrefix(rawCommunityProvider: string): string {
   return rawCommunityProvider.replace("devspace-provider-", "")
 }
 

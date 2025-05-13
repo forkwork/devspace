@@ -17,7 +17,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router"
 import { client } from "./client"
 import { LoftOSSBadge, Step, Steps, useInstallCLI } from "./components"
-import { Briefcase, CommandLine, DevpodWordmark } from "./icons"
+import { Briefcase, CommandLine, DevspaceWordmark } from "./icons"
 import { Routes } from "./routes"
 
 const IS_FIRST_VISIT_KEY = "devspace-is-first-visit"
@@ -83,19 +83,19 @@ export function useWelcomeModal() {
                       <Heading as="h1" size="lg">
                         Welcome to
                       </Heading>
-                      <DevpodWordmark width="40" height="16" />
+                      <DevspaceWordmark width="40" height="16" />
                     </HStack>
                     <LoftOSSBadge />
                   </HStack>
 
                   <Text fontWeight="bold">
-                    DevPod is a tool to create reproducible developer environments.
+                    DevSpace is a tool to create reproducible developer environments.
                   </Text>
                   <Text>
                     Each developer environment runs in a separate container and is specified through
-                    a devcontainer.json. Through DevPod providers these containers can be created on
+                    a devcontainer.json. Through DevSpace providers these containers can be created on
                     the local computer, any reachable remote machine or in a public or private
-                    cloud. It&apos;s also possible to extend DevPod and write your own custom
+                    cloud. It&apos;s also possible to extend DevSpace and write your own custom
                     providers. <br />
                     For more information, head over to our{" "}
                     <Link onClick={() => client.open("https://dev.khulnasoft.com/docs")}>
@@ -115,7 +115,7 @@ export function useWelcomeModal() {
                   </HStack>
 
                   <Text>
-                    DevPod ships with a powerful CLI that allows you to create, manage and connect
+                    DevSpace ships with a powerful CLI that allows you to create, manage and connect
                     to your workspaces and providers. You can either{" "}
                     <Link onClick={() => client.open("https://dev.khulnasoft.com/releases")}>
                       download the standalone binary

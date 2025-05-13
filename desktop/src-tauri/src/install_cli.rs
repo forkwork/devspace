@@ -1,4 +1,4 @@
-use crate::{commands::DEVPOD_BINARY_NAME, AppHandle};
+use crate::{commands::DEVSPACE_BINARY_NAME, AppHandle};
 use log::error;
 use std::path::Path;
 use std::str::Lines;
@@ -50,7 +50,7 @@ pub fn install_cli(app_handle: AppHandle, force: bool) -> Result<(), InstallCLIE
 fn get_cli_path() -> Result<PathBuf, std::io::Error> {
     let mut exe_path = env::current_exe()?;
     exe_path.pop();
-    exe_path.push(DEVPOD_BINARY_NAME);
+    exe_path.push(DEVSPACE_BINARY_NAME);
 
     Ok(exe_path)
 }

@@ -91,7 +91,7 @@ export function Credentials() {
           </Button>
         </HStack>
         <Text my="4" variant="muted">
-          Credentials connect DevPod Pro to one or multiple of your git providers. You can upload
+          Credentials connect DevSpace Pro to one or multiple of your git providers. You can upload
           both HTTPS tokens and SSH private keys.
         </Text>
         {isLoading ? (

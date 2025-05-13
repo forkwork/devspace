@@ -60,12 +60,12 @@ func (cmd *SleepCmd) Run(ctx context.Context, args []string) error {
 	}
 	targetWorkspace := args[0]
 
-	devPodConfig, err := config.LoadConfig(cmd.Context, "")
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, "")
 	if err != nil {
 		return err
 	}
 
-	baseClient, err := platform.InitClientFromHost(ctx, devPodConfig, cmd.Host, cmd.Log)
+	baseClient, err := platform.InitClientFromHost(ctx, devSpaceConfig, cmd.Host, cmd.Log)
 	if err != nil {
 		return err
 	}
@@ -100,7 +100,7 @@ func (cmd *SleepCmd) Run(ctx context.Context, args []string) error {
 		return fmt.Errorf("create patch: %w", err)
 	}
 
-	_, err = managementClient.Loft().ManagementV1().DevPodWorkspaceInstances(project.ProjectNamespace(cmd.Project)).Patch(ctx, workspaceInstance.Name, patch.Type(), patchData, metav1.PatchOptions{})
+	_, err = managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(project.ProjectNamespace(cmd.Project)).Patch(ctx, workspaceInstance.Name, patch.Type(), patchData, metav1.PatchOptions{})
 	if err != nil {
 		return err
 	}
@@ -108,7 +108,7 @@ func (cmd *SleepCmd) Run(ctx context.Context, args []string) error {
 	// wait for sleeping
 	cmd.Log.Info("Wait until workspace is sleeping...")
 	err = wait.PollUntilContextTimeout(ctx, time.Second, platform.Timeout(), false, func(ctx context.Context) (done bool, err error) {
-		workspaceInstance, err := managementClient.Loft().ManagementV1().DevPodWorkspaceInstances(project.ProjectNamespace(cmd.Project)).Get(ctx, workspaceInstance.Name, metav1.GetOptions{})
+		workspaceInstance, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(project.ProjectNamespace(cmd.Project)).Get(ctx, workspaceInstance.Name, metav1.GetOptions{})
 		if err != nil {
 			return false, err
 		}

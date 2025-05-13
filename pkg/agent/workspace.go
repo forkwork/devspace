@@ -47,7 +47,7 @@ func findDir(agentFolder string, validate func(path string) bool) string {
 	}
 
 	// check environment
-	homeFolder := os.Getenv(config.DEVPOD_HOME)
+	homeFolder := os.Getenv(config.DEVSPACE_HOME)
 	if homeFolder != "" {
 		homeFolder = filepath.Join(homeFolder, "agent")
 		if !validate(homeFolder) {
@@ -95,7 +95,7 @@ func findDir(agentFolder string, validate func(path string) bool) string {
 }
 
 func FindAgentHomeFolder(agentFolder string) (string, error) {
-	homeDir := findDir(agentFolder, isDevPodHome)
+	homeDir := findDir(agentFolder, isDevSpaceHome)
 	if homeDir != "" {
 		return homeDir, nil
 	}
@@ -103,7 +103,7 @@ func FindAgentHomeFolder(agentFolder string) (string, error) {
 	return "", ErrFindAgentHomeFolder
 }
 
-func isDevPodHome(dir string) bool {
+func isDevSpaceHome(dir string) bool {
 	_, err := os.Stat(filepath.Join(dir, "contexts"))
 	return err == nil
 }
@@ -150,7 +150,7 @@ func isDirExecutable(dir string) (bool, error) {
 
 	testFile := filepath.Join(dir, "devspace_test.sh")
 	err = os.WriteFile(testFile, []byte(`#!/bin/sh
-echo DevPod
+echo DevSpace
 `), 0755)
 	if err != nil {
 		return false, err
@@ -164,8 +164,8 @@ echo DevPod
 	out, err := exec.Command(testFile).Output()
 	if err != nil {
 		return false, err
-	} else if strings.TrimSpace(string(out)) != "DevPod" {
-		return false, fmt.Errorf("received %s, expected DevPod", strings.TrimSpace(string(out)))
+	} else if strings.TrimSpace(string(out)) != "DevSpace" {
+		return false, fmt.Errorf("received %s, expected DevSpace", strings.TrimSpace(string(out)))
 	}
 
 	return true, nil

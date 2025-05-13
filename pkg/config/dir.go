@@ -8,13 +8,13 @@ import (
 )
 
 // Override devspace home
-const DEVPOD_HOME = "DEVPOD_HOME"
+const DEVSPACE_HOME = "DEVSPACE_HOME"
 
 // Override config path
-const DEVPOD_CONFIG = "DEVPOD_CONFIG"
+const DEVSPACE_CONFIG = "DEVSPACE_CONFIG"
 
 func GetConfigDir() (string, error) {
-	homeDir := os.Getenv(DEVPOD_HOME)
+	homeDir := os.Getenv(DEVSPACE_HOME)
 	if homeDir != "" {
 		return homeDir, nil
 	}
@@ -29,7 +29,7 @@ func GetConfigDir() (string, error) {
 }
 
 func GetConfigPath() (string, error) {
-	configOrigin := os.Getenv(DEVPOD_CONFIG)
+	configOrigin := os.Getenv(DEVSPACE_CONFIG)
 	if configOrigin == "" {
 		configDir, err := GetConfigDir()
 		if err != nil {

@@ -3,7 +3,7 @@ version: v0.0.1
 icon: https://dev.khulnasoft.com/assets/docker.svg
 home: https://dev.khulnasoft.com
 description: |-
-  DevPod on Docker
+  DevSpace on Docker
 optionGroups:
   - options:
       - DOCKER_PATH
@@ -34,4 +34,4 @@ agent:
       DOCKER_HOST: ${DOCKER_HOST}
 exec:
   command: |-
-    "${DEVPOD}" helper sh -c "${COMMAND}"
+    "${DEVSPACE}" helper sh -c "${COMMAND}"

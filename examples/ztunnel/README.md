@@ -102,7 +102,7 @@ docker --version
 
 Go to the root of the project and run the devspace:
 
-**Note** Normally, to start a Devpod is a straight forward simple command. However, given the complexty of ztunnel setup, we need to adjut it a bit.
+**Note** Normally, to start a Devspace is a straight forward simple command. However, given the complexty of ztunnel setup, we need to adjut it a bit.
 
 - `devcontainer.json` is overriden. In our version, we create a `postStartCommand` required to set the secret in the place that ztunnel app can find. Also, some `remoteEnv` are set to help on builing the app in the remote container.
 - Using Kind cluster, the `STORAGE_CLASS` is `standard`. If you are using a different cluster, you may need to change it (i.e in EKS it would be `gp2`)
@@ -113,7 +113,7 @@ devspace up . --provider-option STORAGE_CLASS=gp2 --provider-option KUBECTL_PATH
   --recreate --reset
 ```
 
-You will see DevPod cli copying your project files to the remote container. In the case of ztunnel project, make sure that the `out` folder is deleted before starting devspace. That folder is usully too heavy and unnecesary to be copied to the container.
+You will see DevSpace cli copying your project files to the remote container. In the case of ztunnel project, make sure that the `out` folder is deleted before starting devspace. That folder is usully too heavy and unnecesary to be copied to the container.
 
 At the moment, changes in the project when working in the container are not reflected in the local files. To do so, you can run the following command:
 

@@ -42,7 +42,7 @@ func NewSetOptionsCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *SetOptionsCmd) Run(ctx context.Context, ide string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
@@ -55,13 +55,13 @@ func (cmd *SetOptionsCmd) Run(ctx context.Context, ide string) error {
 
 	// check if there are setOptionsr options set
 	if len(cmd.Options) > 0 {
-		err = setOptions(devPodConfig, ide, cmd.Options, ideOptions)
+		err = setOptions(devSpaceConfig, ide, cmd.Options, ideOptions)
 		if err != nil {
 			return err
 		}
 	}
 
-	err = config.SaveConfig(devPodConfig)
+	err = config.SaveConfig(devSpaceConfig)
 	if err != nil {
 		return errors.Wrap(err, "save config")
 	}

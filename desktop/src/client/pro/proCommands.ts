@@ -10,27 +10,27 @@ import {
 } from "@/types"
 import { Command, isOk, serializeRawOptions, toFlagArg } from "../command"
 import {
-  DEVPOD_COMMAND_DELETE,
-  DEVPOD_COMMAND_IMPORT_WORKSPACE,
-  DEVPOD_COMMAND_LIST,
-  DEVPOD_COMMAND_LOGIN,
-  DEVPOD_COMMAND_PRO,
-  DEVPOD_FLAG_ACCESS_KEY,
-  DEVPOD_FLAG_DEBUG,
-  DEVPOD_FLAG_FORCE_BROWSER,
-  DEVPOD_FLAG_HOST,
-  DEVPOD_FLAG_INSTANCE,
-  DEVPOD_FLAG_JSON_LOG_OUTPUT,
-  DEVPOD_FLAG_JSON_OUTPUT,
-  DEVPOD_FLAG_LOGIN,
-  DEVPOD_FLAG_PROJECT,
-  DEVPOD_FLAG_USE,
-  DEVPOD_FLAG_WORKSPACE_ID,
-  DEVPOD_FLAG_WORKSPACE_PROJECT,
-  DEVPOD_FLAG_WORKSPACE_UID,
+  DEVSPACE_COMMAND_DELETE,
+  DEVSPACE_COMMAND_IMPORT_WORKSPACE,
+  DEVSPACE_COMMAND_LIST,
+  DEVSPACE_COMMAND_LOGIN,
+  DEVSPACE_COMMAND_PRO,
+  DEVSPACE_FLAG_ACCESS_KEY,
+  DEVSPACE_FLAG_DEBUG,
+  DEVSPACE_FLAG_FORCE_BROWSER,
+  DEVSPACE_FLAG_HOST,
+  DEVSPACE_FLAG_INSTANCE,
+  DEVSPACE_FLAG_JSON_LOG_OUTPUT,
+  DEVSPACE_FLAG_JSON_OUTPUT,
+  DEVSPACE_FLAG_LOGIN,
+  DEVSPACE_FLAG_PROJECT,
+  DEVSPACE_FLAG_USE,
+  DEVSPACE_FLAG_WORKSPACE_ID,
+  DEVSPACE_FLAG_WORKSPACE_PROJECT,
+  DEVSPACE_FLAG_WORKSPACE_UID,
 } from "../constants"
 import { TStreamEventListenerFn } from "../types"
-import { ManagementV1DevPodWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceInstance"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
 import { ManagementV1Project } from "@loft-enterprise/client/gen/models/managementV1Project"
 import { ManagementV1Self } from "@loft-enterprise/client/gen/models/managementV1Self"
 import { ManagementV1ProjectTemplates } from "@loft-enterprise/client/gen/models/managementV1ProjectTemplates"
@@ -40,7 +40,7 @@ export class ProCommands {
   static DEBUG = false
 
   private static newCommand(args: string[]): Command {
-    return new Command([...args, ...(ProCommands.DEBUG ? [DEVPOD_FLAG_DEBUG] : [])])
+    return new Command([...args, ...(ProCommands.DEBUG ? [DEVSPACE_FLAG_DEBUG] : [])])
   }
 
   static async Login(
@@ -48,16 +48,16 @@ export class ProCommands {
     accessKey?: string,
     listener?: TStreamEventListenerFn
   ): Promise<ResultError> {
-    const maybeAccessKeyFlag = accessKey ? [toFlagArg(DEVPOD_FLAG_ACCESS_KEY, accessKey)] : []
-    const useFlag = toFlagArg(DEVPOD_FLAG_USE, "false")
+    const maybeAccessKeyFlag = accessKey ? [toFlagArg(DEVSPACE_FLAG_ACCESS_KEY, accessKey)] : []
+    const useFlag = toFlagArg(DEVSPACE_FLAG_USE, "false")
 
     const cmd = ProCommands.newCommand([
-      DEVPOD_COMMAND_PRO,
-      DEVPOD_COMMAND_LOGIN,
+      DEVSPACE_COMMAND_PRO,
+      DEVSPACE_COMMAND_LOGIN,
       host,
       useFlag,
-      DEVPOD_FLAG_FORCE_BROWSER,
-      DEVPOD_FLAG_JSON_LOG_OUTPUT,
+      DEVSPACE_FLAG_FORCE_BROWSER,
+      DEVSPACE_FLAG_JSON_LOG_OUTPUT,
       ...maybeAccessKeyFlag,
     ])
     if (listener) {
@@ -79,11 +79,11 @@ export class ProCommands {
   static async ListProInstances(
     config?: TListProInstancesConfig
   ): Promise<Result<readonly TProInstance[]>> {
-    const maybeLoginFlag = config?.authenticate ? [DEVPOD_FLAG_LOGIN] : []
+    const maybeLoginFlag = config?.authenticate ? [DEVSPACE_FLAG_LOGIN] : []
     const result = await ProCommands.newCommand([
-      DEVPOD_COMMAND_PRO,
-      DEVPOD_COMMAND_LIST,
-      DEVPOD_FLAG_JSON_OUTPUT,
+      DEVSPACE_COMMAND_PRO,
+      DEVSPACE_COMMAND_LIST,
+      DEVSPACE_FLAG_JSON_OUTPUT,
       ...maybeLoginFlag,
     ]).run()
     if (result.err) {
@@ -101,10 +101,10 @@ export class ProCommands {
 
   static async RemoveProInstance(id: TProID) {
     const result = await ProCommands.newCommand([
-      DEVPOD_COMMAND_PRO,
-      DEVPOD_COMMAND_DELETE,
+      DEVSPACE_COMMAND_PRO,
+      DEVSPACE_COMMAND_DELETE,
       id,
-      DEVPOD_FLAG_JSON_LOG_OUTPUT,
+      DEVSPACE_FLAG_JSON_LOG_OUTPUT,
     ]).run()
     if (result.err) {
       return result
@@ -120,17 +120,17 @@ export class ProCommands {
   static async ImportWorkspace(config: TImportWorkspaceConfig): Promise<ResultError> {
     const optionsFlag = config.options ? serializeRawOptions(config.options) : []
     const result = await new Command([
-      DEVPOD_COMMAND_PRO,
-      DEVPOD_COMMAND_IMPORT_WORKSPACE,
-      config.devPodProHost,
-      DEVPOD_FLAG_WORKSPACE_ID,
+      DEVSPACE_COMMAND_PRO,
+      DEVSPACE_COMMAND_IMPORT_WORKSPACE,
+      config.devSpaceProHost,
+      DEVSPACE_FLAG_WORKSPACE_ID,
       config.workspaceID,
-      DEVPOD_FLAG_WORKSPACE_UID,
+      DEVSPACE_FLAG_WORKSPACE_UID,
       config.workspaceUID,
-      DEVPOD_FLAG_WORKSPACE_PROJECT,
+      DEVSPACE_FLAG_WORKSPACE_PROJECT,
       config.project,
       ...optionsFlag,
-      DEVPOD_FLAG_JSON_LOG_OUTPUT,
+      DEVSPACE_FLAG_JSON_LOG_OUTPUT,
     ]).run()
     if (result.err) {
       return result
@@ -144,16 +144,16 @@ export class ProCommands {
   }
 
   static WatchWorkspaces(id: TProID, projectName: string) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const projectFlag = toFlagArg(DEVPOD_FLAG_PROJECT, projectName)
-    const args = [DEVPOD_COMMAND_PRO, "watch-workspaces", hostFlag, projectFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const projectFlag = toFlagArg(DEVSPACE_FLAG_PROJECT, projectName)
+    const args = [DEVSPACE_COMMAND_PRO, "watch-workspaces", hostFlag, projectFlag]
 
     return ProCommands.newCommand(args)
   }
 
   static async ListProjects(id: TProID) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const args = [DEVPOD_COMMAND_PRO, "list-projects", hostFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const args = [DEVSPACE_COMMAND_PRO, "list-projects", hostFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -167,8 +167,8 @@ export class ProCommands {
   }
 
   static async GetSelf(id: TProID) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const args = [DEVPOD_COMMAND_PRO, "self", hostFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const args = [DEVSPACE_COMMAND_PRO, "self", hostFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -182,9 +182,9 @@ export class ProCommands {
   }
 
   static async ListTemplates(id: TProID, projectName: string) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const projectFlag = toFlagArg(DEVPOD_FLAG_PROJECT, projectName)
-    const args = [DEVPOD_COMMAND_PRO, "list-templates", hostFlag, projectFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const projectFlag = toFlagArg(DEVSPACE_FLAG_PROJECT, projectName)
+    const args = [DEVSPACE_COMMAND_PRO, "list-templates", hostFlag, projectFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -198,9 +198,9 @@ export class ProCommands {
   }
 
   static async ListClusters(id: TProID, projectName: string) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const projectFlag = toFlagArg(DEVPOD_FLAG_PROJECT, projectName)
-    const args = [DEVPOD_COMMAND_PRO, "list-clusters", hostFlag, projectFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const projectFlag = toFlagArg(DEVSPACE_FLAG_PROJECT, projectName)
+    const args = [DEVSPACE_COMMAND_PRO, "list-clusters", hostFlag, projectFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -213,10 +213,10 @@ export class ProCommands {
     return Return.Value(JSON.parse(result.val.stdout) as ManagementV1ProjectClusters)
   }
 
-  static async CreateWorkspace(id: TProID, instance: ManagementV1DevPodWorkspaceInstance) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const instanceFlag = toFlagArg(DEVPOD_FLAG_INSTANCE, JSON.stringify(instance))
-    const args = [DEVPOD_COMMAND_PRO, "create-workspace", hostFlag, instanceFlag]
+  static async CreateWorkspace(id: TProID, instance: ManagementV1DevSpaceWorkspaceInstance) {
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const instanceFlag = toFlagArg(DEVSPACE_FLAG_INSTANCE, JSON.stringify(instance))
+    const args = [DEVSPACE_COMMAND_PRO, "create-workspace", hostFlag, instanceFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -226,13 +226,13 @@ export class ProCommands {
       return getErrorFromChildProcess(result.val)
     }
 
-    return Return.Value(JSON.parse(result.val.stdout) as ManagementV1DevPodWorkspaceInstance)
+    return Return.Value(JSON.parse(result.val.stdout) as ManagementV1DevSpaceWorkspaceInstance)
   }
 
-  static async UpdateWorkspace(id: TProID, instance: ManagementV1DevPodWorkspaceInstance) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const instanceFlag = toFlagArg(DEVPOD_FLAG_INSTANCE, JSON.stringify(instance))
-    const args = [DEVPOD_COMMAND_PRO, "update-workspace", hostFlag, instanceFlag]
+  static async UpdateWorkspace(id: TProID, instance: ManagementV1DevSpaceWorkspaceInstance) {
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const instanceFlag = toFlagArg(DEVSPACE_FLAG_INSTANCE, JSON.stringify(instance))
+    const args = [DEVSPACE_COMMAND_PRO, "update-workspace", hostFlag, instanceFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -242,12 +242,12 @@ export class ProCommands {
       return getErrorFromChildProcess(result.val)
     }
 
-    return Return.Value(JSON.parse(result.val.stdout) as ManagementV1DevPodWorkspaceInstance)
+    return Return.Value(JSON.parse(result.val.stdout) as ManagementV1DevSpaceWorkspaceInstance)
   }
 
   static async CheckHealth(id: TProID) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const args = [DEVPOD_COMMAND_PRO, "check-health", hostFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const args = [DEVSPACE_COMMAND_PRO, "check-health", hostFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -261,8 +261,8 @@ export class ProCommands {
   }
 
   static async GetVersion(id: TProID) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const args = [DEVPOD_COMMAND_PRO, "version", hostFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const args = [DEVSPACE_COMMAND_PRO, "version", hostFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -276,8 +276,8 @@ export class ProCommands {
   }
 
   static async CheckUpdate(id: TProID) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const args = [DEVPOD_COMMAND_PRO, "check-update", hostFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const args = [DEVSPACE_COMMAND_PRO, "check-update", hostFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {
@@ -291,8 +291,8 @@ export class ProCommands {
   }
 
   static async Update(id: TProID, version: string) {
-    const hostFlag = toFlagArg(DEVPOD_FLAG_HOST, id)
-    const args = [DEVPOD_COMMAND_PRO, "update-provider", version, hostFlag]
+    const hostFlag = toFlagArg(DEVSPACE_FLAG_HOST, id)
+    const args = [DEVSPACE_COMMAND_PRO, "update-provider", version, hostFlag]
 
     const result = await ProCommands.newCommand(args).run()
     if (result.err) {

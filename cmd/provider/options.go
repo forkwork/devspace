@@ -55,12 +55,12 @@ type optionWithValue struct {
 
 // Run runs the command logic
 func (cmd *OptionsCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	providerName := devPodConfig.Current().DefaultProvider
+	providerName := devSpaceConfig.Current().DefaultProvider
 	if len(args) > 0 {
 		providerName = args[0]
 	} else if providerName == "" {
@@ -75,17 +75,17 @@ func (cmd *OptionsCmd) Run(ctx context.Context, args []string) error {
 		}
 	}
 
-	providerWithOptions, err := workspace.FindProvider(devPodConfig, providerName, log.Default.ErrorStreamOnly())
+	providerWithOptions, err := workspace.FindProvider(devSpaceConfig, providerName, log.Default.ErrorStreamOnly())
 	if err != nil {
 		return err
 	}
 
-	return printOptions(devPodConfig, providerWithOptions, cmd.Output, cmd.Hidden)
+	return printOptions(devSpaceConfig, providerWithOptions, cmd.Output, cmd.Hidden)
 }
 
-func printOptions(devPodConfig *config.Config, provider *workspace.ProviderWithOptions, format string, showHidden bool) error {
-	entryOptions := devPodConfig.ProviderOptions(provider.Config.Name)
-	dynamicOptions := devPodConfig.DynamicProviderOptionDefinitions(provider.Config.Name)
+func printOptions(devSpaceConfig *config.Config, provider *workspace.ProviderWithOptions, format string, showHidden bool) error {
+	entryOptions := devSpaceConfig.ProviderOptions(provider.Config.Name)
+	dynamicOptions := devSpaceConfig.DynamicProviderOptionDefinitions(provider.Config.Name)
 	srcOptions := MergeDynamicOptions(provider.Config.Options, dynamicOptions)
 	if format == "plain" {
 		tableEntries := [][]string{}

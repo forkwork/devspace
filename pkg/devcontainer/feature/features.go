@@ -94,7 +94,7 @@ func escapeQuotesForShell(str string) string {
 func ProcessFeatureID(id string, devContainerConfig *config.DevContainerConfig, log log.Logger, forceBuild bool) (string, error) {
 	if strings.HasPrefix(id, "https://") || strings.HasPrefix(id, "http://") {
 		log.Debugf("Process url feature")
-		return processDirectTarFeature(id, config.GetDevPodCustomizations(devContainerConfig).FeatureDownloadHTTPHeaders, log, forceBuild)
+		return processDirectTarFeature(id, config.GetDevSpaceCustomizations(devContainerConfig).FeatureDownloadHTTPHeaders, log, forceBuild)
 	} else if strings.HasPrefix(id, "./") || strings.HasPrefix(id, "../") {
 		log.Debugf("Process local feature")
 		return filepath.Abs(path.Join(filepath.ToSlash(filepath.Dir(devContainerConfig.Origin)), id))

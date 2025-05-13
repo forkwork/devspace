@@ -103,7 +103,7 @@ func (cmd *UpCmd) Run(ctx context.Context) error {
 
 func (cmd *UpCmd) up(ctx context.Context, workspaceInfo *provider2.AgentWorkspaceInfo, tunnelClient tunnel.TunnelClient, logger log.Logger) error {
 	// create devcontainer
-	result, err := cmd.devPodUp(ctx, workspaceInfo, logger)
+	result, err := cmd.devSpaceUp(ctx, workspaceInfo, logger)
 	if err != nil {
 		return err
 	}
@@ -121,7 +121,7 @@ func (cmd *UpCmd) up(ctx context.Context, workspaceInfo *provider2.AgentWorkspac
 	return nil
 }
 
-func (cmd *UpCmd) devPodUp(ctx context.Context, workspaceInfo *provider2.AgentWorkspaceInfo, log log.Logger) (*config2.Result, error) {
+func (cmd *UpCmd) devSpaceUp(ctx context.Context, workspaceInfo *provider2.AgentWorkspaceInfo, log log.Logger) (*config2.Result, error) {
 	runner, err := CreateRunner(workspaceInfo, log)
 	if err != nil {
 		return nil, err
@@ -140,7 +140,7 @@ func (cmd *UpCmd) devPodUp(ctx context.Context, workspaceInfo *provider2.AgentWo
 }
 
 func CreateRunner(workspaceInfo *provider2.AgentWorkspaceInfo, log log.Logger) (devcontainer.Runner, error) {
-	return devcontainer.NewRunner(agent.ContainerDevPodHelperLocation, agent.DefaultAgentDownloadURL(), workspaceInfo, log)
+	return devcontainer.NewRunner(agent.ContainerDevSpaceHelperLocation, agent.DefaultAgentDownloadURL(), workspaceInfo, log)
 }
 
 func InitContentFolder(workspaceInfo *provider2.AgentWorkspaceInfo, log log.Logger) (bool, error) {
@@ -229,7 +229,7 @@ func initWorkspace(ctx context.Context, cancel context.CancelFunc, workspaceInfo
 	if shouldInstallDaemon {
 		err = installDaemon(workspaceInfo, logger)
 		if err != nil {
-			logger.Errorf("Install DevPod Daemon: %v", err)
+			logger.Errorf("Install DevSpace Daemon: %v", err)
 		}
 	}
 
@@ -260,7 +260,7 @@ func initWorkspace(ctx context.Context, cancel context.CancelFunc, workspaceInfo
 
 func prepareWorkspace(ctx context.Context, workspaceInfo *provider2.AgentWorkspaceInfo, client tunnel.TunnelClient, helper string, log log.Logger) error {
 	// change content folder if source is local folder in proxy mode
-	// to a folder that's known ahead of time inside of DEVPOD_HOME
+	// to a folder that's known ahead of time inside of DEVSPACE_HOME
 	if workspaceInfo.CLIOptions.Platform.Enabled && workspaceInfo.Workspace.Source.LocalFolder != "" {
 		workspaceInfo.ContentFolder = agent.GetAgentWorkspaceContentDir(workspaceInfo.Origin)
 	}
@@ -384,7 +384,7 @@ func configureCredentials(ctx context.Context, cancel context.CancelFunc, worksp
 	gitCredentials := ""
 	if workspaceInfo.Agent.InjectGitCredentials == "true" {
 		gitCredentials = fmt.Sprintf("!'%s' agent git-credentials --port %d", binaryPath, serverPort)
-		_ = os.Setenv("DEVPOD_GIT_HELPER_PORT", strconv.Itoa(serverPort))
+		_ = os.Setenv("DEVSPACE_GIT_HELPER_PORT", strconv.Itoa(serverPort))
 	}
 
 	return dockerCredentials, gitCredentials, nil
@@ -395,7 +395,7 @@ func installDaemon(workspaceInfo *provider2.AgentWorkspaceInfo, log log.Logger) 
 		return nil
 	}
 
-	log.Debugf("Installing DevPod daemon into server...")
+	log.Debugf("Installing DevSpace daemon into server...")
 	err := agentdaemon.InstallDaemon(workspaceInfo.Agent.DataPath, workspaceInfo.CLIOptions.DaemonInterval, log)
 	if err != nil {
 		return errors.Wrap(err, "install daemon")

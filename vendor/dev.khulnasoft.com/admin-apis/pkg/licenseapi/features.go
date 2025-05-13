@@ -44,7 +44,7 @@ const (
 
 	VirtualClusterProDistroSleepMode FeatureName = "vcp-distro-sleep-mode" // SleepMode
 
-	Devpod FeatureName = "devspace" // Dev Environment Management
+	Devspace FeatureName = "devspace" // Dev Environment Management
 
 	Namespaces FeatureName = "namespaces" // Namespace Management
 
@@ -124,7 +124,7 @@ func GetFeatures() []FeatureName {
 		VirtualClusterProDistroExternalDatabase,
 		ConnectorExternalDatabase,
 		VirtualClusterProDistroSleepMode,
-		Devpod,
+		Devspace,
 		Namespaces,
 		NamespaceSleepMode,
 		ConnectedClusters,

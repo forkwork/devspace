@@ -1,3 +1,3 @@
-export { DevPodProvider, ProviderProvider } from "./DevPodProvider"
-export { DevPodContext } from "./DevPodContext"
-export type { TDevpodContext } from "./DevPodContext"
+export { DevSpaceProvider, ProviderProvider } from "./DevSpaceProvider"
+export { DevSpaceContext } from "./DevSpaceContext"
+export type { TDevspaceContext } from "./DevSpaceContext"

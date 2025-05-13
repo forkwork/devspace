@@ -324,7 +324,7 @@ type PortAttribute struct {
 	Protocol string `json:"protocol,omitempty"`
 }
 
-type DevPodCustomizations struct {
+type DevSpaceCustomizations struct {
 	PrebuildRepository         types.StrArray    `json:"prebuildRepository,omitempty"`
 	FeatureDownloadHTTPHeaders map[string]string `json:"featureDownloadHTTPHeaders,omitempty"`
 }

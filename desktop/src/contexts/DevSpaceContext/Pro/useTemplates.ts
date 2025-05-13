@@ -1,15 +1,15 @@
 import { useProContext } from "@/contexts"
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { QueryKeys } from "@/queryKeys"
-import { ManagementV1DevPodWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceTemplate"
-import { ManagementV1DevPodEnvironmentTemplate } from "@loft-enterprise/client/gen/models/managementV1DevPodEnvironmentTemplate"
-import { ManagementV1DevPodWorkspacePreset } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspacePreset"
+import { ManagementV1DevSpaceWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
+import { ManagementV1DevSpaceEnvironmentTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceEnvironmentTemplate"
+import { ManagementV1DevSpaceWorkspacePreset } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspacePreset"
 
 type TTemplates = Readonly<{
-  default: ManagementV1DevPodWorkspaceTemplate | undefined
-  workspace: readonly ManagementV1DevPodWorkspaceTemplate[]
-  environment: readonly ManagementV1DevPodEnvironmentTemplate[]
-  presets: readonly ManagementV1DevPodWorkspacePreset[]
+  default: ManagementV1DevSpaceWorkspaceTemplate | undefined
+  workspace: readonly ManagementV1DevSpaceWorkspaceTemplate[]
+  environment: readonly ManagementV1DevSpaceEnvironmentTemplate[]
+  presets: readonly ManagementV1DevSpaceWorkspacePreset[]
 }>
 export function useTemplates(): UseQueryResult<TTemplates> {
   const { host, currentProject, client } = useProContext()
@@ -21,18 +21,18 @@ export function useTemplates(): UseQueryResult<TTemplates> {
       ).unwrap()
 
       // try to find default template in list
-      let defaultTemplate: ManagementV1DevPodWorkspaceTemplate | undefined = undefined
-      if (projectTemplates?.defaultDevPodWorkspaceTemplate) {
-        defaultTemplate = projectTemplates.devPodWorkspaceTemplates?.find(
-          (template) => template.metadata?.name === projectTemplates.defaultDevPodWorkspaceTemplate
+      let defaultTemplate: ManagementV1DevSpaceWorkspaceTemplate | undefined = undefined
+      if (projectTemplates?.defaultDevSpaceWorkspaceTemplate) {
+        defaultTemplate = projectTemplates.devSpaceWorkspaceTemplates?.find(
+          (template) => template.metadata?.name === projectTemplates.defaultDevSpaceWorkspaceTemplate
         )
       }
 
       return {
         default: defaultTemplate,
-        workspace: projectTemplates?.devPodWorkspaceTemplates ?? [],
-        environment: projectTemplates?.devPodEnvironmentTemplates ?? [],
-        presets: projectTemplates?.devPodWorkspacePresets ?? [],
+        workspace: projectTemplates?.devSpaceWorkspaceTemplates ?? [],
+        environment: projectTemplates?.devSpaceEnvironmentTemplates ?? [],
+        presets: projectTemplates?.devSpaceWorkspacePresets ?? [],
       }
     },
     enabled: !!currentProject,

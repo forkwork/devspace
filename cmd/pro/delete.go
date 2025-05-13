@@ -35,7 +35,7 @@ func NewDeleteCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	}
 	deleteCmd := &cobra.Command{
 		Use:   "delete",
-		Short: "Delete or logout from a DevPod Pro Instance",
+		Short: "Delete or logout from a DevSpace Pro Instance",
 		RunE: func(_ *cobra.Command, args []string) error {
 			return cmd.Run(context.Background(), args)
 		},
@@ -50,14 +50,14 @@ func (cmd *DeleteCmd) Run(ctx context.Context, args []string) error {
 		return fmt.Errorf("please specify an pro instance to delete")
 	}
 
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
 	// load pro instance config
 	proInstanceName := args[0]
-	proInstanceConfig, err := provider.LoadProInstanceConfig(devPodConfig.DefaultContext, proInstanceName)
+	proInstanceConfig, err := provider.LoadProInstanceConfig(devSpaceConfig.DefaultContext, proInstanceName)
 	if err != nil {
 		if os.IsNotExist(err) && cmd.IgnoreNotFound {
 			return nil
@@ -66,7 +66,7 @@ func (cmd *DeleteCmd) Run(ctx context.Context, args []string) error {
 		return fmt.Errorf("load pro instance %s: %w", proInstanceName, err)
 	}
 
-	providerConfig, err := provider.LoadProviderConfig(devPodConfig.DefaultContext, proInstanceConfig.Provider)
+	providerConfig, err := provider.LoadProviderConfig(devSpaceConfig.DefaultContext, proInstanceConfig.Provider)
 	if err != nil {
 		return fmt.Errorf("load provider: %w", err)
 	}
@@ -74,11 +74,11 @@ func (cmd *DeleteCmd) Run(ctx context.Context, args []string) error {
 	// stop daemon and clean up local workspaces
 	if providerConfig.IsDaemonProvider() {
 		// clean up local workspaces
-		workspaces, err := workspace.ListLocalWorkspaces(devPodConfig.DefaultContext, false, log.Default)
+		workspaces, err := workspace.ListLocalWorkspaces(devSpaceConfig.DefaultContext, false, log.Default)
 		if err != nil {
 			log.Default.Warnf("Failed to list workspaces: %v", err)
 		} else {
-			cleanupLocalWorkspaces(ctx, devPodConfig, workspaces, providerConfig.Name, cmd.Owner, log.Default)
+			cleanupLocalWorkspaces(ctx, devSpaceConfig, workspaces, providerConfig.Name, cmd.Owner, log.Default)
 		}
 
 		daemonClient := daemon.NewLocalClient(proInstanceConfig.Provider)
@@ -94,13 +94,13 @@ func (cmd *DeleteCmd) Run(ctx context.Context, args []string) error {
 	}
 
 	// delete the provider config
-	err = providercmd.DeleteProviderConfig(devPodConfig, proInstanceConfig.Provider, true)
+	err = providercmd.DeleteProviderConfig(devSpaceConfig, proInstanceConfig.Provider, true)
 	if err != nil {
 		return err
 	}
 
 	// delete the pro instance dir itself
-	proInstanceDir, err := provider.GetProInstanceDir(devPodConfig.DefaultContext, proInstanceConfig.Host)
+	proInstanceDir, err := provider.GetProInstanceDir(devSpaceConfig.DefaultContext, proInstanceConfig.Host)
 	if err != nil {
 		return err
 	}
@@ -114,7 +114,7 @@ func (cmd *DeleteCmd) Run(ctx context.Context, args []string) error {
 	return nil
 }
 
-func cleanupLocalWorkspaces(ctx context.Context, devPodConfig *config.Config, workspaces []*provider.Workspace, providerName string, owner platform.OwnerFilter, log log.Logger) {
+func cleanupLocalWorkspaces(ctx context.Context, devSpaceConfig *config.Config, workspaces []*provider.Workspace, providerName string, owner platform.OwnerFilter, log log.Logger) {
 	usedWorkspaces := []*provider.Workspace{}
 
 	for _, workspace := range workspaces {
@@ -130,13 +130,13 @@ func cleanupLocalWorkspaces(ctx context.Context, devPodConfig *config.Config, wo
 			wg.Add(1)
 			go func(w provider.Workspace) {
 				defer wg.Done()
-				client, err := workspace.Get(ctx, devPodConfig, []string{w.ID}, true, owner, true, log)
+				client, err := workspace.Get(ctx, devSpaceConfig, []string{w.ID}, true, owner, true, log)
 				if err != nil {
 					log.Errorf("Failed to get workspace %s: %v", w.ID, err)
 					return
 				}
 				// delete workspace folder
-				err = clientimplementation.DeleteWorkspaceFolder(devPodConfig.DefaultContext, client.Workspace(), client.WorkspaceConfig().SSHConfigPath, log)
+				err = clientimplementation.DeleteWorkspaceFolder(devSpaceConfig.DefaultContext, client.Workspace(), client.WorkspaceConfig().SSHConfigPath, log)
 				if err != nil {
 					log.Errorf("Failed to remove workspace %s: %v", w.ID, err)
 					return

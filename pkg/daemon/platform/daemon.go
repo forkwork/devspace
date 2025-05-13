@@ -129,7 +129,7 @@ func (d *Daemon) Listen(ln net.Listener) error {
 			continue
 		}
 		switch clientType {
-		case devPodClientType:
+		case devSpaceClientType:
 			go d.handler(bConn, dialLocal(d.localServer))
 		case tailscaleClientType:
 			go d.handler(bConn, dialTS(lc))
@@ -184,7 +184,7 @@ func initLogging(rootDir string, debug bool) log.Logger {
 
 	logPath := filepath.Join(rootDir, "daemon.log")
 	logger := log.NewFileLogger(logPath, logLevel)
-	if os.Getenv("DEVPOD_UI") != "true" {
+	if os.Getenv("DEVSPACE_UI") != "true" {
 		logger = devspacelog.NewCombinedLogger(logLevel, logger, log.NewStreamLogger(os.Stdout, os.Stderr, logLevel))
 	}
 
@@ -208,7 +208,7 @@ func dialLocal(l *localServer) dialFunc {
 type clientType string
 
 var (
-	devPodClientType    clientType = "devspace"
+	devSpaceClientType    clientType = "devspace"
 	tailscaleClientType clientType = "tailscale"
 )
 
@@ -218,8 +218,8 @@ func getClientType(bConn *bufferedConn) (clientType, error) {
 		return "", err
 	}
 	switch b {
-	case devPodClientPrefix:
-		return devPodClientType, nil
+	case devSpaceClientPrefix:
+		return devSpaceClientType, nil
 	default:
 		return tailscaleClientType, bConn.UnreadByte()
 	}

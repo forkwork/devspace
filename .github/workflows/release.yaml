@@ -165,7 +165,7 @@ jobs:
         if: matrix.settings.host != 'windows-latest'
         run: |
           BIN_NAME=devspace-cli-${{ matrix.settings.target }}
-          GOOS=${{ matrix.settings.os }} GOARCH=${{ matrix.settings.arch }} CGO_ENABLED=0 go build -ldflags "-s -w -X dev.khulnasoft.com/pkg/version.version="v${{ needs.create-release.outputs.original_package_version }}" -X dev.khulnasoft.com/pkg/telemetry.telemetryPrivateKey=${{ secrets.DEVPOD_TELEMETRY_PRIVATE_KEY }} -X dev.khulnasoft.com/pkg/devcontainer/crane.craneSigningKey="${{ secrets.CRANE_PRIVATE_KEY }}"" -o "test/$BIN_NAME"
+          GOOS=${{ matrix.settings.os }} GOARCH=${{ matrix.settings.arch }} CGO_ENABLED=0 go build -ldflags "-s -w -X dev.khulnasoft.com/pkg/version.version="v${{ needs.create-release.outputs.original_package_version }}" -X dev.khulnasoft.com/pkg/telemetry.telemetryPrivateKey=${{ secrets.DEVSPACE_TELEMETRY_PRIVATE_KEY }} -X dev.khulnasoft.com/pkg/devcontainer/crane.craneSigningKey="${{ secrets.CRANE_PRIVATE_KEY }}"" -o "test/$BIN_NAME"
           cp "test/$BIN_NAME" "desktop/src-tauri/bin/$BIN_NAME"
           ls desktop/src-tauri/bin
 
@@ -177,7 +177,7 @@ jobs:
           set GOARCH=${{ matrix.settings.arch }}
           set BIN_NAME=devspace-cli-${{ matrix.settings.target }}.exe
 
-          go build -ldflags "-s -w -X dev.khulnasoft.com/pkg/version.version="v${{ needs.create-release.outputs.original_package_version }}" -X dev.khulnasoft.com/pkg/telemetry.telemetryPrivateKey=${{ secrets.DEVPOD_TELEMETRY_PRIVATE_KEY }}" -o "test\%BIN_NAME%"
+          go build -ldflags "-s -w -X dev.khulnasoft.com/pkg/version.version="v${{ needs.create-release.outputs.original_package_version }}" -X dev.khulnasoft.com/pkg/telemetry.telemetryPrivateKey=${{ secrets.DEVSPACE_TELEMETRY_PRIVATE_KEY }}" -o "test\%BIN_NAME%"
 
           xcopy /F /Y "test\%BIN_NAME%" desktop\src-tauri\bin\*
 
@@ -247,10 +247,10 @@ jobs:
         if: matrix.settings.host == 'ubuntu-22.04' && matrix.settings.cli_only == false
         id: build-desktop-targz
         run: |
-          cd ./desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/appimage/DevPod.AppDir || exit 1
-          tar --exclude=usr/bin/xdg-open --exclude=usr/lib --exclude=usr/share/doc --exclude=usr/share/glib-2.0 -zcvf DevPod-desktop.tar.gz usr
+          cd ./desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/appimage/DevSpace.AppDir || exit 1
+          tar --exclude=usr/bin/xdg-open --exclude=usr/lib --exclude=usr/share/doc --exclude=usr/share/glib-2.0 -zcvf DevSpace-desktop.tar.gz usr
 
-          mv DevPod-desktop.tar.gz ../../DevPod-${{needs.create-release.outputs.package_version}}.tar.gz
+          mv DevSpace-desktop.tar.gz ../../DevSpace-${{needs.create-release.outputs.package_version}}.tar.gz
 
       - name: Prepare Windows Signing Tool
         if: matrix.settings.host == 'windows-latest' && matrix.settings.cli_only == false
@@ -327,7 +327,7 @@ jobs:
             const version = "${{ needs.create-release.outputs.package_version }}"
 
             // prepare MSI vars
-            const msiName = `DevPod_${version}_x64_en-US.msi`
+            const msiName = `DevSpace_${version}_x64_en-US.msi`
             const msiPath = `desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/msi/${msiName}`
             const msiZipName = `${msiName}.zip`
             const msiZipPath = `desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/msi/${msiZipName}`
@@ -336,7 +336,7 @@ jobs:
 
             // prepare NSIS vars
             // the installer itself is suffixed with `.exe` but updater artifacts end with `.nsis.*`
-            const nsisName = `DevPod_${version}_x64-setup`
+            const nsisName = `DevSpace_${version}_x64-setup`
             const nsisPath = `desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/nsis/${nsisName}.exe`
 
             // Let's skip uploading the updater artifacts until we've figured out auto updating for both nsis and msi
@@ -413,7 +413,7 @@ jobs:
             const fs = require("fs")
 
             const releaseId = "${{ needs.create-release.outputs.release_id }}"
-            const assetName = "DevPod-${{needs.create-release.outputs.package_version}}.tar.gz"
+            const assetName = "DevSpace-${{needs.create-release.outputs.package_version}}.tar.gz"
             const assetPath = `desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/${assetName}`
 
             console.log("Attempting to upload release asset: ", assetName)
@@ -440,8 +440,8 @@ jobs:
             const fs = require("fs")
 
             const releaseId = "${{ needs.create-release.outputs.release_id }}"
-            const assetName = "DevPod.desktop"
-            const assetPath = `desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/deb/DevPod_${{needs.create-release.outputs.package_version}}_amd64/data/usr/share/applications/${assetName}`
+            const assetName = "DevSpace.desktop"
+            const assetPath = `desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/deb/DevSpace_${{needs.create-release.outputs.package_version}}_amd64/data/usr/share/applications/${assetName}`
 
             console.log("Attempting to upload release asset: ", assetName)
 
@@ -457,7 +457,7 @@ jobs:
               release_id: releaseId
             })
 
-            const mdAssetName = "DevPod.metainfo.xml"
+            const mdAssetName = "DevSpace.metainfo.xml"
             const mdAssetPath = `desktop/flatpak/${mdAssetName}`
 
             console.log("Attempting to upload release asset: ", mdAssetName)
@@ -480,9 +480,9 @@ jobs:
         if: matrix.settings.host == 'ubuntu-22.04' && matrix.settings.cli_only == false
         run: |
           export VERSION="${{needs.create-release.outputs.package_version}}"
-          export debPath="desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/deb/DevPod_${{needs.create-release.outputs.package_version}}_amd64.deb"
-          export desktopPath="desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/deb/DevPod_${{needs.create-release.outputs.package_version}}_amd64/data/usr/share/applications/${assetName}/DevPod.desktop"
-          export metaPath="desktop/flatpak/DevPod.metainfo.xml"
+          export debPath="desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/deb/DevSpace_${{needs.create-release.outputs.package_version}}_amd64.deb"
+          export desktopPath="desktop/src-tauri/target/${{ matrix.settings.target }}/release/bundle/deb/DevSpace_${{needs.create-release.outputs.package_version}}_amd64/data/usr/share/applications/${assetName}/DevSpace.desktop"
+          export metaPath="desktop/flatpak/DevSpace.metainfo.xml"
           export SHA256=$(sha256sum "${debPath}" | cut -f1 -d ' ')
           export DESKTOP_SHA256=$(sha256sum "${desktopPath}" | cut -f1 -d ' ')
           export META_SHA256=$(sha256sum "${metaPath}" | cut -f1 -d ' ')
@@ -493,8 +493,8 @@ jobs:
       #   env:
       #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       #   with:
-      #     source_file: 'desktop/flatpak/sh.loft.DevPod.yaml'
-      #     destination_repo: 'flathub/sh.loft.DevPod'
+      #     source_file: 'desktop/flatpak/sh.loft.DevSpace.yaml'
+      #     destination_repo: 'flathub/sh.loft.DevSpace'
       #     destination_folder: ''
       #     user_email: 'bot@loft.sh'
       #     user_name: 'loftbot'
@@ -578,11 +578,11 @@ jobs:
             const version = latest.version
 
             const infos = [
-              { target: "linux-x86_64", sigFile: ".AppImage.tar.gz.sig", packageType: ".tar.gz", originalAssetName: `DevPod_${version}_amd64.AppImage`, desiredAssetName: "DevPod_linux_amd64.AppImage" },
-              { target: "darwin-aarch64", sigFile: "aarch64.app.tar.gz.sig", packageType: ".tar.gz", originalAssetName: `DevPod_${version}_aarch64.dmg`, desiredAssetName: "DevPod_macos_aarch64.dmg", originalUpdaterAssetName: "DevPod_aarch64.app.tar.gz", desiredUpdaterAssetName: "DevPod_macos_aarch64.app.tar.gz" },
-              { target: "darwin-x86_64", sigFile: "x64.app.tar.gz.sig", packageType: ".tar.gz", originalAssetName: `DevPod_${version}_x64.dmg`, desiredAssetName: "DevPod_macos_x64.dmg", originalUpdaterAssetName: "DevPod_x64.app.tar.gz", desiredUpdaterAssetName: "DevPod_macos_x64.app.tar.gz" },
-              { target: "windows-x86_64", sigFile: ".msi.zip.sig", packageType: ".zip", originalAssetName: `DevPod_${version}_x64_en-US.msi`, desiredAssetName: "DevPod_windows_x64_en-US.msi" },
-              { originalAssetName: `DevPod-${version}.tar.gz`, desiredAssetName: "DevPod_linux_x86_64.tar.gz" },
+              { target: "linux-x86_64", sigFile: ".AppImage.tar.gz.sig", packageType: ".tar.gz", originalAssetName: `DevSpace_${version}_amd64.AppImage`, desiredAssetName: "DevSpace_linux_amd64.AppImage" },
+              { target: "darwin-aarch64", sigFile: "aarch64.app.tar.gz.sig", packageType: ".tar.gz", originalAssetName: `DevSpace_${version}_aarch64.dmg`, desiredAssetName: "DevSpace_macos_aarch64.dmg", originalUpdaterAssetName: "DevSpace_aarch64.app.tar.gz", desiredUpdaterAssetName: "DevSpace_macos_aarch64.app.tar.gz" },
+              { target: "darwin-x86_64", sigFile: "x64.app.tar.gz.sig", packageType: ".tar.gz", originalAssetName: `DevSpace_${version}_x64.dmg`, desiredAssetName: "DevSpace_macos_x64.dmg", originalUpdaterAssetName: "DevSpace_x64.app.tar.gz", desiredUpdaterAssetName: "DevSpace_macos_x64.app.tar.gz" },
+              { target: "windows-x86_64", sigFile: ".msi.zip.sig", packageType: ".zip", originalAssetName: `DevSpace_${version}_x64_en-US.msi`, desiredAssetName: "DevSpace_windows_x64_en-US.msi" },
+              { originalAssetName: `DevSpace-${version}.tar.gz`, desiredAssetName: "DevSpace_linux_x86_64.tar.gz" },
             ]
 
             for (const info of infos) {

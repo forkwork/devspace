@@ -16,7 +16,7 @@ import (
 	"tailscale.com/client/tailscale"
 )
 
-// NetcheckCmd holds the DevPod daemon flags
+// NetcheckCmd holds the DevSpace daemon flags
 type NetcheckCmd struct {
 	*proflags.GlobalFlags
 
@@ -34,12 +34,12 @@ func NewNetcheckCmd(flags *proflags.GlobalFlags) *cobra.Command {
 		Use:   "netcheck",
 		Short: "Get the status of the current network",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			root := cmd.Root()
@@ -63,7 +63,7 @@ func NewNetcheckCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *NetcheckCmd) Run(ctx context.Context, devPodConfig *config.Config, provider *providerpkg.ProviderConfig) error {
+func (cmd *NetcheckCmd) Run(ctx context.Context, devSpaceConfig *config.Config, provider *providerpkg.ProviderConfig) error {
 	tsClient := &tailscale.LocalClient{
 		Socket:        daemon.GetSocketAddr(provider.Name),
 		UseSocketOnly: true,

@@ -1,5 +1,5 @@
 {
-  "name": "DevPod Development Image",
+  "name": "DevSpace Development Image",
   "build": {
     "dockerfile": "Dockerfile",
     "context": "."

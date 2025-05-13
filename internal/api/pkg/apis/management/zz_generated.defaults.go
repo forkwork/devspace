@@ -14,11 +14,11 @@ import (
 // Public to allow building arbitrary schemes.
 // All generated defaulters are covering - they call all nested defaulters.
 func RegisterDefaults(scheme *runtime.Scheme) error {
-	scheme.AddTypeDefaultingFunc(&DevPodWorkspaceInstanceTroubleshoot{}, func(obj interface{}) {
-		SetObjectDefaults_DevPodWorkspaceInstanceTroubleshoot(obj.(*DevPodWorkspaceInstanceTroubleshoot))
+	scheme.AddTypeDefaultingFunc(&DevSpaceWorkspaceInstanceTroubleshoot{}, func(obj interface{}) {
+		SetObjectDefaults_DevSpaceWorkspaceInstanceTroubleshoot(obj.(*DevSpaceWorkspaceInstanceTroubleshoot))
 	})
-	scheme.AddTypeDefaultingFunc(&DevPodWorkspaceInstanceTroubleshootList{}, func(obj interface{}) {
-		SetObjectDefaults_DevPodWorkspaceInstanceTroubleshootList(obj.(*DevPodWorkspaceInstanceTroubleshootList))
+	scheme.AddTypeDefaultingFunc(&DevSpaceWorkspaceInstanceTroubleshootList{}, func(obj interface{}) {
+		SetObjectDefaults_DevSpaceWorkspaceInstanceTroubleshootList(obj.(*DevSpaceWorkspaceInstanceTroubleshootList))
 	})
 	scheme.AddTypeDefaultingFunc(&ProjectClusters{}, func(obj interface{}) { SetObjectDefaults_ProjectClusters(obj.(*ProjectClusters)) })
 	scheme.AddTypeDefaultingFunc(&ProjectClustersList{}, func(obj interface{}) { SetObjectDefaults_ProjectClustersList(obj.(*ProjectClustersList)) })
@@ -29,7 +29,7 @@ func RegisterDefaults(scheme *runtime.Scheme) error {
 	return nil
 }
 
-func SetObjectDefaults_DevPodWorkspaceInstanceTroubleshoot(in *DevPodWorkspaceInstanceTroubleshoot) {
+func SetObjectDefaults_DevSpaceWorkspaceInstanceTroubleshoot(in *DevSpaceWorkspaceInstanceTroubleshoot) {
 	for i := range in.Pods {
 		a := &in.Pods[i]
 		for j := range a.Spec.Volumes {
@@ -179,10 +179,10 @@ func SetObjectDefaults_DevPodWorkspaceInstanceTroubleshoot(in *DevPodWorkspaceIn
 	}
 }
 
-func SetObjectDefaults_DevPodWorkspaceInstanceTroubleshootList(in *DevPodWorkspaceInstanceTroubleshootList) {
+func SetObjectDefaults_DevSpaceWorkspaceInstanceTroubleshootList(in *DevSpaceWorkspaceInstanceTroubleshootList) {
 	for i := range in.Items {
 		a := &in.Items[i]
-		SetObjectDefaults_DevPodWorkspaceInstanceTroubleshoot(a)
+		SetObjectDefaults_DevSpaceWorkspaceInstanceTroubleshoot(a)
 	}
 }
 

@@ -16,7 +16,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// StatusCmd holds the DevPod daemon flags
+// StatusCmd holds the DevSpace daemon flags
 type StatusCmd struct {
 	*proflags.GlobalFlags
 
@@ -34,12 +34,12 @@ func NewStatusCmd(flags *proflags.GlobalFlags) *cobra.Command {
 		Use:   "status",
 		Short: "Get the status of the daemon",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			root := cmd.Root()
@@ -63,7 +63,7 @@ func NewStatusCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *StatusCmd) Run(ctx context.Context, devPodConfig *config.Config, provider *providerpkg.ProviderConfig) error {
+func (cmd *StatusCmd) Run(ctx context.Context, devSpaceConfig *config.Config, provider *providerpkg.ProviderConfig) error {
 	status, err := platformdaemon.NewLocalClient(provider.Name).Status(ctx, cmd.Debug)
 	if err != nil {
 		return err

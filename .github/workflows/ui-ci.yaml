@@ -36,6 +36,6 @@ jobs:
       - name: check types
         run: yarn types:check
 
-        # This only builds the frontend assets, not the full DevPod Desktop app to make it quicker
+        # This only builds the frontend assets, not the full DevSpace Desktop app to make it quicker
       - name: build
         run: yarn build

@@ -113,7 +113,7 @@ function GeneralSettings() {
         title="Debug mode"
         description={
           <>
-            Run all DevPod commands with the <Code>--debug</Code> flag, making it easier to
+            Run all DevSpace commands with the <Code>--debug</Code> flag, making it easier to
             troubleshoot
           </>
         }>
@@ -123,7 +123,7 @@ function GeneralSettings() {
         />
       </SettingSection>
 
-      <SettingSection title="Logs" description={"Open the logs for DevPod Desktop"}>
+      <SettingSection title="Logs" description={"Open the logs for DevSpace Desktop"}>
         <Button variant="outline" onClick={() => client.openDir("AppLog")}>
           Open Logs
         </Button>
@@ -144,7 +144,7 @@ function GeneralSettings() {
       <SettingSection
         showDivider={false}
         title="Show Intro"
-        description="Show the introduction to DevPod again">
+        description="Show the introduction to DevSpace again">
         <Button variant="outline" onClick={() => showWelcomeModal({ cancellable: true })}>
           Open
         </Button>
@@ -155,7 +155,7 @@ function GeneralSettings() {
           Danger Zone
         </Heading>
         <Button variant="outline" colorScheme="red" onClick={() => client.quit()}>
-          Quit DevPod
+          Quit DevSpace
         </Button>
       </VStack>
 
@@ -327,7 +327,7 @@ function UpdateSettings() {
       </SettingSection>
       <SettingSection
         title="Versions"
-        description="Manage and explore DevPod versions"
+        description="Manage and explore DevSpace versions"
         showDivider={false}>
         <>
           <VStack align="start" width="full" marginBottom="4">
@@ -393,7 +393,7 @@ function ExperimentalSettings() {
 
       <SettingSection
         title="Experimental IDEs"
-        description=" Enable experimental IDEs. These IDEs are not officially supported by DevPod and might be unstable. We are working on making them generally available">
+        description=" Enable experimental IDEs. These IDEs are not officially supported by DevSpace and might be unstable. We are working on making them generally available">
         <HStack>
           <Switch
             isChecked={settings.experimental_fleet}
@@ -493,10 +493,10 @@ function ExperimentalSettings() {
         {extraEnvVarsInput}
       </SettingSection>
 
-      <SettingSection title="DevPod Pro (beta)" description="Enable DevPod Pro login and creation">
+      <SettingSection title="DevSpace Pro (beta)" description="Enable DevSpace Pro login and creation">
         <Switch
-          isChecked={settings.experimental_devPodPro}
-          onChange={(e) => set("experimental_devPodPro", e.target.checked)}
+          isChecked={settings.experimental_devSpacePro}
+          onChange={(e) => set("experimental_devSpacePro", e.target.checked)}
         />
       </SettingSection>
 

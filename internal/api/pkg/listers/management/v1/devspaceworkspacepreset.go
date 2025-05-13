@@ -9,24 +9,24 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// DevPodWorkspacePresetLister helps list DevPodWorkspacePresets.
+// DevSpaceWorkspacePresetLister helps list DevSpaceWorkspacePresets.
 // All objects returned here must be treated as read-only.
-type DevPodWorkspacePresetLister interface {
-	// List lists all DevPodWorkspacePresets in the indexer.
+type DevSpaceWorkspacePresetLister interface {
+	// List lists all DevSpaceWorkspacePresets in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1.DevPodWorkspacePreset, err error)
-	// Get retrieves the DevPodWorkspacePreset from the index for a given name.
+	List(selector labels.Selector) (ret []*v1.DevSpaceWorkspacePreset, err error)
+	// Get retrieves the DevSpaceWorkspacePreset from the index for a given name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1.DevPodWorkspacePreset, error)
-	DevPodWorkspacePresetListerExpansion
+	Get(name string) (*v1.DevSpaceWorkspacePreset, error)
+	DevSpaceWorkspacePresetListerExpansion
 }
 
-// devPodWorkspacePresetLister implements the DevPodWorkspacePresetLister interface.
-type devPodWorkspacePresetLister struct {
-	listers.ResourceIndexer[*v1.DevPodWorkspacePreset]
+// devSpaceWorkspacePresetLister implements the DevSpaceWorkspacePresetLister interface.
+type devSpaceWorkspacePresetLister struct {
+	listers.ResourceIndexer[*v1.DevSpaceWorkspacePreset]
 }
 
-// NewDevPodWorkspacePresetLister returns a new DevPodWorkspacePresetLister.
-func NewDevPodWorkspacePresetLister(indexer cache.Indexer) DevPodWorkspacePresetLister {
-	return &devPodWorkspacePresetLister{listers.New[*v1.DevPodWorkspacePreset](indexer, v1.Resource("devspaceworkspacepreset"))}
+// NewDevSpaceWorkspacePresetLister returns a new DevSpaceWorkspacePresetLister.
+func NewDevSpaceWorkspacePresetLister(indexer cache.Indexer) DevSpaceWorkspacePresetLister {
+	return &devSpaceWorkspacePresetLister{listers.New[*v1.DevSpaceWorkspacePreset](indexer, v1.Resource("devspaceworkspacepreset"))}
 }

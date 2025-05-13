@@ -40,8 +40,8 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           committer: Loft Bot <loft-bot@users.noreply.github.com>
           branch: licenses/devspace
-          commit-message: "license(DevPod): Updated OSS licenses"
-          title: "license(DevPod): Updated OSS licenses"
+          commit-message: "license(DevSpace): Updated OSS licenses"
+          title: "license(DevSpace): Updated OSS licenses"
           body: Triggered by ${{ github.repository }}@${{ github.sha }}
           signoff: true
           delete-branch: true

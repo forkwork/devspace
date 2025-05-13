@@ -75,7 +75,7 @@ type ProviderSource struct {
 }
 
 type ProviderAgentConfig struct {
-	// Local defines if DevPod is running locally
+	// Local defines if DevSpace is running locally
 	Local types.StrBool `json:"local,omitempty"`
 
 	// Path is the binary path inside the server devspace will expect the agent binary
@@ -95,11 +95,11 @@ type ProviderAgentConfig struct {
 	// to delete the container.
 	ContainerTimeout string `json:"containerInactivityTimeout,omitempty"`
 
-	// InjectGitCredentials signals DevPod if git credentials should get synced into
+	// InjectGitCredentials signals DevSpace if git credentials should get synced into
 	// the remote machine for cloning the repository.
 	InjectGitCredentials types.StrBool `json:"injectGitCredentials,omitempty"`
 
-	// InjectDockerCredentials signals DevPod if docker credentials should get synced
+	// InjectDockerCredentials signals DevSpace if docker credentials should get synced
 	// into the remote machine for pulling and pushing images.
 	InjectDockerCredentials types.StrBool `json:"injectDockerCredentials,omitempty"`
 
@@ -186,7 +186,7 @@ type ProviderDockerDriverConfig struct {
 	// Path where to find the docker binary, defaults to 'docker'
 	Path string `json:"path,omitempty"`
 
-	// If false, DevPod will not try to install docker into the machine.
+	// If false, DevSpace will not try to install docker into the machine.
 	Install types.StrBool `json:"install,omitempty"`
 
 	// Builder to use with docker

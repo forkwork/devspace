@@ -19,9 +19,9 @@ import (
 )
 
 var (
-	DevPodSSHHostKeyFile    = "id_devspace_rsa_host"
-	DevPodSSHPrivateKeyFile = "id_devspace_rsa"
-	DevPodSSHPublicKeyFile  = "id_devspace_rsa.pub"
+	DevSpaceSSHHostKeyFile    = "id_devspace_rsa_host"
+	DevSpaceSSHPrivateKeyFile = "id_devspace_rsa"
+	DevSpaceSSHPublicKeyFile  = "id_devspace_rsa.pub"
 )
 
 var keyLock sync.Mutex
@@ -79,7 +79,7 @@ func GetPrivateKeyRaw(context, workspaceID string) ([]byte, error) {
 	return GetPrivateKeyRawBase(workspaceDir)
 }
 
-func GetDevPodKeysDir() string {
+func GetDevSpaceKeysDir() string {
 	dir, err := util.UserHomeDir()
 	if err == nil {
 		tempDir := filepath.Join(dir, ".devspace", "keys")
@@ -93,18 +93,18 @@ func GetDevPodKeysDir() string {
 	return filepath.Join(tempDir, "devspace-ssh")
 }
 
-func GetDevPodHostKey() (string, error) {
-	tempDir := GetDevPodKeysDir()
+func GetDevSpaceHostKey() (string, error) {
+	tempDir := GetDevSpaceKeysDir()
 	return GetHostKeyBase(tempDir)
 }
 
-func GetDevPodPublicKey() (string, error) {
-	tempDir := GetDevPodKeysDir()
+func GetDevSpacePublicKey() (string, error) {
+	tempDir := GetDevSpaceKeysDir()
 	return GetPublicKeyBase(tempDir)
 }
 
-func GetDevPodPrivateKeyRaw() ([]byte, error) {
-	tempDir := GetDevPodKeysDir()
+func GetDevSpacePrivateKeyRaw() ([]byte, error) {
+	tempDir := GetDevSpaceKeysDir()
 	return GetPrivateKeyRawBase(tempDir)
 }
 
@@ -127,8 +127,8 @@ func GetPrivateKeyRawBase(dir string) ([]byte, error) {
 	}
 
 	// check if key pair exists
-	privateKeyFile := filepath.Join(dir, DevPodSSHPrivateKeyFile)
-	publicKeyFile := filepath.Join(dir, DevPodSSHPublicKeyFile)
+	privateKeyFile := filepath.Join(dir, DevSpaceSSHPrivateKeyFile)
+	publicKeyFile := filepath.Join(dir, DevSpaceSSHPublicKeyFile)
 	_, err = os.Stat(privateKeyFile)
 	if err != nil {
 		pubKey, privateKey, err := makeSSHKeyPair()
@@ -166,7 +166,7 @@ func GetHostKeyBase(dir string) (string, error) {
 	}
 
 	// check if key pair exists
-	hostKeyFile := filepath.Join(dir, DevPodSSHHostKeyFile)
+	hostKeyFile := filepath.Join(dir, DevSpaceSSHHostKeyFile)
 	_, err = os.Stat(hostKeyFile)
 	if err != nil {
 		privateKey, err := makeHostKey()
@@ -199,8 +199,8 @@ func GetPublicKeyBase(dir string) (string, error) {
 	}
 
 	// check if key pair exists
-	privateKeyFile := filepath.Join(dir, DevPodSSHPrivateKeyFile)
-	publicKeyFile := filepath.Join(dir, DevPodSSHPublicKeyFile)
+	privateKeyFile := filepath.Join(dir, DevSpaceSSHPrivateKeyFile)
+	publicKeyFile := filepath.Join(dir, DevSpaceSSHPublicKeyFile)
 	_, err = os.Stat(privateKeyFile)
 	if err != nil {
 		pubKey, privateKey, err := makeSSHKeyPair()

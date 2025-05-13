@@ -55,9 +55,9 @@ type ConfigStatus struct {
 	// +optional
 	ProjectNamespacePrefix *string `json:"projectNamespacePrefix,omitempty"`
 
-	// DevPodSubDomain holds a subdomain in the following form *.workspace.my-domain.com
+	// DevSpaceSubDomain holds a subdomain in the following form *.workspace.my-domain.com
 	// +optional
-	DevPodSubDomain string `json:"devPodSubDomain,omitempty"`
+	DevSpaceSubDomain string `json:"devSpaceSubDomain,omitempty"`
 
 	// UISettings holds the settings for modifying the Loft user interface
 	// +optional

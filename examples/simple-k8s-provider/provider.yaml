@@ -1,7 +1,7 @@
 name: kubernetes
 version: 0.0.1
 description: |-
-  DevPod on Kubernetes
+  DevSpace on Kubernetes
 options:
   NAMESPACE:
     required: true

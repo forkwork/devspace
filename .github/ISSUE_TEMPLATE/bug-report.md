@@ -24,11 +24,11 @@ My *`devcontainer.json`*:
 ```
 
 **Local Environment:**  
-- DevPod Version: [use `devspace version`]
+- DevSpace Version: [use `devspace version`]
 - Operating System: windows | linux | mac
 - ARCH of the OS: AMD64 | ARM64 | i386 
 
-**DevPod Provider:**  
+**DevSpace Provider:**  
 - Cloud Provider: google | aws | azure | digitalOcean
 - Kubernetes Provider: [use `kubectl version`]
 - Local/remote provider: docker | ssh

@@ -36,7 +36,7 @@ const (
 	/* NEVER CHANGE ANY OF THESE */
 	Loft        ProductName = "loft"
 	VClusterPro ProductName = "vcluster-pro"
-	DevPodPro   ProductName = "devspace-pro"
+	DevSpacePro   ProductName = "devspace-pro"
 )
 
 // Modules
@@ -45,7 +45,7 @@ const (
 	KubernetesClusterModule   ModuleName = "k8s-clusters"
 	VirtualClusterModule      ModuleName = "vclusters"
 	VClusterProDistroModule   ModuleName = "vcluster-pro-distro"
-	DevPodModule              ModuleName = "devspace"
+	DevSpaceModule              ModuleName = "devspace"
 	AuthModule                ModuleName = "auth"
 	TemplatingModule          ModuleName = "templating"
 	SecretsModule             ModuleName = "secrets"
@@ -79,7 +79,7 @@ const (
 	ConnectedClusterLimit        ResourceName = "connected-cluster"
 	VirtualClusterInstanceLimit  ResourceName = "virtual-cluster-instance"
 	SpaceInstanceLimit           ResourceName = "space-instance"
-	DevPodWorkspaceInstanceLimit ResourceName = "devspace-workspace-instance"
+	DevSpaceWorkspaceInstanceLimit ResourceName = "devspace-workspace-instance"
 	UserLimit                    ResourceName = "user"
 	InstanceLimit                ResourceName = "instance"
 )

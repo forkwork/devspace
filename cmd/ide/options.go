@@ -51,12 +51,12 @@ type optionWithValue struct {
 
 // Run runs the command logic
 func (cmd *OptionsCmd) Run(ctx context.Context, ide string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	values := devPodConfig.IDEOptions(ide)
+	values := devSpaceConfig.IDEOptions(ide)
 	ideOptions, err := ideparse.GetIDEOptions(ide)
 	if err != nil {
 		return err

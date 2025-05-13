@@ -2,7 +2,7 @@ name: devspace-pro
 version: v0.0.1
 icon: https://dev.khulnasoft.com/assets/devspace.svg
 home: https://dev.khulnasoft.com
-description: DevPod Pro
+description: DevSpace Pro
 options:
   LOFT_CONFIG:
     global: true
@@ -11,5 +11,5 @@ options:
     default: "${PROVIDER_FOLDER}/loft-config.json"
 exec:
   daemon:
-    start: ${DEVPOD} pro daemon start
-    status: ${DEVPOD} pro daemon status
+    start: ${DEVSPACE} pro daemon start
+    status: ${DEVSPACE} pro daemon status

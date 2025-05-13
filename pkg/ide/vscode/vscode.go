@@ -56,7 +56,7 @@ func (f Flavor) DisplayName() string {
 var Options = ide.Options{
 	OpenNewWindow: {
 		Name:        OpenNewWindow,
-		Description: "If true, DevPod will open the project in a new window",
+		Description: "If true, DevSpace will open the project in a new window",
 		Default:     "true",
 		Enum: []string{
 			"false",

@@ -81,7 +81,7 @@ type RunnerSpec struct {
 	// +optional
 	Owner *UserOrTeam `json:"owner,omitempty"`
 
-	// If unusable is true, no DevPod workspaces can be scheduled on this runner.
+	// If unusable is true, no DevSpace workspaces can be scheduled on this runner.
 	// +optional
 	Unusable bool `json:"unusable,omitempty"`
 

@@ -8,10 +8,10 @@ const (
 	DockerIDLabel           = "dev.containers.id"
 	DockerfileDefaultTarget = "dev_container_auto_added_stage_label"
 
-	DevPodContextFeatureFolder      = ".devspace-internal"
-	DevPodDockerlessBuildInfoFolder = "/workspaces/.dockerless"
+	DevSpaceContextFeatureFolder      = ".devspace-internal"
+	DevSpaceDockerlessBuildInfoFolder = "/workspaces/.dockerless"
 
-	WorkspaceDaemonConfigExtraEnvVar = "DEVPOD_WORKSPACE_DAEMON_CONFIG"
+	WorkspaceDaemonConfigExtraEnvVar = "DEVSPACE_WORKSPACE_DAEMON_CONFIG"
 )
 
 func GetDockerLabelForID(id string) []string {

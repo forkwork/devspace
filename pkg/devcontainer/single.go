@@ -18,10 +18,10 @@ import (
 var dockerlessImage = "ghcr.io/khulnasoftdockerless:0.2.0"
 
 const (
-	DevPodExtraEnvVar           = "DEVPOD"
+	DevSpaceExtraEnvVar           = "DEVSPACE"
 	RemoteContainersExtraEnvVar = "REMOTE_CONTAINERS"
-	WorkspaceIDExtraEnvVar      = "DEVPOD_WORKSPACE_ID"
-	WorkspaceUIDExtraEnvVar     = "DEVPOD_WORKSPACE_UID"
+	WorkspaceIDExtraEnvVar      = "DEVSPACE_WORKSPACE_ID"
+	WorkspaceUIDExtraEnvVar     = "DEVSPACE_WORKSPACE_UID"
 
 	DefaultEntrypoint = `
 while ! command -v /usr/local/bin/devspace >/dev/null 2>&1; do
@@ -52,7 +52,7 @@ func (r *runner) runSingleContainer(
 
 	// if options.Recreate is true, and workspace is a running container, we should not rebuild
 	if options.Recreate && parsedConfig.Config.ContainerID != "" {
-		return nil, fmt.Errorf("cannot recreate container not created by DevPod")
+		return nil, fmt.Errorf("cannot recreate container not created by DevSpace")
 	} else if !options.Recreate && containerDetails != nil {
 		// start container if not running
 		if strings.ToLower(containerDetails.State.Status) != "running" {
@@ -129,7 +129,7 @@ func (r *runner) runSingleContainer(
 
 		// Inject the daemon entrypoint if platform configuration is provided.
 		if options.CLIOptions.Platform.AccessKey != "" {
-			r.Log.Debugf("Platform config detected, injecting DevPod daemon entrypoint.")
+			r.Log.Debugf("Platform config detected, injecting DevSpace daemon entrypoint.")
 
 			data, err := agent.GetEncodedWorkspaceDaemonConfig(options.Platform, r.WorkspaceConfig.Workspace, substitutionContext, mergedConfig)
 			if err != nil {
@@ -334,7 +334,7 @@ func (r *runner) addExtraEnvVars(env map[string]string) map[string]string {
 		env = make(map[string]string)
 	}
 
-	env[DevPodExtraEnvVar] = "true"
+	env[DevSpaceExtraEnvVar] = "true"
 	env[RemoteContainersExtraEnvVar] = "true"
 	if r.WorkspaceConfig != nil && r.WorkspaceConfig.Workspace != nil && r.WorkspaceConfig.Workspace.ID != "" {
 		env[WorkspaceIDExtraEnvVar] = r.WorkspaceConfig.Workspace.ID

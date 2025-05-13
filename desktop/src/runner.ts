@@ -103,7 +103,7 @@ export class ManagementV1RunnerSpec {
   "networkPeerName"?: string
   "owner"?: StorageV1UserOrTeam
   /**
-   * If unusable is true, no DevPod workspaces can be scheduled on this runner.
+   * If unusable is true, no DevSpace workspaces can be scheduled on this runner.
    */
   "unusable"?: boolean
 

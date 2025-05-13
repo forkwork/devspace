@@ -13,29 +13,29 @@ import (
 	testing "k8s.io/client-go/testing"
 )
 
-// FakeDevPodWorkspacePresets implements DevPodWorkspacePresetInterface
-type FakeDevPodWorkspacePresets struct {
+// FakeDevSpaceWorkspacePresets implements DevSpaceWorkspacePresetInterface
+type FakeDevSpaceWorkspacePresets struct {
 	Fake *FakeManagementV1
 }
 
 var devspaceworkspacepresetsResource = v1.SchemeGroupVersion.WithResource("devspaceworkspacepresets")
 
-var devspaceworkspacepresetsKind = v1.SchemeGroupVersion.WithKind("DevPodWorkspacePreset")
+var devspaceworkspacepresetsKind = v1.SchemeGroupVersion.WithKind("DevSpaceWorkspacePreset")
 
-// Get takes name of the devPodWorkspacePreset, and returns the corresponding devPodWorkspacePreset object, and an error if there is any.
-func (c *FakeDevPodWorkspacePresets) Get(ctx context.Context, name string, options metav1.GetOptions) (result *v1.DevPodWorkspacePreset, err error) {
-	emptyResult := &v1.DevPodWorkspacePreset{}
+// Get takes name of the devSpaceWorkspacePreset, and returns the corresponding devSpaceWorkspacePreset object, and an error if there is any.
+func (c *FakeDevSpaceWorkspacePresets) Get(ctx context.Context, name string, options metav1.GetOptions) (result *v1.DevSpaceWorkspacePreset, err error) {
+	emptyResult := &v1.DevSpaceWorkspacePreset{}
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetActionWithOptions(devspaceworkspacepresetsResource, name, options), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodWorkspacePreset), err
+	return obj.(*v1.DevSpaceWorkspacePreset), err
 }
 
-// List takes label and field selectors, and returns the list of DevPodWorkspacePresets that match those selectors.
-func (c *FakeDevPodWorkspacePresets) List(ctx context.Context, opts metav1.ListOptions) (result *v1.DevPodWorkspacePresetList, err error) {
-	emptyResult := &v1.DevPodWorkspacePresetList{}
+// List takes label and field selectors, and returns the list of DevSpaceWorkspacePresets that match those selectors.
+func (c *FakeDevSpaceWorkspacePresets) List(ctx context.Context, opts metav1.ListOptions) (result *v1.DevSpaceWorkspacePresetList, err error) {
+	emptyResult := &v1.DevSpaceWorkspacePresetList{}
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListActionWithOptions(devspaceworkspacepresetsResource, devspaceworkspacepresetsKind, opts), emptyResult)
 	if obj == nil {
@@ -46,8 +46,8 @@ func (c *FakeDevPodWorkspacePresets) List(ctx context.Context, opts metav1.ListO
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1.DevPodWorkspacePresetList{ListMeta: obj.(*v1.DevPodWorkspacePresetList).ListMeta}
-	for _, item := range obj.(*v1.DevPodWorkspacePresetList).Items {
+	list := &v1.DevSpaceWorkspacePresetList{ListMeta: obj.(*v1.DevSpaceWorkspacePresetList).ListMeta}
+	for _, item := range obj.(*v1.DevSpaceWorkspacePresetList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -55,68 +55,68 @@ func (c *FakeDevPodWorkspacePresets) List(ctx context.Context, opts metav1.ListO
 	return list, err
 }
 
-// Watch returns a watch.Interface that watches the requested devPodWorkspacePresets.
-func (c *FakeDevPodWorkspacePresets) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
+// Watch returns a watch.Interface that watches the requested devSpaceWorkspacePresets.
+func (c *FakeDevSpaceWorkspacePresets) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchActionWithOptions(devspaceworkspacepresetsResource, opts))
 }
 
-// Create takes the representation of a devPodWorkspacePreset and creates it.  Returns the server's representation of the devPodWorkspacePreset, and an error, if there is any.
-func (c *FakeDevPodWorkspacePresets) Create(ctx context.Context, devPodWorkspacePreset *v1.DevPodWorkspacePreset, opts metav1.CreateOptions) (result *v1.DevPodWorkspacePreset, err error) {
-	emptyResult := &v1.DevPodWorkspacePreset{}
+// Create takes the representation of a devSpaceWorkspacePreset and creates it.  Returns the server's representation of the devSpaceWorkspacePreset, and an error, if there is any.
+func (c *FakeDevSpaceWorkspacePresets) Create(ctx context.Context, devSpaceWorkspacePreset *v1.DevSpaceWorkspacePreset, opts metav1.CreateOptions) (result *v1.DevSpaceWorkspacePreset, err error) {
+	emptyResult := &v1.DevSpaceWorkspacePreset{}
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateActionWithOptions(devspaceworkspacepresetsResource, devPodWorkspacePreset, opts), emptyResult)
+		Invokes(testing.NewRootCreateActionWithOptions(devspaceworkspacepresetsResource, devSpaceWorkspacePreset, opts), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodWorkspacePreset), err
+	return obj.(*v1.DevSpaceWorkspacePreset), err
 }
 
-// Update takes the representation of a devPodWorkspacePreset and updates it. Returns the server's representation of the devPodWorkspacePreset, and an error, if there is any.
-func (c *FakeDevPodWorkspacePresets) Update(ctx context.Context, devPodWorkspacePreset *v1.DevPodWorkspacePreset, opts metav1.UpdateOptions) (result *v1.DevPodWorkspacePreset, err error) {
-	emptyResult := &v1.DevPodWorkspacePreset{}
+// Update takes the representation of a devSpaceWorkspacePreset and updates it. Returns the server's representation of the devSpaceWorkspacePreset, and an error, if there is any.
+func (c *FakeDevSpaceWorkspacePresets) Update(ctx context.Context, devSpaceWorkspacePreset *v1.DevSpaceWorkspacePreset, opts metav1.UpdateOptions) (result *v1.DevSpaceWorkspacePreset, err error) {
+	emptyResult := &v1.DevSpaceWorkspacePreset{}
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateActionWithOptions(devspaceworkspacepresetsResource, devPodWorkspacePreset, opts), emptyResult)
+		Invokes(testing.NewRootUpdateActionWithOptions(devspaceworkspacepresetsResource, devSpaceWorkspacePreset, opts), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodWorkspacePreset), err
+	return obj.(*v1.DevSpaceWorkspacePreset), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeDevPodWorkspacePresets) UpdateStatus(ctx context.Context, devPodWorkspacePreset *v1.DevPodWorkspacePreset, opts metav1.UpdateOptions) (result *v1.DevPodWorkspacePreset, err error) {
-	emptyResult := &v1.DevPodWorkspacePreset{}
+func (c *FakeDevSpaceWorkspacePresets) UpdateStatus(ctx context.Context, devSpaceWorkspacePreset *v1.DevSpaceWorkspacePreset, opts metav1.UpdateOptions) (result *v1.DevSpaceWorkspacePreset, err error) {
+	emptyResult := &v1.DevSpaceWorkspacePreset{}
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateSubresourceActionWithOptions(devspaceworkspacepresetsResource, "status", devPodWorkspacePreset, opts), emptyResult)
+		Invokes(testing.NewRootUpdateSubresourceActionWithOptions(devspaceworkspacepresetsResource, "status", devSpaceWorkspacePreset, opts), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodWorkspacePreset), err
+	return obj.(*v1.DevSpaceWorkspacePreset), err
 }
 
-// Delete takes name of the devPodWorkspacePreset and deletes it. Returns an error if one occurs.
-func (c *FakeDevPodWorkspacePresets) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
+// Delete takes name of the devSpaceWorkspacePreset and deletes it. Returns an error if one occurs.
+func (c *FakeDevSpaceWorkspacePresets) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteActionWithOptions(devspaceworkspacepresetsResource, name, opts), &v1.DevPodWorkspacePreset{})
+		Invokes(testing.NewRootDeleteActionWithOptions(devspaceworkspacepresetsResource, name, opts), &v1.DevSpaceWorkspacePreset{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeDevPodWorkspacePresets) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
+func (c *FakeDevSpaceWorkspacePresets) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
 	action := testing.NewRootDeleteCollectionActionWithOptions(devspaceworkspacepresetsResource, opts, listOpts)
 
-	_, err := c.Fake.Invokes(action, &v1.DevPodWorkspacePresetList{})
+	_, err := c.Fake.Invokes(action, &v1.DevSpaceWorkspacePresetList{})
 	return err
 }
 
-// Patch applies the patch and returns the patched devPodWorkspacePreset.
-func (c *FakeDevPodWorkspacePresets) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevPodWorkspacePreset, err error) {
-	emptyResult := &v1.DevPodWorkspacePreset{}
+// Patch applies the patch and returns the patched devSpaceWorkspacePreset.
+func (c *FakeDevSpaceWorkspacePresets) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevSpaceWorkspacePreset, err error) {
+	emptyResult := &v1.DevSpaceWorkspacePreset{}
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceActionWithOptions(devspaceworkspacepresetsResource, name, pt, data, opts, subresources...), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodWorkspacePreset), err
+	return obj.(*v1.DevSpaceWorkspacePreset), err
 }

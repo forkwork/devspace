@@ -9,7 +9,7 @@ import (
 	"github.com/onsi/ginkgo/v2"
 )
 
-var _ = DevPodDescribe("devspace up test suite", func() {
+var _ = DevSpaceDescribe("devspace up test suite", func() {
 	ginkgo.Context("testing up command", ginkgo.Label("up-podman"), ginkgo.Ordered, func() {
 		var initialDir string
 
@@ -50,17 +50,17 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 
 					f := framework.NewDefaultFramework(initialDir + "/bin")
 
-					_ = f.DevPodProviderDelete(ctx, "docker")
-					err = f.DevPodProviderAdd(ctx, "docker", "-o", "DOCKER_PATH="+initialDir+"/bin/podman-rootful")
+					_ = f.DevSpaceProviderDelete(ctx, "docker")
+					err = f.DevSpaceProviderAdd(ctx, "docker", "-o", "DOCKER_PATH="+initialDir+"/bin/podman-rootful")
 					framework.ExpectNoError(err)
 
-					err = f.DevPodProviderUse(ctx, "docker")
+					err = f.DevSpaceProviderUse(ctx, "docker")
 					framework.ExpectNoError(err)
 
-					ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+					ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 					// Wait for devspace workspace to come online (deadline: 30s)
-					err = f.DevPodUp(ctx, tempDir)
+					err = f.DevSpaceUp(ctx, tempDir)
 					framework.ExpectNoError(err)
 				}, ginkgo.SpecTimeout(framework.GetTimeout()))
 			})
@@ -72,16 +72,16 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 
 					f := framework.NewDefaultFramework(initialDir + "/bin")
 
-					_ = f.DevPodProviderDelete(ctx, "docker")
-					err = f.DevPodProviderAdd(ctx, "docker", "-o", "DOCKER_PATH=podman")
+					_ = f.DevSpaceProviderDelete(ctx, "docker")
+					err = f.DevSpaceProviderAdd(ctx, "docker", "-o", "DOCKER_PATH=podman")
 					framework.ExpectNoError(err)
-					err = f.DevPodProviderUse(ctx, "docker")
+					err = f.DevSpaceProviderUse(ctx, "docker")
 					framework.ExpectNoError(err)
 
-					ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+					ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 					// Wait for devspace workspace to come online (deadline: 30s)
-					err = f.DevPodUp(ctx, tempDir)
+					err = f.DevSpaceUp(ctx, tempDir)
 					framework.ExpectNoError(err)
 				}, ginkgo.SpecTimeout(framework.GetTimeout()))
 			})

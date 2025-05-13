@@ -9,24 +9,24 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-// DevPodEnvironmentTemplateLister helps list DevPodEnvironmentTemplates.
+// DevSpaceEnvironmentTemplateLister helps list DevSpaceEnvironmentTemplates.
 // All objects returned here must be treated as read-only.
-type DevPodEnvironmentTemplateLister interface {
-	// List lists all DevPodEnvironmentTemplates in the indexer.
+type DevSpaceEnvironmentTemplateLister interface {
+	// List lists all DevSpaceEnvironmentTemplates in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1.DevPodEnvironmentTemplate, err error)
-	// Get retrieves the DevPodEnvironmentTemplate from the index for a given name.
+	List(selector labels.Selector) (ret []*v1.DevSpaceEnvironmentTemplate, err error)
+	// Get retrieves the DevSpaceEnvironmentTemplate from the index for a given name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1.DevPodEnvironmentTemplate, error)
-	DevPodEnvironmentTemplateListerExpansion
+	Get(name string) (*v1.DevSpaceEnvironmentTemplate, error)
+	DevSpaceEnvironmentTemplateListerExpansion
 }
 
-// devPodEnvironmentTemplateLister implements the DevPodEnvironmentTemplateLister interface.
-type devPodEnvironmentTemplateLister struct {
-	listers.ResourceIndexer[*v1.DevPodEnvironmentTemplate]
+// devSpaceEnvironmentTemplateLister implements the DevSpaceEnvironmentTemplateLister interface.
+type devSpaceEnvironmentTemplateLister struct {
+	listers.ResourceIndexer[*v1.DevSpaceEnvironmentTemplate]
 }
 
-// NewDevPodEnvironmentTemplateLister returns a new DevPodEnvironmentTemplateLister.
-func NewDevPodEnvironmentTemplateLister(indexer cache.Indexer) DevPodEnvironmentTemplateLister {
-	return &devPodEnvironmentTemplateLister{listers.New[*v1.DevPodEnvironmentTemplate](indexer, v1.Resource("devspaceenvironmenttemplate"))}
+// NewDevSpaceEnvironmentTemplateLister returns a new DevSpaceEnvironmentTemplateLister.
+func NewDevSpaceEnvironmentTemplateLister(indexer cache.Indexer) DevSpaceEnvironmentTemplateLister {
+	return &devSpaceEnvironmentTemplateLister{listers.New[*v1.DevSpaceEnvironmentTemplate](indexer, v1.Resource("devspaceenvironmenttemplate"))}
 }

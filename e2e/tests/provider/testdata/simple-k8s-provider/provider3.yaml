@@ -1,7 +1,7 @@
 name: provider3
 version: 0.0.1
 description: |-
-  DevPod on Kubernetes
+  DevSpace on Kubernetes
 options:
   NAMESPACE:
     required: true

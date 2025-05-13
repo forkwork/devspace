@@ -5,7 +5,7 @@ import {
   Command as ShellCommand,
 } from "@tauri-apps/plugin-shell"
 import { debug, ErrorTypeCancelled, isError, Result, ResultError, Return, sleep } from "../lib"
-import { DEVPOD_BINARY, DEVPOD_FLAG_OPTION, DEVPOD_UI_ENV_VAR, DEVPOD_ADDITIONAL_ENV_VARS } from "./constants"
+import { DEVSPACE_BINARY, DEVSPACE_FLAG_OPTION, DEVSPACE_UI_ENV_VAR, DEVSPACE_ADDITIONAL_ENV_VARS } from "./constants"
 import { TStreamEvent } from "./types"
 import { TAURI_SERVER_URL } from "./tauriClient"
 import * as log from "@tauri-apps/plugin-log"
@@ -44,7 +44,7 @@ export class Command implements TCommand<ChildProcess<string>> {
   public static NO_PROXY: string = ""
 
   constructor(args: string[]) {
-    debug("commands", "Creating Devpod command with args: ", args)
+    debug("commands", "Creating Devspace command with args: ", args)
     this.extraEnvVars = Command.ADDITIONAL_ENV_VARS.split(",")
       .map((envVarStr) => envVarStr.split("="))
       .reduce(
@@ -71,8 +71,8 @@ export class Command implements TCommand<ChildProcess<string>> {
     }
 
     // allows the CLI to detect if commands have been invoked from the UI
-    this.extraEnvVars[DEVPOD_UI_ENV_VAR] = "true"
-    this.sidecarCommand = ShellCommand.sidecar(DEVPOD_BINARY, args, { env: this.extraEnvVars })
+    this.extraEnvVars[DEVSPACE_UI_ENV_VAR] = "true"
+    this.sidecarCommand = ShellCommand.sidecar(DEVSPACE_BINARY, args, { env: this.extraEnvVars })
     this.args = args
   }
 
@@ -88,8 +88,8 @@ export class Command implements TCommand<ChildProcess<string>> {
         this.isFlatpak = await this.getEnv("FLATPAK_ID")
         if (this.isFlatpak) {
           this.extraEnvVars["FLATPAK_ID"] = "sh.loft.devspace"
-          this.extraEnvVars[DEVPOD_ADDITIONAL_ENV_VARS] = recordToCSV(this.extraEnvVars)
-          this.sidecarCommand = ShellCommand.sidecar(DEVPOD_BINARY, this.args, { env: this.extraEnvVars })
+          this.extraEnvVars[DEVSPACE_ADDITIONAL_ENV_VARS] = recordToCSV(this.extraEnvVars)
+          this.sidecarCommand = ShellCommand.sidecar(DEVSPACE_BINARY, this.args, { env: this.extraEnvVars })
         }
       }
       const rawResult = await this.sidecarCommand.execute()
@@ -239,7 +239,7 @@ export function toFlagArg(flag: string, arg: string) {
 
 export function serializeRawOptions(
   rawOptions: Record<string, unknown>,
-  flag: string = DEVPOD_FLAG_OPTION
+  flag: string = DEVSPACE_FLAG_OPTION
 ): string[] {
   return Object.entries(rawOptions).map(([key, value]) => flag + `=${key}=${value}`)
 }

@@ -13,54 +13,54 @@ import (
 	gentype "k8s.io/client-go/gentype"
 )
 
-// DevPodWorkspaceInstancesGetter has a method to return a DevPodWorkspaceInstanceInterface.
+// DevSpaceWorkspaceInstancesGetter has a method to return a DevSpaceWorkspaceInstanceInterface.
 // A group's client should implement this interface.
-type DevPodWorkspaceInstancesGetter interface {
-	DevPodWorkspaceInstances(namespace string) DevPodWorkspaceInstanceInterface
+type DevSpaceWorkspaceInstancesGetter interface {
+	DevSpaceWorkspaceInstances(namespace string) DevSpaceWorkspaceInstanceInterface
 }
 
-// DevPodWorkspaceInstanceInterface has methods to work with DevPodWorkspaceInstance resources.
-type DevPodWorkspaceInstanceInterface interface {
-	Create(ctx context.Context, devPodWorkspaceInstance *v1.DevPodWorkspaceInstance, opts metav1.CreateOptions) (*v1.DevPodWorkspaceInstance, error)
-	Update(ctx context.Context, devPodWorkspaceInstance *v1.DevPodWorkspaceInstance, opts metav1.UpdateOptions) (*v1.DevPodWorkspaceInstance, error)
+// DevSpaceWorkspaceInstanceInterface has methods to work with DevSpaceWorkspaceInstance resources.
+type DevSpaceWorkspaceInstanceInterface interface {
+	Create(ctx context.Context, devSpaceWorkspaceInstance *v1.DevSpaceWorkspaceInstance, opts metav1.CreateOptions) (*v1.DevSpaceWorkspaceInstance, error)
+	Update(ctx context.Context, devSpaceWorkspaceInstance *v1.DevSpaceWorkspaceInstance, opts metav1.UpdateOptions) (*v1.DevSpaceWorkspaceInstance, error)
 	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevPodWorkspaceInstance, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevPodWorkspaceInstanceList, error)
+	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevSpaceWorkspaceInstance, error)
+	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevSpaceWorkspaceInstanceList, error)
 	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevPodWorkspaceInstance, err error)
-	GetState(ctx context.Context, devPodWorkspaceInstanceName string, options metav1.GetOptions) (*v1.DevPodWorkspaceInstanceState, error)
-	SetState(ctx context.Context, devPodWorkspaceInstanceName string, devPodWorkspaceInstanceState *v1.DevPodWorkspaceInstanceState, opts metav1.CreateOptions) (*v1.DevPodWorkspaceInstanceState, error)
-	Troubleshoot(ctx context.Context, devPodWorkspaceInstanceName string, options metav1.GetOptions) (*v1.DevPodWorkspaceInstanceTroubleshoot, error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevSpaceWorkspaceInstance, err error)
+	GetState(ctx context.Context, devSpaceWorkspaceInstanceName string, options metav1.GetOptions) (*v1.DevSpaceWorkspaceInstanceState, error)
+	SetState(ctx context.Context, devSpaceWorkspaceInstanceName string, devSpaceWorkspaceInstanceState *v1.DevSpaceWorkspaceInstanceState, opts metav1.CreateOptions) (*v1.DevSpaceWorkspaceInstanceState, error)
+	Troubleshoot(ctx context.Context, devSpaceWorkspaceInstanceName string, options metav1.GetOptions) (*v1.DevSpaceWorkspaceInstanceTroubleshoot, error)
 
-	DevPodWorkspaceInstanceExpansion
+	DevSpaceWorkspaceInstanceExpansion
 }
 
-// devPodWorkspaceInstances implements DevPodWorkspaceInstanceInterface
-type devPodWorkspaceInstances struct {
-	*gentype.ClientWithList[*v1.DevPodWorkspaceInstance, *v1.DevPodWorkspaceInstanceList]
+// devSpaceWorkspaceInstances implements DevSpaceWorkspaceInstanceInterface
+type devSpaceWorkspaceInstances struct {
+	*gentype.ClientWithList[*v1.DevSpaceWorkspaceInstance, *v1.DevSpaceWorkspaceInstanceList]
 }
 
-// newDevPodWorkspaceInstances returns a DevPodWorkspaceInstances
-func newDevPodWorkspaceInstances(c *ManagementV1Client, namespace string) *devPodWorkspaceInstances {
-	return &devPodWorkspaceInstances{
-		gentype.NewClientWithList[*v1.DevPodWorkspaceInstance, *v1.DevPodWorkspaceInstanceList](
+// newDevSpaceWorkspaceInstances returns a DevSpaceWorkspaceInstances
+func newDevSpaceWorkspaceInstances(c *ManagementV1Client, namespace string) *devSpaceWorkspaceInstances {
+	return &devSpaceWorkspaceInstances{
+		gentype.NewClientWithList[*v1.DevSpaceWorkspaceInstance, *v1.DevSpaceWorkspaceInstanceList](
 			"devspaceworkspaceinstances",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *v1.DevPodWorkspaceInstance { return &v1.DevPodWorkspaceInstance{} },
-			func() *v1.DevPodWorkspaceInstanceList { return &v1.DevPodWorkspaceInstanceList{} }),
+			func() *v1.DevSpaceWorkspaceInstance { return &v1.DevSpaceWorkspaceInstance{} },
+			func() *v1.DevSpaceWorkspaceInstanceList { return &v1.DevSpaceWorkspaceInstanceList{} }),
 	}
 }
 
-// GetState takes name of the devPodWorkspaceInstance, and returns the corresponding v1.DevPodWorkspaceInstanceState object, and an error if there is any.
-func (c *devPodWorkspaceInstances) GetState(ctx context.Context, devPodWorkspaceInstanceName string, options metav1.GetOptions) (result *v1.DevPodWorkspaceInstanceState, err error) {
-	result = &v1.DevPodWorkspaceInstanceState{}
+// GetState takes name of the devSpaceWorkspaceInstance, and returns the corresponding v1.DevSpaceWorkspaceInstanceState object, and an error if there is any.
+func (c *devSpaceWorkspaceInstances) GetState(ctx context.Context, devSpaceWorkspaceInstanceName string, options metav1.GetOptions) (result *v1.DevSpaceWorkspaceInstanceState, err error) {
+	result = &v1.DevSpaceWorkspaceInstanceState{}
 	err = c.GetClient().Get().
 		Namespace(c.GetNamespace()).
 		Resource("devspaceworkspaceinstances").
-		Name(devPodWorkspaceInstanceName).
+		Name(devSpaceWorkspaceInstanceName).
 		SubResource("state").
 		VersionedParams(&options, scheme.ParameterCodec).
 		Do(ctx).
@@ -68,28 +68,28 @@ func (c *devPodWorkspaceInstances) GetState(ctx context.Context, devPodWorkspace
 	return
 }
 
-// SetState takes the representation of a devPodWorkspaceInstanceState and creates it.  Returns the server's representation of the devPodWorkspaceInstanceState, and an error, if there is any.
-func (c *devPodWorkspaceInstances) SetState(ctx context.Context, devPodWorkspaceInstanceName string, devPodWorkspaceInstanceState *v1.DevPodWorkspaceInstanceState, opts metav1.CreateOptions) (result *v1.DevPodWorkspaceInstanceState, err error) {
-	result = &v1.DevPodWorkspaceInstanceState{}
+// SetState takes the representation of a devSpaceWorkspaceInstanceState and creates it.  Returns the server's representation of the devSpaceWorkspaceInstanceState, and an error, if there is any.
+func (c *devSpaceWorkspaceInstances) SetState(ctx context.Context, devSpaceWorkspaceInstanceName string, devSpaceWorkspaceInstanceState *v1.DevSpaceWorkspaceInstanceState, opts metav1.CreateOptions) (result *v1.DevSpaceWorkspaceInstanceState, err error) {
+	result = &v1.DevSpaceWorkspaceInstanceState{}
 	err = c.GetClient().Post().
 		Namespace(c.GetNamespace()).
 		Resource("devspaceworkspaceinstances").
-		Name(devPodWorkspaceInstanceName).
+		Name(devSpaceWorkspaceInstanceName).
 		SubResource("state").
 		VersionedParams(&opts, scheme.ParameterCodec).
-		Body(devPodWorkspaceInstanceState).
+		Body(devSpaceWorkspaceInstanceState).
 		Do(ctx).
 		Into(result)
 	return
 }
 
-// Troubleshoot takes name of the devPodWorkspaceInstance, and returns the corresponding v1.DevPodWorkspaceInstanceTroubleshoot object, and an error if there is any.
-func (c *devPodWorkspaceInstances) Troubleshoot(ctx context.Context, devPodWorkspaceInstanceName string, options metav1.GetOptions) (result *v1.DevPodWorkspaceInstanceTroubleshoot, err error) {
-	result = &v1.DevPodWorkspaceInstanceTroubleshoot{}
+// Troubleshoot takes name of the devSpaceWorkspaceInstance, and returns the corresponding v1.DevSpaceWorkspaceInstanceTroubleshoot object, and an error if there is any.
+func (c *devSpaceWorkspaceInstances) Troubleshoot(ctx context.Context, devSpaceWorkspaceInstanceName string, options metav1.GetOptions) (result *v1.DevSpaceWorkspaceInstanceTroubleshoot, err error) {
+	result = &v1.DevSpaceWorkspaceInstanceTroubleshoot{}
 	err = c.GetClient().Get().
 		Namespace(c.GetNamespace()).
 		Resource("devspaceworkspaceinstances").
-		Name(devPodWorkspaceInstanceName).
+		Name(devSpaceWorkspaceInstanceName).
 		SubResource("troubleshoot").
 		VersionedParams(&options, scheme.ParameterCodec).
 		Do(ctx).

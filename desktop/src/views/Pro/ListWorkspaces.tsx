@@ -9,9 +9,9 @@ import {
   useWorkspaceStore,
   useWorkspaces,
 } from "@/contexts"
-import { IWorkspaceStore } from "@/contexts/DevPodContext/workspaceStore"
-import { removeWorkspaceAction, stopWorkspaceAction } from "@/contexts/DevPodContext/workspaces"
-import { DevPodIcon } from "@/icons"
+import { IWorkspaceStore } from "@/contexts/DevSpaceContext/workspaceStore"
+import { removeWorkspaceAction, stopWorkspaceAction } from "@/contexts/DevSpaceContext/workspaces"
+import { DevSpaceIcon } from "@/icons"
 import EmptyImage from "@/images/empty_default.svg"
 import EmptyDarkImage from "@/images/empty_default.svg"
 import EmptyWorkspacesImage from "@/images/empty_workspaces.svg"
@@ -158,7 +158,7 @@ export function ListWorkspaces() {
           <Button
             variant="outline"
             colorScheme="primary"
-            leftIcon={<DevPodIcon boxSize={5} />}
+            leftIcon={<DevSpaceIcon boxSize={5} />}
             onClick={handleCreateClicked}>
             Create Workspace
           </Button>
@@ -225,7 +225,7 @@ export function ListWorkspaces() {
 
               <Button
                 variant="primary"
-                leftIcon={<DevPodIcon boxSize={5} />}
+                leftIcon={<DevSpaceIcon boxSize={5} />}
                 onClick={handleCreateClicked}>
                 Create Workspace
               </Button>

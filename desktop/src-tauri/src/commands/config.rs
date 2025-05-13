@@ -4,9 +4,9 @@ use tauri::AppHandle;
 use tauri_plugin_shell::{process::Command, ShellExt};
 use thiserror::Error;
 
-use crate::commands::constants::DEVPOD_BINARY_NAME;
+use crate::commands::constants::DEVSPACE_BINARY_NAME;
 
-use super::constants::DEVPOD_UI_ENV_VAR;
+use super::constants::DEVSPACE_UI_ENV_VAR;
 
 pub struct CommandConfig<'a> {
     pub(crate) binary_name: &'static str,
@@ -24,7 +24,7 @@ impl<'a> CommandConfig<'_> {
 }
 
 #[derive(Error, Debug)]
-pub enum DevpodCommandError {
+pub enum DevspaceCommandError {
     #[error("unable to parse command response")]
     Parse(#[from] serde_json::Error),
     #[error("unable to find sidecar binary")]
@@ -38,7 +38,7 @@ pub enum DevpodCommandError {
     #[error("error")]
     Any(#[from] anyhow::Error)
 }
-impl serde::Serialize for DevpodCommandError {
+impl serde::Serialize for DevspaceCommandError {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -46,24 +46,24 @@ impl serde::Serialize for DevpodCommandError {
         serializer.serialize_str(self.to_string().as_ref())
     }
 }
-pub trait DevpodCommandConfig<T> {
+pub trait DevspaceCommandConfig<T> {
     fn config(&self) -> CommandConfig {
         CommandConfig {
-            binary_name: DEVPOD_BINARY_NAME,
+            binary_name: DEVSPACE_BINARY_NAME,
             args: vec![],
         }
     }
-    fn exec_blocking(self, app_handle: &AppHandle) -> Result<T, DevpodCommandError>;
+    fn exec_blocking(self, app_handle: &AppHandle) -> Result<T, DevspaceCommandError>;
 
-    fn new_command(&self, app_handle: &AppHandle) -> Result<Command, DevpodCommandError> {
+    fn new_command(&self, app_handle: &AppHandle) -> Result<Command, DevspaceCommandError> {
         let config = self.config();
         let env_vars: HashMap<String, String> =
-            HashMap::from([(DEVPOD_UI_ENV_VAR.into(), "true".into())]);
+            HashMap::from([(DEVSPACE_UI_ENV_VAR.into(), "true".into())]);
 
         let cmd = app_handle
             .shell()
             .sidecar(config.binary_name())
-            .map_err(|_| DevpodCommandError::Sidecar)?
+            .map_err(|_| DevspaceCommandError::Sidecar)?
             .envs(env_vars)
             .args(config.args());
 

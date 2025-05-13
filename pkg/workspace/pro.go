@@ -8,8 +8,8 @@ import (
 	"dev.khulnasoft.com/log"
 )
 
-func ListProInstances(devPodConfig *config.Config, log log.Logger) ([]*provider2.ProInstance, error) {
-	proInstanceDir, err := provider2.GetProInstancesDir(devPodConfig.DefaultContext)
+func ListProInstances(devSpaceConfig *config.Config, log log.Logger) ([]*provider2.ProInstance, error) {
+	proInstanceDir, err := provider2.GetProInstancesDir(devSpaceConfig.DefaultContext)
 	if err != nil {
 		return nil, err
 	}
@@ -21,7 +21,7 @@ func ListProInstances(devPodConfig *config.Config, log log.Logger) ([]*provider2
 
 	retProInstances := []*provider2.ProInstance{}
 	for _, entry := range entries {
-		proInstanceConfig, err := provider2.LoadProInstanceConfig(devPodConfig.DefaultContext, entry.Name())
+		proInstanceConfig, err := provider2.LoadProInstanceConfig(devSpaceConfig.DefaultContext, entry.Name())
 		if err != nil {
 			log.ErrorStreamOnly().Warnf("Couldn't load pro instance %s: %v", entry.Name(), err)
 			continue

@@ -25,7 +25,7 @@ var Options = ide.Options{
 	},
 	OpenOption: {
 		Name:        OpenOption,
-		Description: "If DevPod should automatically open the browser",
+		Description: "If DevSpace should automatically open the browser",
 		Default:     "true",
 		Enum: []string{
 			"true",

@@ -18,8 +18,8 @@ import (
 	"dev.khulnasoft.com/log/terminal"
 )
 
-func listMachines(devPodConfig *config.Config, log log.Logger) ([]*providerpkg.Machine, error) {
-	machineDir, err := providerpkg.GetMachinesDir(devPodConfig.DefaultContext)
+func listMachines(devSpaceConfig *config.Config, log log.Logger) ([]*providerpkg.Machine, error) {
+	machineDir, err := providerpkg.GetMachinesDir(devSpaceConfig.DefaultContext)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func listMachines(devPodConfig *config.Config, log log.Logger) ([]*providerpkg.M
 
 	retMachines := []*providerpkg.Machine{}
 	for _, entry := range entries {
-		machineConfig, err := providerpkg.LoadMachineConfig(devPodConfig.DefaultContext, entry.Name())
+		machineConfig, err := providerpkg.LoadMachineConfig(devSpaceConfig.DefaultContext, entry.Name())
 		if err != nil {
 			log.ErrorStreamOnly().Warnf("Couldn't load machine %s: %v", entry.Name(), err)
 			continue
@@ -43,8 +43,8 @@ func listMachines(devPodConfig *config.Config, log log.Logger) ([]*providerpkg.M
 	return retMachines, nil
 }
 
-func ResolveMachine(devPodConfig *config.Config, args []string, userOptions []string, log log.Logger) (client.Client, error) {
-	machineClient, err := resolveMachine(devPodConfig, args, log)
+func ResolveMachine(devSpaceConfig *config.Config, args []string, userOptions []string, log log.Logger) (client.Client, error) {
+	machineClient, err := resolveMachine(devSpaceConfig, args, log)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func ResolveMachine(devPodConfig *config.Config, args []string, userOptions []st
 	return machineClient, nil
 }
 
-func resolveMachine(devPodConfig *config.Config, args []string, log log.Logger) (client.Client, error) {
+func resolveMachine(devSpaceConfig *config.Config, args []string, log log.Logger) (client.Client, error) {
 	// check if we have no args
 	if len(args) == 0 {
 		return nil, fmt.Errorf("please specify the machine name")
@@ -68,25 +68,25 @@ func resolveMachine(devPodConfig *config.Config, args []string, log log.Logger) 
 	machineID := ToID(args[0])
 
 	// check if desired id already exists
-	if providerpkg.MachineExists(devPodConfig.DefaultContext, machineID) {
+	if providerpkg.MachineExists(devSpaceConfig.DefaultContext, machineID) {
 		log.Infof("Machine %s already exists", machineID)
-		return loadExistingMachine(machineID, devPodConfig, log)
+		return loadExistingMachine(machineID, devSpaceConfig, log)
 	}
 
 	// get default provider
-	defaultProvider, _, err := LoadProviders(devPodConfig, log)
+	defaultProvider, _, err := LoadProviders(devSpaceConfig, log)
 	if err != nil {
 		return nil, err
 	}
 
 	// resolve workspace
-	machineObj, err := createMachine(devPodConfig.DefaultContext, machineID, defaultProvider.Config.Name)
+	machineObj, err := createMachine(devSpaceConfig.DefaultContext, machineID, defaultProvider.Config.Name)
 	if err != nil {
 		return nil, err
 	}
 
 	// create a new client
-	machineClient, err := clientimplementation.NewMachineClient(devPodConfig, defaultProvider.Config, machineObj, log)
+	machineClient, err := clientimplementation.NewMachineClient(devSpaceConfig, defaultProvider.Config, machineObj, log)
 	if err != nil {
 		_ = os.RemoveAll(filepath.Dir(machineObj.Origin))
 		return nil, err
@@ -96,7 +96,7 @@ func resolveMachine(devPodConfig *config.Config, args []string, log log.Logger) 
 }
 
 // MachineExists checks if the given workspace already exists
-func MachineExists(devPodConfig *config.Config, args []string) string {
+func MachineExists(devSpaceConfig *config.Config, args []string) string {
 	if len(args) == 0 {
 		return ""
 	}
@@ -108,7 +108,7 @@ func MachineExists(devPodConfig *config.Config, args []string) string {
 	machineID := ToID(name)
 
 	// already exists?
-	if !providerpkg.MachineExists(devPodConfig.DefaultContext, machineID) {
+	if !providerpkg.MachineExists(devSpaceConfig.DefaultContext, machineID) {
 		return ""
 	}
 
@@ -116,10 +116,10 @@ func MachineExists(devPodConfig *config.Config, args []string) string {
 }
 
 // GetMachine creates a machine client
-func GetMachine(devPodConfig *config.Config, args []string, log log.Logger) (client.MachineClient, error) {
+func GetMachine(devSpaceConfig *config.Config, args []string, log log.Logger) (client.MachineClient, error) {
 	// check if we have no args
 	if len(args) == 0 {
-		return selectMachine(devPodConfig, log)
+		return selectMachine(devSpaceConfig, log)
 	}
 
 	// check if workspace already exists
@@ -129,21 +129,21 @@ func GetMachine(devPodConfig *config.Config, args []string, log log.Logger) (cli
 	machineID := ToID(name)
 
 	// already exists?
-	if !providerpkg.MachineExists(devPodConfig.DefaultContext, machineID) {
+	if !providerpkg.MachineExists(devSpaceConfig.DefaultContext, machineID) {
 		return nil, fmt.Errorf("machine %s doesn't exist", machineID)
 	}
 
 	// load workspace config
-	return loadExistingMachine(machineID, devPodConfig, log)
+	return loadExistingMachine(machineID, devSpaceConfig, log)
 }
 
-func selectMachine(devPodConfig *config.Config, log log.Logger) (client.MachineClient, error) {
+func selectMachine(devSpaceConfig *config.Config, log log.Logger) (client.MachineClient, error) {
 	if !terminal.IsTerminalIn {
 		return nil, errProvideWorkspaceArg
 	}
 
 	// ask which machine to use
-	machinesDir, err := providerpkg.GetMachinesDir(devPodConfig.DefaultContext)
+	machinesDir, err := providerpkg.GetMachinesDir(devSpaceConfig.DefaultContext)
 	if err != nil {
 		return nil, err
 	}
@@ -172,21 +172,21 @@ func selectMachine(devPodConfig *config.Config, log log.Logger) (client.MachineC
 	}
 
 	// load workspace
-	return loadExistingMachine(answer, devPodConfig, log)
+	return loadExistingMachine(answer, devSpaceConfig, log)
 }
 
-func loadExistingMachine(machineID string, devPodConfig *config.Config, log log.Logger) (client.MachineClient, error) {
-	machineConfig, err := providerpkg.LoadMachineConfig(devPodConfig.DefaultContext, machineID)
+func loadExistingMachine(machineID string, devSpaceConfig *config.Config, log log.Logger) (client.MachineClient, error) {
+	machineConfig, err := providerpkg.LoadMachineConfig(devSpaceConfig.DefaultContext, machineID)
 	if err != nil {
 		return nil, err
 	}
 
-	providerWithOptions, err := FindProvider(devPodConfig, machineConfig.Provider.Name, log)
+	providerWithOptions, err := FindProvider(devSpaceConfig, machineConfig.Provider.Name, log)
 	if err != nil {
 		return nil, err
 	}
 
-	return clientimplementation.NewMachineClient(devPodConfig, providerWithOptions.Config, machineConfig, log)
+	return clientimplementation.NewMachineClient(devSpaceConfig, providerWithOptions.Config, machineConfig, log)
 }
 
 func createMachine(context, machineID, providerName string) (*providerpkg.Machine, error) {
@@ -217,9 +217,9 @@ func createMachine(context, machineID, providerName string) (*providerpkg.Machin
 	return machine, nil
 }
 
-func SingleMachineName(devPodConfig *config.Config, provider string, log log.Logger) string {
+func SingleMachineName(devSpaceConfig *config.Config, provider string, log log.Logger) string {
 	legacyMachineName := "devspace-shared-" + provider
-	machines, err := listMachines(devPodConfig, log)
+	machines, err := listMachines(devSpaceConfig, log)
 	if err == nil {
 		for _, machine := range machines {
 			if machine.Provider.Name == provider && machine.ID == legacyMachineName {

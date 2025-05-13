@@ -39,12 +39,12 @@ func NewStartCmd(flags *proflags.GlobalFlags) *cobra.Command {
 		Use:   "start",
 		Short: "Start the client daemon",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
+			devSpaceConfig, provider, err := findProProvider(cobraCmd.Context(), cmd.Context, cmd.Provider, cmd.Host, cmd.Log)
 			if err != nil {
 				return err
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, provider)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, provider)
 		},
 	}
 
@@ -57,9 +57,9 @@ func NewStartCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	return c
 }
 
-func (cmd *StartCmd) Run(ctx context.Context, devPodConfig *config.Config, provider *providerpkg.ProviderConfig) error {
-	isDesktopControlled := os.Getenv("DEVPOD_UI") == "true"
-	dir, err := ensureDaemonDir(devPodConfig.DefaultContext, provider.Name)
+func (cmd *StartCmd) Run(ctx context.Context, devSpaceConfig *config.Config, provider *providerpkg.ProviderConfig) error {
+	isDesktopControlled := os.Getenv("DEVSPACE_UI") == "true"
+	dir, err := ensureDaemonDir(devSpaceConfig.DefaultContext, provider.Name)
 	if err != nil {
 		return err
 	}
@@ -86,7 +86,7 @@ func (cmd *StartCmd) Run(ctx context.Context, devPodConfig *config.Config, provi
 	d, err := daemon.Init(ctx, daemon.InitConfig{
 		RootDir:        dir,
 		ProviderName:   provider.Name,
-		Context:        devPodConfig.DefaultContext,
+		Context:        devSpaceConfig.DefaultContext,
 		UserName:       userName,
 		PlatformClient: baseClient,
 		Debug:          cmd.Debug,

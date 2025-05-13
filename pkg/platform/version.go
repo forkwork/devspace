@@ -15,12 +15,12 @@ type VersionObject struct {
 	Version string `json:"version,omitempty"`
 
 	// Version is the remote devspace version
-	DevPodVersion string `json:"devPodVersion,omitempty"`
+	DevSpaceVersion string `json:"devSpaceVersion,omitempty"`
 }
 
-func GetProInstanceDevPodVersion(proInstance *provider.ProInstance) (string, error) {
+func GetProInstanceDevSpaceVersion(proInstance *provider.ProInstance) (string, error) {
 	url := "https://" + proInstance.Host
-	return GetDevPodVersion(url)
+	return GetDevSpaceVersion(url)
 }
 
 func GetPlatformVersion(url string) (*VersionObject, error) {
@@ -46,19 +46,19 @@ func GetPlatformVersion(url string) (*VersionObject, error) {
 	return version, nil
 }
 
-func GetDevPodVersion(url string) (string, error) {
+func GetDevSpaceVersion(url string) (string, error) {
 	version, err := GetPlatformVersion(url)
 	if err != nil {
 		return "", err
 	}
-	if version.DevPodVersion == "" {
-		return "", fmt.Errorf("unexpected version '%s', please use --version to define a provider version", version.DevPodVersion)
+	if version.DevSpaceVersion == "" {
+		return "", fmt.Errorf("unexpected version '%s', please use --version to define a provider version", version.DevSpaceVersion)
 	}
 
 	// make sure it starts with a v
-	if !strings.HasPrefix(version.DevPodVersion, "v") {
-		version.DevPodVersion = "v" + version.DevPodVersion
+	if !strings.HasPrefix(version.DevSpaceVersion, "v") {
+		version.DevSpaceVersion = "v" + version.DevSpaceVersion
 	}
 
-	return version.DevPodVersion, nil
+	return version.DevSpaceVersion, nil
 }

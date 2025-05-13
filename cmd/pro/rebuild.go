@@ -56,12 +56,12 @@ func (cmd *RebuildCmd) Run(ctx context.Context, args []string) error {
 	}
 	targetWorkspace := args[0]
 
-	devPodConfig, err := config.LoadConfig(cmd.Context, "")
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, "")
 	if err != nil {
 		return err
 	}
 
-	baseClient, err := platform.InitClientFromHost(ctx, devPodConfig, cmd.Host, cmd.Log)
+	baseClient, err := platform.InitClientFromHost(ctx, devSpaceConfig, cmd.Host, cmd.Log)
 	if err != nil {
 		return fmt.Errorf("resolve host \"%s\": %w", cmd.Host, err)
 	}

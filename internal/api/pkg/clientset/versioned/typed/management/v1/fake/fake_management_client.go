@@ -48,20 +48,20 @@ func (c *FakeManagementV1) ConvertVirtualClusterConfigs() v1.ConvertVirtualClust
 	return &FakeConvertVirtualClusterConfigs{c}
 }
 
-func (c *FakeManagementV1) DevPodEnvironmentTemplates() v1.DevPodEnvironmentTemplateInterface {
-	return &FakeDevPodEnvironmentTemplates{c}
+func (c *FakeManagementV1) DevSpaceEnvironmentTemplates() v1.DevSpaceEnvironmentTemplateInterface {
+	return &FakeDevSpaceEnvironmentTemplates{c}
 }
 
-func (c *FakeManagementV1) DevPodWorkspaceInstances(namespace string) v1.DevPodWorkspaceInstanceInterface {
-	return &FakeDevPodWorkspaceInstances{c, namespace}
+func (c *FakeManagementV1) DevSpaceWorkspaceInstances(namespace string) v1.DevSpaceWorkspaceInstanceInterface {
+	return &FakeDevSpaceWorkspaceInstances{c, namespace}
 }
 
-func (c *FakeManagementV1) DevPodWorkspacePresets() v1.DevPodWorkspacePresetInterface {
-	return &FakeDevPodWorkspacePresets{c}
+func (c *FakeManagementV1) DevSpaceWorkspacePresets() v1.DevSpaceWorkspacePresetInterface {
+	return &FakeDevSpaceWorkspacePresets{c}
 }
 
-func (c *FakeManagementV1) DevPodWorkspaceTemplates() v1.DevPodWorkspaceTemplateInterface {
-	return &FakeDevPodWorkspaceTemplates{c}
+func (c *FakeManagementV1) DevSpaceWorkspaceTemplates() v1.DevSpaceWorkspaceTemplateInterface {
+	return &FakeDevSpaceWorkspaceTemplates{c}
 }
 
 func (c *FakeManagementV1) DirectClusterEndpointTokens() v1.DirectClusterEndpointTokenInterface {

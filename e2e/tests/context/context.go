@@ -8,7 +8,7 @@ import (
 	"github.com/onsi/ginkgo/v2"
 )
 
-var _ = DevPodDescribe("devspace context test suite", func() {
+var _ = DevSpaceDescribe("devspace context test suite", func() {
 	ginkgo.Context("testing context command", ginkgo.Label("context"), ginkgo.Ordered, func() {
 		ctx := context.Background()
 		initialDir, err := os.Getwd()
@@ -19,13 +19,13 @@ var _ = DevPodDescribe("devspace context test suite", func() {
 		ginkgo.It("create a new context, switch to it and delete afterwards", func() {
 			f := framework.NewDefaultFramework(initialDir + "/bin")
 
-			err = f.DevPodContextCreate(ctx, "test-context")
+			err = f.DevSpaceContextCreate(ctx, "test-context")
 			framework.ExpectNoError(err)
 
-			err = f.DevPodContextUse(context.Background(), "test-context")
+			err = f.DevSpaceContextUse(context.Background(), "test-context")
 			framework.ExpectNoError(err)
 
-			err = f.DevPodContextDelete(context.Background(), "test-context")
+			err = f.DevSpaceContextDelete(context.Background(), "test-context")
 			framework.ExpectNoError(err)
 		})
 

@@ -12,15 +12,15 @@ import (
 	"github.com/pkg/errors"
 )
 
-func Delete(ctx context.Context, devPodConfig *config.Config, args []string, ignoreNotFound, force bool, deleteOptions client2.DeleteOptions, owner platform.OwnerFilter, log log.Logger) (string, error) {
+func Delete(ctx context.Context, devSpaceConfig *config.Config, args []string, ignoreNotFound, force bool, deleteOptions client2.DeleteOptions, owner platform.OwnerFilter, log log.Logger) (string, error) {
 	// try to load workspace
-	client, err := Get(ctx, devPodConfig, args, false, owner, false, log)
+	client, err := Get(ctx, devSpaceConfig, args, false, owner, false, log)
 	if err != nil {
 		if len(args) == 0 {
 			return "", fmt.Errorf("cannot delete workspace because there was an error loading the workspace: %w. Please specify the id of the workspace you want to delete. E.g. 'devspace delete my-workspace --force'", err)
 		}
 
-		workspaceID := Exists(ctx, devPodConfig, args, "", owner, log)
+		workspaceID := Exists(ctx, devSpaceConfig, args, "", owner, log)
 		if workspaceID == "" {
 			if ignoreNotFound {
 				return "", nil
@@ -36,7 +36,7 @@ func Delete(ctx context.Context, devPodConfig *config.Config, args []string, ign
 		log.Errorf("Error retrieving workspace: %v", err)
 
 		// delete workspace folder
-		err = clientimplementation.DeleteWorkspaceFolder(devPodConfig.DefaultContext, workspaceID, "", log)
+		err = clientimplementation.DeleteWorkspaceFolder(devSpaceConfig.DefaultContext, workspaceID, "", log)
 		if err != nil {
 			return "", err
 		}
@@ -49,7 +49,7 @@ func Delete(ctx context.Context, devPodConfig *config.Config, args []string, ign
 	workspaceConfig := client.WorkspaceConfig()
 	if !force && workspaceConfig.Imported {
 		// delete workspace folder
-		err = clientimplementation.DeleteWorkspaceFolder(devPodConfig.DefaultContext, client.Workspace(), workspaceConfig.SSHConfigPath, log)
+		err = clientimplementation.DeleteWorkspaceFolder(devSpaceConfig.DefaultContext, client.Workspace(), workspaceConfig.SSHConfigPath, log)
 		if err != nil {
 			return "", err
 		}
@@ -79,7 +79,7 @@ func Delete(ctx context.Context, devPodConfig *config.Config, args []string, ign
 	}
 
 	// delete if single machine provider
-	wasDeleted, err := deleteSingleMachine(ctx, client, devPodConfig, deleteOptions, log)
+	wasDeleted, err := deleteSingleMachine(ctx, client, devSpaceConfig, deleteOptions, log)
 	if err != nil {
 		return "", err
 	} else if wasDeleted {
@@ -95,15 +95,15 @@ func Delete(ctx context.Context, devPodConfig *config.Config, args []string, ign
 	return client.Workspace(), nil
 }
 
-func deleteSingleMachine(ctx context.Context, client client2.BaseWorkspaceClient, devPodConfig *config.Config, deleteOptions client2.DeleteOptions, log log.Logger) (bool, error) {
+func deleteSingleMachine(ctx context.Context, client client2.BaseWorkspaceClient, devSpaceConfig *config.Config, deleteOptions client2.DeleteOptions, log log.Logger) (bool, error) {
 	// check if single machine
-	singleMachineName := SingleMachineName(devPodConfig, client.Provider(), log)
-	if !devPodConfig.Current().IsSingleMachine(client.Provider()) || client.WorkspaceConfig().Machine.ID != singleMachineName {
+	singleMachineName := SingleMachineName(devSpaceConfig, client.Provider(), log)
+	if !devSpaceConfig.Current().IsSingleMachine(client.Provider()) || client.WorkspaceConfig().Machine.ID != singleMachineName {
 		return false, nil
 	}
 
 	// try to find other workspace with same machine
-	workspaces, err := List(ctx, devPodConfig, false, platform.SelfOwnerFilter, log)
+	workspaces, err := List(ctx, devSpaceConfig, false, platform.SelfOwnerFilter, log)
 	if err != nil {
 		return false, errors.Wrap(err, "list workspaces")
 	}
@@ -123,7 +123,7 @@ func deleteSingleMachine(ctx context.Context, client client2.BaseWorkspaceClient
 	}
 
 	// if we haven't found another workspace on this machine, delete the whole machine
-	machineClient, err := GetMachine(devPodConfig, []string{singleMachineName}, log)
+	machineClient, err := GetMachine(devSpaceConfig, []string{singleMachineName}, log)
 	if err != nil {
 		return false, errors.Wrap(err, "get machine")
 	}

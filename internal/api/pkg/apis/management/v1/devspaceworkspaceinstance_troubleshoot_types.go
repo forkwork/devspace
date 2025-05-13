@@ -9,7 +9,7 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +subresource-request
-type DevPodWorkspaceInstanceTroubleshoot struct {
+type DevSpaceWorkspaceInstanceTroubleshoot struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
@@ -19,12 +19,12 @@ type DevPodWorkspaceInstanceTroubleshoot struct {
 
 	// Workspace holds the workspace's instance object data
 	// +optional
-	Workspace *DevPodWorkspaceInstance `json:"workspace,omitempty"`
+	Workspace *DevSpaceWorkspaceInstance `json:"workspace,omitempty"`
 
 	// Template holds the workspace instance's template used to create it.
 	// This is the raw template, not the rendered one.
 	// +optional
-	Template *storagev1.DevPodWorkspaceTemplate `json:"template,omitempty"`
+	Template *storagev1.DevSpaceWorkspaceTemplate `json:"template,omitempty"`
 
 	// Pods is a list of pod objects that are linked to the workspace.
 	// +optional

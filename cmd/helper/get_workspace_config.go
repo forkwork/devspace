@@ -37,7 +37,7 @@ func NewGetWorkspaceConfigCommand(flags *flags.GlobalFlags) *cobra.Command {
 		Use:   "get-workspace-config",
 		Short: "Retrieves a workspace config",
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
-			devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 			if err != nil {
 				return err
 			}
@@ -47,7 +47,7 @@ func NewGetWorkspaceConfigCommand(flags *flags.GlobalFlags) *cobra.Command {
 				cmd.maxDepth = 0
 			}
 
-			return cmd.Run(cobraCmd.Context(), devPodConfig, args)
+			return cmd.Run(cobraCmd.Context(), devSpaceConfig, args)
 		},
 	}
 
@@ -57,7 +57,7 @@ func NewGetWorkspaceConfigCommand(flags *flags.GlobalFlags) *cobra.Command {
 	return shellCmd
 }
 
-func (cmd *GetWorkspaceConfigCommand) Run(ctx context.Context, devPodConfig *config.Config, args []string) error {
+func (cmd *GetWorkspaceConfigCommand) Run(ctx context.Context, devSpaceConfig *config.Config, args []string) error {
 	if len(args) != 1 {
 		return fmt.Errorf("workspace source is missing")
 	}
@@ -68,7 +68,7 @@ func (cmd *GetWorkspaceConfigCommand) Run(ctx context.Context, devPodConfig *con
 		level = logrus.DebugLevel
 	}
 	var logger log.Logger = log.NewStdoutLogger(os.Stdin, os.Stdout, os.Stderr, level)
-	if os.Getenv("DEVPOD_UI") == "true" {
+	if os.Getenv("DEVSPACE_UI") == "true" {
 		logger = log.Discard
 	}
 	logger.Debugf("Resolving devcontainer config for source: %s", rawSource)
@@ -87,7 +87,7 @@ func (cmd *GetWorkspaceConfigCommand) Run(ctx context.Context, devPodConfig *con
 		_ = os.RemoveAll(tmpDir)
 	}()
 	go func() {
-		result, err := devcontainer.FindDevcontainerFiles(ctx, rawSource, tmpDir, cmd.maxDepth, devPodConfig.ContextOption(config.ContextOptionSSHStrictHostKeyChecking) == "true", logger)
+		result, err := devcontainer.FindDevcontainerFiles(ctx, rawSource, tmpDir, cmd.maxDepth, devSpaceConfig.ContextOption(config.ContextOptionSSHStrictHostKeyChecking) == "true", logger)
 		if err != nil {
 			errChan <- err
 			return

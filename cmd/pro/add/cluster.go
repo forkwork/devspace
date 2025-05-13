@@ -54,7 +54,7 @@ func NewClusterCmd(globalFlags *proflags.GlobalFlags) *cobra.Command {
 
 	c := &cobra.Command{
 		Use:   "cluster <cluster-name>",
-		Short: "add current cluster to DevPod Pro",
+		Short: "add current cluster to DevSpace Pro",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cobraCmd *cobra.Command, args []string) error {
 			return cmd.Run(cobraCmd.Context(), args)
@@ -77,12 +77,12 @@ func NewClusterCmd(globalFlags *proflags.GlobalFlags) *cobra.Command {
 }
 
 func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, "")
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, "")
 	if err != nil {
 		return err
 	}
 
-	cmd.Host, err = ensureHost(devPodConfig, cmd.Host, cmd.Log)
+	cmd.Host, err = ensureHost(devSpaceConfig, cmd.Host, cmd.Log)
 	if err != nil {
 		return err
 	}
@@ -90,7 +90,7 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 	// Get clusterName from command argument
 	clusterName := args[0]
 
-	baseClient, err := platform.InitClientFromHost(ctx, devPodConfig, cmd.Host, cmd.Log)
+	baseClient, err := platform.InitClientFromHost(ctx, devSpaceConfig, cmd.Host, cmd.Log)
 	if err != nil {
 		return err
 	}
@@ -262,12 +262,12 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 	return nil
 }
 
-func ensureHost(devPodConfig *config.Config, host string, log log.Logger) (string, error) {
+func ensureHost(devSpaceConfig *config.Config, host string, log log.Logger) (string, error) {
 	if host != "" {
 		return host, nil
 	}
 
-	proInstances, err := workspace.ListProInstances(devPodConfig, log)
+	proInstances, err := workspace.ListProInstances(devSpaceConfig, log)
 	if err != nil {
 		return "", fmt.Errorf("list pro instances: %w", err)
 	}

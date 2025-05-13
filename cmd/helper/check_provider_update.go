@@ -41,30 +41,30 @@ func NewCheckProviderUpdateCmd(flags *flags.GlobalFlags) *cobra.Command {
 		Use:   "check-provider-update",
 		Short: "Check if a provider update is available",
 		RunE: func(_ *cobra.Command, args []string) error {
-			devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 			if err != nil {
 				return err
 			}
-			return cmd.Run(context.Background(), devPodConfig, args)
+			return cmd.Run(context.Background(), devSpaceConfig, args)
 		},
 	}
 
 	return shellCmd
 }
 
-func (cmd *CheckProviderUpdateCmd) Run(ctx context.Context, devPodConfig *config.Config, args []string) error {
+func (cmd *CheckProviderUpdateCmd) Run(ctx context.Context, devSpaceConfig *config.Config, args []string) error {
 	if len(args) != 1 {
 		return fmt.Errorf("provider is missing")
 	}
 	providerName := args[0]
 
-	providerSourceRaw, err := workspace.ResolveProviderSource(devPodConfig, providerName, cmd.log)
+	providerSourceRaw, err := workspace.ResolveProviderSource(devSpaceConfig, providerName, cmd.log)
 	if err != nil {
 		return fmt.Errorf("provider %s doesn't exist", providerName)
 	}
 
 	// retrieve current config for provider
-	allProviders, err := workspace.LoadAllProviders(devPodConfig, cmd.log)
+	allProviders, err := workspace.LoadAllProviders(devSpaceConfig, cmd.log)
 	if err != nil {
 		return err
 	}

@@ -70,7 +70,7 @@ type ProviderConfig struct {
 	// Initialized holds if the provider was initialized correctly.
 	Initialized bool `json:"initialized,omitempty"`
 
-	// SingleMachine signals DevPod if a single machine should be used for this provider.
+	// SingleMachine signals DevSpace if a single machine should be used for this provider.
 	SingleMachine bool `json:"singleMachine,omitempty"`
 
 	// Options are the configured provider options

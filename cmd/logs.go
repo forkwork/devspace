@@ -44,12 +44,12 @@ func NewLogsCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *LogsCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	baseClient, err := workspace.Get(ctx, devPodConfig, args, false, cmd.Owner, false, log.Default)
+	baseClient, err := workspace.Get(ctx, devSpaceConfig, args, false, cmd.Owner, false, log.Default)
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func (cmd *LogsCmd) Run(ctx context.Context, args []string) error {
 	}
 
 	// Get the timeout from the context options
-	timeout := config.ParseTimeOption(devPodConfig, config.ContextOptionAgentInjectTimeout)
+	timeout := config.ParseTimeOption(devSpaceConfig, config.ContextOptionAgentInjectTimeout)
 
 	// start ssh server in background
 	errChan := make(chan error, 1)

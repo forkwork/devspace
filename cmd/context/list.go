@@ -29,7 +29,7 @@ func NewListCmd(flags *flags.GlobalFlags) *cobra.Command {
 	listCmd := &cobra.Command{
 		Use:     "list",
 		Aliases: []string{"ls"},
-		Short:   "List DevPod contexts",
+		Short:   "List DevSpace contexts",
 		RunE: func(_ *cobra.Command, args []string) error {
 			return cmd.Run(context.Background())
 		},
@@ -47,17 +47,17 @@ type ContextWithDefault struct {
 
 // Run runs the command logic
 func (cmd *ListCmd) Run(ctx context.Context) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
 	if cmd.Output == "plain" {
 		tableEntries := [][]string{}
-		for contextName := range devPodConfig.Contexts {
+		for contextName := range devSpaceConfig.Contexts {
 			tableEntries = append(tableEntries, []string{
 				contextName,
-				strconv.FormatBool(devPodConfig.DefaultContext == contextName),
+				strconv.FormatBool(devSpaceConfig.DefaultContext == contextName),
 			})
 		}
 		sort.SliceStable(tableEntries, func(i, j int) bool {
@@ -70,10 +70,10 @@ func (cmd *ListCmd) Run(ctx context.Context) error {
 		}, tableEntries)
 	} else if cmd.Output == "json" {
 		ides := []ContextWithDefault{}
-		for contextName := range devPodConfig.Contexts {
+		for contextName := range devSpaceConfig.Contexts {
 			ides = append(ides, ContextWithDefault{
 				Name:    contextName,
-				Default: devPodConfig.DefaultContext == contextName,
+				Default: devSpaceConfig.DefaultContext == contextName,
 			})
 		}
 

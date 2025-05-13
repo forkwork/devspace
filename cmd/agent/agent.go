@@ -20,7 +20,7 @@ var AgentExecutedAnnotation = "loft.sh/agent-executed"
 func NewAgentCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	agentCmd := &cobra.Command{
 		Use:   "agent",
-		Short: "DevPod Agent",
+		Short: "DevSpace Agent",
 		PersistentPreRunE: func(cobraCmd *cobra.Command, args []string) error {
 			return AgentPersistentPreRunE(cobraCmd, args, globalFlags)
 		},
@@ -59,12 +59,12 @@ func AgentPersistentPreRunE(cobraCmd *cobra.Command, args []string, globalFlags 
 		log.Default.SetLevel(logrus.FatalLevel)
 	} else if globalFlags.Debug {
 		log.Default.SetLevel(logrus.DebugLevel)
-	} else if os.Getenv(clientimplementation.DevPodDebug) == "true" {
+	} else if os.Getenv(clientimplementation.DevSpaceDebug) == "true" {
 		log.Default.SetLevel(logrus.DebugLevel)
 	}
 
-	if globalFlags.DevPodHome != "" {
-		_ = os.Setenv(config.DEVPOD_HOME, globalFlags.DevPodHome)
+	if globalFlags.DevSpaceHome != "" {
+		_ = os.Setenv(config.DEVSPACE_HOME, globalFlags.DevSpaceHome)
 	}
 
 	// apply environment

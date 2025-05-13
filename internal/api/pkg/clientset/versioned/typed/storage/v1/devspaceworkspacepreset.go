@@ -13,39 +13,39 @@ import (
 	gentype "k8s.io/client-go/gentype"
 )
 
-// DevPodWorkspacePresetsGetter has a method to return a DevPodWorkspacePresetInterface.
+// DevSpaceWorkspacePresetsGetter has a method to return a DevSpaceWorkspacePresetInterface.
 // A group's client should implement this interface.
-type DevPodWorkspacePresetsGetter interface {
-	DevPodWorkspacePresets() DevPodWorkspacePresetInterface
+type DevSpaceWorkspacePresetsGetter interface {
+	DevSpaceWorkspacePresets() DevSpaceWorkspacePresetInterface
 }
 
-// DevPodWorkspacePresetInterface has methods to work with DevPodWorkspacePreset resources.
-type DevPodWorkspacePresetInterface interface {
-	Create(ctx context.Context, devPodWorkspacePreset *v1.DevPodWorkspacePreset, opts metav1.CreateOptions) (*v1.DevPodWorkspacePreset, error)
-	Update(ctx context.Context, devPodWorkspacePreset *v1.DevPodWorkspacePreset, opts metav1.UpdateOptions) (*v1.DevPodWorkspacePreset, error)
+// DevSpaceWorkspacePresetInterface has methods to work with DevSpaceWorkspacePreset resources.
+type DevSpaceWorkspacePresetInterface interface {
+	Create(ctx context.Context, devSpaceWorkspacePreset *v1.DevSpaceWorkspacePreset, opts metav1.CreateOptions) (*v1.DevSpaceWorkspacePreset, error)
+	Update(ctx context.Context, devSpaceWorkspacePreset *v1.DevSpaceWorkspacePreset, opts metav1.UpdateOptions) (*v1.DevSpaceWorkspacePreset, error)
 	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevPodWorkspacePreset, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevPodWorkspacePresetList, error)
+	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.DevSpaceWorkspacePreset, error)
+	List(ctx context.Context, opts metav1.ListOptions) (*v1.DevSpaceWorkspacePresetList, error)
 	Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevPodWorkspacePreset, err error)
-	DevPodWorkspacePresetExpansion
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevSpaceWorkspacePreset, err error)
+	DevSpaceWorkspacePresetExpansion
 }
 
-// devPodWorkspacePresets implements DevPodWorkspacePresetInterface
-type devPodWorkspacePresets struct {
-	*gentype.ClientWithList[*v1.DevPodWorkspacePreset, *v1.DevPodWorkspacePresetList]
+// devSpaceWorkspacePresets implements DevSpaceWorkspacePresetInterface
+type devSpaceWorkspacePresets struct {
+	*gentype.ClientWithList[*v1.DevSpaceWorkspacePreset, *v1.DevSpaceWorkspacePresetList]
 }
 
-// newDevPodWorkspacePresets returns a DevPodWorkspacePresets
-func newDevPodWorkspacePresets(c *StorageV1Client) *devPodWorkspacePresets {
-	return &devPodWorkspacePresets{
-		gentype.NewClientWithList[*v1.DevPodWorkspacePreset, *v1.DevPodWorkspacePresetList](
+// newDevSpaceWorkspacePresets returns a DevSpaceWorkspacePresets
+func newDevSpaceWorkspacePresets(c *StorageV1Client) *devSpaceWorkspacePresets {
+	return &devSpaceWorkspacePresets{
+		gentype.NewClientWithList[*v1.DevSpaceWorkspacePreset, *v1.DevSpaceWorkspacePresetList](
 			"devspaceworkspacepresets",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			"",
-			func() *v1.DevPodWorkspacePreset { return &v1.DevPodWorkspacePreset{} },
-			func() *v1.DevPodWorkspacePresetList { return &v1.DevPodWorkspacePresetList{} }),
+			func() *v1.DevSpaceWorkspacePreset { return &v1.DevSpaceWorkspacePreset{} },
+			func() *v1.DevSpaceWorkspacePresetList { return &v1.DevSpaceWorkspacePresetList{} }),
 	}
 }

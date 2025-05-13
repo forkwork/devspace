@@ -1,15 +1,15 @@
-import { ManagementV1DevPodWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceInstance"
-import { ManagementV1DevPodWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceTemplate"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
+import { ManagementV1DevSpaceWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
 import { StorageV1AppParameter } from "@loft-enterprise/client/gen/models/storageV1AppParameter"
-import { StorageV1DevPodWorkspaceTemplateVersion } from "@loft-enterprise/client/gen/models/storageV1DevPodWorkspaceTemplateVersion"
+import { StorageV1DevSpaceWorkspaceTemplateVersion } from "@loft-enterprise/client/gen/models/storageV1DevSpaceWorkspaceTemplateVersion"
 import { compareVersions } from "compare-versions"
 import jsyaml from "js-yaml"
 
 export type TParameterWithValue = StorageV1AppParameter & { value?: string | number | boolean }
 
 export function getParametersWithValues(
-  instance: ManagementV1DevPodWorkspaceInstance,
-  template: ManagementV1DevPodWorkspaceTemplate
+  instance: ManagementV1DevSpaceWorkspaceInstance,
+  template: ManagementV1DevSpaceWorkspaceTemplate
 ): readonly TParameterWithValue[] | undefined {
   let rawParameters: StorageV1AppParameter[] | undefined = template.spec?.parameters
   if (instance.spec?.templateRef?.version) {
@@ -43,7 +43,7 @@ export function getParametersWithValues(
 }
 
 export function getParameters(
-  template: ManagementV1DevPodWorkspaceTemplate | undefined,
+  template: ManagementV1DevSpaceWorkspaceTemplate | undefined,
   selectedVersion: string | undefined
 ): readonly StorageV1AppParameter[] | undefined {
   if (!template?.spec) {
@@ -67,14 +67,14 @@ export function getParameters(
 }
 
 function findLatestVersion(
-  versions: readonly StorageV1DevPodWorkspaceTemplateVersion[]
-): StorageV1DevPodWorkspaceTemplateVersion | undefined {
+  versions: readonly StorageV1DevSpaceWorkspaceTemplateVersion[]
+): StorageV1DevSpaceWorkspaceTemplateVersion | undefined {
   return versions.slice().sort(sortByVersionDesc)[0]
 }
 
 export function sortByVersionDesc(
-  a: StorageV1DevPodWorkspaceTemplateVersion,
-  b: StorageV1DevPodWorkspaceTemplateVersion
+  a: StorageV1DevSpaceWorkspaceTemplateVersion,
+  b: StorageV1DevSpaceWorkspaceTemplateVersion
 ): number {
   return compareVersions(stripVersionPrefix(b.version ?? ""), stripVersionPrefix(a.version ?? ""))
 }

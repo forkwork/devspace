@@ -34,7 +34,7 @@ func NewAddCmd(flags *flags.GlobalFlags) *cobra.Command {
 	}
 	addCmd := &cobra.Command{
 		Use:   "add [URL or path]",
-		Short: "Adds a new provider to DevPod",
+		Short: "Adds a new provider to DevSpace",
 		PreRunE: func(cobraCommand *cobra.Command, args []string) error {
 			if cmd.FromExisting != "" {
 				return cobraCommand.MarkFlagRequired("name")
@@ -44,11 +44,11 @@ func NewAddCmd(flags *flags.GlobalFlags) *cobra.Command {
 		},
 		RunE: func(_ *cobra.Command, args []string) error {
 			ctx := context.Background()
-			devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 			if err != nil {
 				return err
 			}
-			return cmd.Run(ctx, devPodConfig, args)
+			return cmd.Run(ctx, devSpaceConfig, args)
 		},
 	}
 
@@ -61,21 +61,21 @@ func NewAddCmd(flags *flags.GlobalFlags) *cobra.Command {
 	return addCmd
 }
 
-func (cmd *AddCmd) Run(ctx context.Context, devPodConfig *config.Config, args []string) error {
+func (cmd *AddCmd) Run(ctx context.Context, devSpaceConfig *config.Config, args []string) error {
 	if len(args) != 1 && cmd.FromExisting == "" {
 		return fmt.Errorf("please specify either a local file, url or git repository. E.g. devspace provider add https://path/to/my/provider.yaml")
 	} else if cmd.Name != "" && provider.ProviderNameRegEx.MatchString(cmd.Name) {
 		return fmt.Errorf("provider name can only include smaller case letters, numbers or dashes")
 	} else if cmd.Name != "" && len(cmd.Name) > 32 {
 		return fmt.Errorf("provider name cannot be longer than 32 characters")
-	} else if cmd.FromExisting != "" && devPodConfig.Current() != nil && devPodConfig.Current().Providers[cmd.FromExisting] == nil {
+	} else if cmd.FromExisting != "" && devSpaceConfig.Current() != nil && devSpaceConfig.Current().Providers[cmd.FromExisting] == nil {
 		return fmt.Errorf("provider %s does not exist", cmd.FromExisting)
 	}
 
 	var providerConfig *provider.ProviderConfig
 	var options []string
 	if cmd.FromExisting != "" {
-		providerWithOptions, err := workspace.CloneProvider(devPodConfig, cmd.Name, cmd.FromExisting, log.Default)
+		providerWithOptions, err := workspace.CloneProvider(devSpaceConfig, cmd.Name, cmd.FromExisting, log.Default)
 		if err != nil {
 			return err
 		}
@@ -83,7 +83,7 @@ func (cmd *AddCmd) Run(ctx context.Context, devPodConfig *config.Config, args []
 		providerConfig = providerWithOptions.Config
 		options = mergeOptions(providerWithOptions.Config.Options, providerWithOptions.State.Options, cmd.Options)
 	} else {
-		c, err := workspace.AddProvider(devPodConfig, cmd.Name, args[0], log.Default)
+		c, err := workspace.AddProvider(devSpaceConfig, cmd.Name, args[0], log.Default)
 		if err != nil {
 			return err
 		}
@@ -93,14 +93,14 @@ func (cmd *AddCmd) Run(ctx context.Context, devPodConfig *config.Config, args []
 
 	log.Default.Donef("Successfully installed provider %s", providerConfig.Name)
 	if cmd.Use {
-		configureErr := ConfigureProvider(ctx, providerConfig, devPodConfig.DefaultContext, options, true, false, false, &cmd.SingleMachine, log.Default)
+		configureErr := ConfigureProvider(ctx, providerConfig, devSpaceConfig.DefaultContext, options, true, false, false, &cmd.SingleMachine, log.Default)
 		if configureErr != nil {
-			devPodConfig, err := config.LoadConfig(cmd.Context, "")
+			devSpaceConfig, err := config.LoadConfig(cmd.Context, "")
 			if err != nil {
 				return err
 			}
 
-			err = DeleteProvider(ctx, devPodConfig, providerConfig.Name, true, true, log.Default)
+			err = DeleteProvider(ctx, devSpaceConfig, providerConfig.Name, true, true, log.Default)
 			if err != nil {
 				return errors.Wrap(err, "delete provider")
 			}

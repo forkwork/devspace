@@ -15,9 +15,9 @@ CHMOD_PATH="{{ .ChmodPath }}"
 echo "ping"
 
 # we don't want the script to do anything without us
-IFS='$\n' read -r DEVPOD_PING
-if [ "$DEVPOD_PING" != "pong" ]; then
-  >&2 echo "Received wrong answer for ping request $DEVPOD_PING"
+IFS='$\n' read -r DEVSPACE_PING
+if [ "$DEVSPACE_PING" != "pong" ]; then
+  >&2 echo "Received wrong answer for ping request $DEVSPACE_PING"
   exit 1
 fi
 
@@ -152,7 +152,7 @@ fi
 echo "done"
 
 # set download url
-export DEVPOD_AGENT_URL={{ .DownloadBase }}
+export DEVSPACE_AGENT_URL={{ .DownloadBase }}
 
 # Execute command
 {{ .Command }}

@@ -5,8 +5,8 @@ import (
 )
 
 type Framework struct {
-	DevpodBinDir  string
-	DevpodBinName string
+	DevspaceBinDir  string
+	DevspaceBinName string
 }
 
 func NewDefaultFramework(path string) *Framework {
@@ -31,5 +31,5 @@ func NewDefaultFramework(path string) *Framework {
 		binName = binName + ".exe"
 	}
 
-	return &Framework{DevpodBinDir: path, DevpodBinName: binName}
+	return &Framework{DevspaceBinDir: path, DevspaceBinName: binName}
 }

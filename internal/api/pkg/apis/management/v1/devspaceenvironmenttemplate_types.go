@@ -10,26 +10,26 @@ import (
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodEnvironmentTemplate holds the DevPodEnvironmentTemplate information
+// DevSpaceEnvironmentTemplate holds the DevSpaceEnvironmentTemplate information
 // +k8s:openapi-gen=true
-// +resource:path=devspaceenvironmenttemplates,rest=DevPodEnvironmentTemplateREST
-type DevPodEnvironmentTemplate struct {
+// +resource:path=devspaceenvironmenttemplates,rest=DevSpaceEnvironmentTemplateREST
+type DevSpaceEnvironmentTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   DevPodEnvironmentTemplateSpec   `json:"spec,omitempty"`
-	Status DevPodEnvironmentTemplateStatus `json:"status,omitempty"`
+	Spec   DevSpaceEnvironmentTemplateSpec   `json:"spec,omitempty"`
+	Status DevSpaceEnvironmentTemplateStatus `json:"status,omitempty"`
 }
 
-// DevPodEnvironmentTemplateSpec holds the specification
-type DevPodEnvironmentTemplateSpec struct {
-	storagev1.DevPodEnvironmentTemplateSpec `json:",inline"`
+// DevSpaceEnvironmentTemplateSpec holds the specification
+type DevSpaceEnvironmentTemplateSpec struct {
+	storagev1.DevSpaceEnvironmentTemplateSpec `json:",inline"`
 }
 
-// DevPodEnvironmentTemplateStatus holds the status
-type DevPodEnvironmentTemplateStatus struct{}
+// DevSpaceEnvironmentTemplateStatus holds the status
+type DevSpaceEnvironmentTemplateStatus struct{}
 
-func (a *DevPodEnvironmentTemplate) GetVersions() []storagev1.VersionAccessor {
+func (a *DevSpaceEnvironmentTemplate) GetVersions() []storagev1.VersionAccessor {
 	var retVersions []storagev1.VersionAccessor
 	for _, v := range a.Spec.Versions {
 		b := v
@@ -39,18 +39,18 @@ func (a *DevPodEnvironmentTemplate) GetVersions() []storagev1.VersionAccessor {
 	return retVersions
 }
 
-func (a *DevPodEnvironmentTemplate) GetOwner() *storagev1.UserOrTeam {
+func (a *DevSpaceEnvironmentTemplate) GetOwner() *storagev1.UserOrTeam {
 	return a.Spec.Owner
 }
 
-func (a *DevPodEnvironmentTemplate) SetOwner(userOrTeam *storagev1.UserOrTeam) {
+func (a *DevSpaceEnvironmentTemplate) SetOwner(userOrTeam *storagev1.UserOrTeam) {
 	a.Spec.Owner = userOrTeam
 }
 
-func (a *DevPodEnvironmentTemplate) GetAccess() []storagev1.Access {
+func (a *DevSpaceEnvironmentTemplate) GetAccess() []storagev1.Access {
 	return a.Spec.Access
 }
 
-func (a *DevPodEnvironmentTemplate) SetAccess(access []storagev1.Access) {
+func (a *DevSpaceEnvironmentTemplate) SetAccess(access []storagev1.Access) {
 	a.Spec.Access = access
 }

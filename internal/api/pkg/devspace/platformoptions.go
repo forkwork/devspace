@@ -9,7 +9,7 @@ type PlatformOptions struct {
 	// when executed on the platform side and not if a platform workspace is used locally.
 	Enabled bool `json:"enabled,omitempty"`
 
-	// DevPodWorkspaceInstance information
+	// DevSpaceWorkspaceInstance information
 	InstanceName      string `json:"instanceName,omitempty"`
 	InstanceProject   string `json:"instanceProject,omitempty"`
 	InstanceNamespace string `json:"instanceNamespace,omitempty"`

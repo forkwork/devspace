@@ -1,11 +1,11 @@
 import { TIDE, TIdentifiable, TWorkspaceSource } from "@/types"
-import { ManagementV1DevPodWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceInstance"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
 import { Labels, deepCopy } from "@/lib"
 import { Resources } from "@loft-enterprise/client"
-import { ManagementV1DevPodWorkspaceInstanceStatus } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceInstanceStatus"
+import { ManagementV1DevSpaceWorkspaceInstanceStatus } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstanceStatus"
 
 export class ProWorkspaceInstance
-  extends ManagementV1DevPodWorkspaceInstance
+  extends ManagementV1DevSpaceWorkspaceInstance
   implements TIdentifiable
 {
   public readonly status: ProWorkspaceInstanceStatus | undefined
@@ -21,18 +21,18 @@ export class ProWorkspaceInstance
     return maybeID
   }
 
-  constructor(instance: ManagementV1DevPodWorkspaceInstance) {
+  constructor(instance: ManagementV1DevSpaceWorkspaceInstance) {
     super()
 
-    this.apiVersion = `${Resources.ManagementV1DevPodWorkspaceInstance.group}/${Resources.ManagementV1DevPodWorkspaceInstance.version}`
-    this.kind = Resources.ManagementV1DevPodWorkspaceInstance.kind
+    this.apiVersion = `${Resources.ManagementV1DevSpaceWorkspaceInstance.group}/${Resources.ManagementV1DevSpaceWorkspaceInstance.version}`
+    this.kind = Resources.ManagementV1DevSpaceWorkspaceInstance.kind
     this.metadata = deepCopy(instance.metadata)
     this.spec = deepCopy(instance.spec)
     this.status = deepCopy(instance.status) as ProWorkspaceInstanceStatus
   }
 }
 
-class ProWorkspaceInstanceStatus extends ManagementV1DevPodWorkspaceInstanceStatus {
+class ProWorkspaceInstanceStatus extends ManagementV1DevSpaceWorkspaceInstanceStatus {
   "source"?: TWorkspaceSource
   "ide"?: TIDE
   "metrics"?: ProWorkspaceMetricsSummary

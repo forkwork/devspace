@@ -71,7 +71,7 @@ func InjectAgentAndExecute(
 
 	defer log.Debugf("Done InjectAgentAndExecute")
 	if remoteAgentPath == "" {
-		remoteAgentPath = RemoteDevPodHelperLocation
+		remoteAgentPath = RemoteDevSpaceHelperLocation
 	}
 	if downloadURL == "" {
 		downloadURL = DefaultAgentDownloadURL()
@@ -197,7 +197,7 @@ func downloadAgentLocally(tryDownloadURL, targetArch string, log log.Logger) (st
 	}
 
 	fullDownloadURL := tryDownloadURL + "/devspace-linux-" + targetArch
-	log.Debugf("Attempting to download DevPod agent from: %s", fullDownloadURL)
+	log.Debugf("Attempting to download DevSpace agent from: %s", fullDownloadURL)
 
 	resp, err := devspacehttp.GetHTTPClient().Get(fullDownloadURL)
 	if err != nil {
@@ -209,7 +209,7 @@ func downloadAgentLocally(tryDownloadURL, targetArch string, log log.Logger) (st
 		return agentPath, nil
 	}
 
-	log.Infof("Download DevPod Agent...")
+	log.Infof("Download DevSpace Agent...")
 	file, err := os.Create(agentPath)
 	if err != nil {
 		return "", fmt.Errorf("create agent binary: %w", err)

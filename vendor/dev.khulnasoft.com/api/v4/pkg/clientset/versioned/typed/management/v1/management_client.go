@@ -21,10 +21,10 @@ type ManagementV1Interface interface {
 	ClusterRoleTemplatesGetter
 	ConfigsGetter
 	ConvertVirtualClusterConfigsGetter
-	DevPodEnvironmentTemplatesGetter
-	DevPodWorkspaceInstancesGetter
-	DevPodWorkspacePresetsGetter
-	DevPodWorkspaceTemplatesGetter
+	DevSpaceEnvironmentTemplatesGetter
+	DevSpaceWorkspaceInstancesGetter
+	DevSpaceWorkspacePresetsGetter
+	DevSpaceWorkspaceTemplatesGetter
 	DirectClusterEndpointTokensGetter
 	EventsGetter
 	FeaturesGetter
@@ -95,20 +95,20 @@ func (c *ManagementV1Client) ConvertVirtualClusterConfigs() ConvertVirtualCluste
 	return newConvertVirtualClusterConfigs(c)
 }
 
-func (c *ManagementV1Client) DevPodEnvironmentTemplates() DevPodEnvironmentTemplateInterface {
-	return newDevPodEnvironmentTemplates(c)
+func (c *ManagementV1Client) DevSpaceEnvironmentTemplates() DevSpaceEnvironmentTemplateInterface {
+	return newDevSpaceEnvironmentTemplates(c)
 }
 
-func (c *ManagementV1Client) DevPodWorkspaceInstances(namespace string) DevPodWorkspaceInstanceInterface {
-	return newDevPodWorkspaceInstances(c, namespace)
+func (c *ManagementV1Client) DevSpaceWorkspaceInstances(namespace string) DevSpaceWorkspaceInstanceInterface {
+	return newDevSpaceWorkspaceInstances(c, namespace)
 }
 
-func (c *ManagementV1Client) DevPodWorkspacePresets() DevPodWorkspacePresetInterface {
-	return newDevPodWorkspacePresets(c)
+func (c *ManagementV1Client) DevSpaceWorkspacePresets() DevSpaceWorkspacePresetInterface {
+	return newDevSpaceWorkspacePresets(c)
 }
 
-func (c *ManagementV1Client) DevPodWorkspaceTemplates() DevPodWorkspaceTemplateInterface {
-	return newDevPodWorkspaceTemplates(c)
+func (c *ManagementV1Client) DevSpaceWorkspaceTemplates() DevSpaceWorkspaceTemplateInterface {
+	return newDevSpaceWorkspaceTemplates(c)
 }
 
 func (c *ManagementV1Client) DirectClusterEndpointTokens() DirectClusterEndpointTokenInterface {

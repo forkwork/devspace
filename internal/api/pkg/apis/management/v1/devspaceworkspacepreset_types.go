@@ -9,43 +9,43 @@ import (
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodWorkspacePreset
+// DevSpaceWorkspacePreset
 // +k8s:openapi-gen=true
-// +resource:path=devspaceworkspacepresets,rest=DevPodWorkspacePresetREST
-type DevPodWorkspacePreset struct {
+// +resource:path=devspaceworkspacepresets,rest=DevSpaceWorkspacePresetREST
+type DevSpaceWorkspacePreset struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   DevPodWorkspacePresetSpec   `json:"spec,omitempty"`
-	Status DevPodWorkspacePresetStatus `json:"status,omitempty"`
+	Spec   DevSpaceWorkspacePresetSpec   `json:"spec,omitempty"`
+	Status DevSpaceWorkspacePresetStatus `json:"status,omitempty"`
 }
 
-// DevPodWorkspacePresetSpec holds the specification
-type DevPodWorkspacePresetSpec struct {
-	storagev1.DevPodWorkspacePresetSpec `json:",inline"`
+// DevSpaceWorkspacePresetSpec holds the specification
+type DevSpaceWorkspacePresetSpec struct {
+	storagev1.DevSpaceWorkspacePresetSpec `json:",inline"`
 }
 
-// DevPodWorkspacePresetSource
+// DevSpaceWorkspacePresetSource
 // +k8s:openapi-gen=true
-type DevPodWorkspacePresetSource struct {
-	storagev1.DevPodWorkspacePresetSource `json:",inline"`
+type DevSpaceWorkspacePresetSource struct {
+	storagev1.DevSpaceWorkspacePresetSource `json:",inline"`
 }
 
-func (a *DevPodWorkspacePreset) GetOwner() *storagev1.UserOrTeam {
+func (a *DevSpaceWorkspacePreset) GetOwner() *storagev1.UserOrTeam {
 	return a.Spec.Owner
 }
 
-func (a *DevPodWorkspacePreset) SetOwner(userOrTeam *storagev1.UserOrTeam) {
+func (a *DevSpaceWorkspacePreset) SetOwner(userOrTeam *storagev1.UserOrTeam) {
 	a.Spec.Owner = userOrTeam
 }
 
-func (a *DevPodWorkspacePreset) GetAccess() []storagev1.Access {
+func (a *DevSpaceWorkspacePreset) GetAccess() []storagev1.Access {
 	return a.Spec.Access
 }
 
-func (a *DevPodWorkspacePreset) SetAccess(access []storagev1.Access) {
+func (a *DevSpaceWorkspacePreset) SetAccess(access []storagev1.Access) {
 	a.Spec.Access = access
 }
 
-// DevPodWorkspacePresetStatus holds the status
-type DevPodWorkspacePresetStatus struct{}
+// DevSpaceWorkspacePresetStatus holds the status
+type DevSpaceWorkspacePresetStatus struct{}

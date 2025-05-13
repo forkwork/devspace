@@ -26,19 +26,19 @@ import (
 )
 
 var (
-	DevPodDebug = "DEVPOD_DEBUG"
+	DevSpaceDebug = "DEVSPACE_DEBUG"
 
-	DevPodPlatformOptions = "DEVPOD_PLATFORM_OPTIONS"
+	DevSpacePlatformOptions = "DEVSPACE_PLATFORM_OPTIONS"
 
-	DevPodFlagsUp     = "DEVPOD_FLAGS_UP"
-	DevPodFlagsSsh    = "DEVPOD_FLAGS_SSH"
-	DevPodFlagsDelete = "DEVPOD_FLAGS_DELETE"
-	DevPodFlagsStatus = "DEVPOD_FLAGS_STATUS"
+	DevSpaceFlagsUp     = "DEVSPACE_FLAGS_UP"
+	DevSpaceFlagsSsh    = "DEVSPACE_FLAGS_SSH"
+	DevSpaceFlagsDelete = "DEVSPACE_FLAGS_DELETE"
+	DevSpaceFlagsStatus = "DEVSPACE_FLAGS_STATUS"
 )
 
-func NewProxyClient(devPodConfig *config.Config, prov *provider.ProviderConfig, workspace *provider.Workspace, log log.Logger) (client.ProxyClient, error) {
+func NewProxyClient(devSpaceConfig *config.Config, prov *provider.ProviderConfig, workspace *provider.Workspace, log log.Logger) (client.ProxyClient, error) {
 	return &proxyClient{
-		devPodConfig: devPodConfig,
+		devSpaceConfig: devSpaceConfig,
 		config:       prov,
 		workspace:    workspace,
 		log:          log,
@@ -51,7 +51,7 @@ type proxyClient struct {
 	workspaceLockOnce sync.Once
 	workspaceLock     *flock.Flock
 
-	devPodConfig *config.Config
+	devSpaceConfig *config.Config
 	config       *provider.ProviderConfig
 	workspace    *provider.Workspace
 	log          log.Logger
@@ -153,7 +153,7 @@ func (s *proxyClient) RefreshOptions(ctx context.Context, userOptionsRaw []strin
 		return perrors.Wrap(err, "parse options")
 	}
 
-	workspace, err := options.ResolveAndSaveOptionsProxy(ctx, s.devPodConfig, s.config, s.workspace, userOptions, s.log)
+	workspace, err := options.ResolveAndSaveOptionsProxy(ctx, s.devSpaceConfig, s.config, s.workspace, userOptions, s.log)
 	if err != nil {
 		return err
 	}
@@ -177,7 +177,7 @@ func (s *proxyClient) Create(ctx context.Context, stdin io.Reader, stdout io.Wri
 		s.workspace.Context,
 		s.workspace,
 		nil,
-		s.devPodConfig.ProviderOptions(s.config.Name),
+		s.devSpaceConfig.ProviderOptions(s.config.Name),
 		s.config,
 		nil,
 		stdin,
@@ -195,13 +195,13 @@ func (s *proxyClient) Up(ctx context.Context, opt client.UpOptions) error {
 	writer, _ := devspacelog.PipeJSONStream(s.log.ErrorStreamOnly())
 	defer writer.Close()
 
-	opts := EncodeOptions(opt.CLIOptions, DevPodFlagsUp)
+	opts := EncodeOptions(opt.CLIOptions, DevSpaceFlagsUp)
 	if opt.Debug {
 		opts["DEBUG"] = "true"
 	}
 
 	// check if the provider is outdated
-	providerOptions := s.devPodConfig.ProviderOptions(s.config.Name)
+	providerOptions := s.devSpaceConfig.ProviderOptions(s.config.Name)
 	if providerOptions["LOFT_CONFIG"].Value != "" {
 		baseClient, err := platformclient.InitClientFromPath(ctx, providerOptions["LOFT_CONFIG"].Value)
 		if err != nil {
@@ -214,7 +214,7 @@ func (s *proxyClient) Up(ctx context.Context, opt client.UpOptions) error {
 		}
 
 		// check if the version is lower than v4.3.0-devspace.alpha.19
-		parsedVersion, err := semver.Parse(strings.TrimPrefix(version.DevPodVersion, "v"))
+		parsedVersion, err := semver.Parse(strings.TrimPrefix(version.DevSpaceVersion, "v"))
 		if err != nil {
 			return fmt.Errorf("error parsing platform version: %w", err)
 		}
@@ -258,9 +258,9 @@ func (s *proxyClient) Ssh(ctx context.Context, opt client.SshOptions) error {
 		s.workspace.Context,
 		s.workspace,
 		nil,
-		s.devPodConfig.ProviderOptions(s.config.Name),
+		s.devSpaceConfig.ProviderOptions(s.config.Name),
 		s.config,
-		EncodeOptions(opt, DevPodFlagsSsh),
+		EncodeOptions(opt, DevSpaceFlagsSsh),
 		opt.Stdin,
 		opt.Stdout,
 		writer,
@@ -302,9 +302,9 @@ func (s *proxyClient) Delete(ctx context.Context, opt client.DeleteOptions) erro
 		s.workspace.Context,
 		s.workspace,
 		nil,
-		s.devPodConfig.ProviderOptions(s.config.Name),
+		s.devSpaceConfig.ProviderOptions(s.config.Name),
 		s.config,
-		EncodeOptions(opt, DevPodFlagsDelete),
+		EncodeOptions(opt, DevSpaceFlagsDelete),
 		nil,
 		writer,
 		writer,
@@ -335,7 +335,7 @@ func (s *proxyClient) Stop(ctx context.Context, opt client.StopOptions) error {
 		s.workspace.Context,
 		s.workspace,
 		nil,
-		s.devPodConfig.ProviderOptions(s.config.Name),
+		s.devSpaceConfig.ProviderOptions(s.config.Name),
 		s.config,
 		nil,
 		nil,
@@ -363,9 +363,9 @@ func (s *proxyClient) Status(ctx context.Context, options client.StatusOptions) 
 		s.workspace.Context,
 		s.workspace,
 		nil,
-		s.devPodConfig.ProviderOptions(s.config.Name),
+		s.devSpaceConfig.ProviderOptions(s.config.Name),
 		s.config,
-		EncodeOptions(options, DevPodFlagsStatus),
+		EncodeOptions(options, DevSpaceFlagsStatus),
 		nil,
 		io.MultiWriter(stdout, buf),
 		buf,
@@ -394,7 +394,7 @@ func (s *proxyClient) updateInstance(ctx context.Context) error {
 		s.workspace.Context,
 		s.workspace,
 		nil,
-		s.devPodConfig.ProviderOptions(s.config.Name),
+		s.devSpaceConfig.ProviderOptions(s.config.Name),
 		s.config,
 		nil,
 		os.Stdin,
@@ -426,7 +426,7 @@ func DecodeOptionsFromEnv(name string, into any) (bool, error) {
 }
 
 func DecodePlatformOptionsFromEnv(into *devspace.PlatformOptions) error {
-	raw := os.Getenv(DevPodPlatformOptions)
+	raw := os.Getenv(DevSpacePlatformOptions)
 	if raw == "" {
 		return nil
 	}

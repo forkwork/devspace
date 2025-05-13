@@ -15,7 +15,7 @@ import {
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react"
-import { ManagementV1DevPodWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevPodWorkspaceTemplate"
+import { ManagementV1DevSpaceWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
 import { StorageV1AppParameter } from "@loft-enterprise/client/gen/models/storageV1AppParameter"
 import { ReactNode, useEffect, useMemo } from "react"
 import { ChangeHandler, Controller, useFormContext } from "react-hook-form"
@@ -23,8 +23,8 @@ import { FieldName, TFormValues } from "./types"
 
 type TOptionsInputProps = Readonly<{
   resetPreset?: VoidFunction
-  infraTemplates: readonly ManagementV1DevPodWorkspaceTemplate[]
-  defaultInfraTemplate: ManagementV1DevPodWorkspaceTemplate | undefined
+  infraTemplates: readonly ManagementV1DevSpaceWorkspaceTemplate[]
+  defaultInfraTemplate: ManagementV1DevSpaceWorkspaceTemplate | undefined
 }>
 export function InfrastructureTemplateInput({
   infraTemplates: templates,

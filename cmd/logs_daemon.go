@@ -37,12 +37,12 @@ func NewLogsDaemonCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 // Run runs the command logic
 func (cmd *LogsDaemonCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	baseClient, err := workspace.Get(ctx, devPodConfig, args, false, cmd.Owner, false, log.Default)
+	baseClient, err := workspace.Get(ctx, devSpaceConfig, args, false, cmd.Owner, false, log.Default)
 	if err != nil {
 		return err
 	} else if baseClient.WorkspaceConfig().Machine.ID == "" {

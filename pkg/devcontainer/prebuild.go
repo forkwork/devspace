@@ -35,7 +35,7 @@ func (r *runner) Build(ctx context.Context, options provider.BuildOptions) (stri
 	// remove build information
 	defer func() {
 		contextPath := config.GetContextPath(substitutedConfig.Config)
-		_ = os.RemoveAll(filepath.Join(contextPath, config.DevPodContextFeatureFolder))
+		_ = os.RemoveAll(filepath.Join(contextPath, config.DevSpaceContextFeatureFolder))
 	}()
 
 	// check if we need to build container
@@ -113,8 +113,8 @@ func (r *runner) Build(ctx context.Context, options provider.BuildOptions) (stri
 }
 
 func getPrebuildRepository(substitutedConfig *config.SubstitutedConfig) string {
-	if len(config.GetDevPodCustomizations(substitutedConfig.Config).PrebuildRepository) > 0 {
-		return config.GetDevPodCustomizations(substitutedConfig.Config).PrebuildRepository[0]
+	if len(config.GetDevSpaceCustomizations(substitutedConfig.Config).PrebuildRepository) > 0 {
+		return config.GetDevSpaceCustomizations(substitutedConfig.Config).PrebuildRepository[0]
 	}
 
 	return ""

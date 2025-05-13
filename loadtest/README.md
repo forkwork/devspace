@@ -1,4 +1,4 @@
-## Load Testing DevPod
+## Load Testing DevSpace
 
 ### Create the workspaces
 

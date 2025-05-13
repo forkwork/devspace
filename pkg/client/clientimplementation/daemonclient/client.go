@@ -31,22 +31,22 @@ import (
 )
 
 var (
-	DevPodDebug = "DEVPOD_DEBUG"
+	DevSpaceDebug = "DEVSPACE_DEBUG"
 
-	DevPodFlagsUp     = "DEVPOD_FLAGS_UP"
-	DevPodFlagsSsh    = "DEVPOD_FLAGS_SSH"
-	DevPodFlagsDelete = "DEVPOD_FLAGS_DELETE"
-	DevPodFlagsStatus = "DEVPOD_FLAGS_STATUS"
+	DevSpaceFlagsUp     = "DEVSPACE_FLAGS_UP"
+	DevSpaceFlagsSsh    = "DEVSPACE_FLAGS_SSH"
+	DevSpaceFlagsDelete = "DEVSPACE_FLAGS_DELETE"
+	DevSpaceFlagsStatus = "DEVSPACE_FLAGS_STATUS"
 )
 
-func New(devPodConfig *config.Config, prov *provider.ProviderConfig, workspace *provider.Workspace, log log.Logger) (clientpkg.DaemonClient, error) {
+func New(devSpaceConfig *config.Config, prov *provider.ProviderConfig, workspace *provider.Workspace, log log.Logger) (clientpkg.DaemonClient, error) {
 	tsClient := &tailscale.LocalClient{
 		Socket:        daemon.GetSocketAddr(workspace.Provider.Name),
 		UseSocketOnly: true,
 	}
 
 	return &client{
-		devPodConfig: devPodConfig,
+		devSpaceConfig: devSpaceConfig,
 		config:       prov,
 		workspace:    workspace,
 		log:          log,
@@ -58,7 +58,7 @@ func New(devPodConfig *config.Config, prov *provider.ProviderConfig, workspace *
 type client struct {
 	m sync.Mutex
 
-	devPodConfig *config.Config
+	devSpaceConfig *config.Config
 	config       *provider.ProviderConfig
 	workspace    *provider.Workspace
 	log          log.Logger
@@ -106,7 +106,7 @@ func (c *client) RefreshOptions(ctx context.Context, userOptionsRaw []string, re
 		return perrors.Wrap(err, "parse options")
 	}
 
-	workspace, err := options.ResolveAndSaveOptionsProxy(ctx, c.devPodConfig, c.config, c.workspace, userOptions, c.log)
+	workspace, err := options.ResolveAndSaveOptionsProxy(ctx, c.devSpaceConfig, c.config, c.workspace, userOptions, c.log)
 	if err != nil {
 		return err
 	}

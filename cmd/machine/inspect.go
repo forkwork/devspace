@@ -33,16 +33,16 @@ func NewInspectCmd(flags *flags.GlobalFlags) *cobra.Command {
 }
 
 func (cmd *InspectCmd) Run(ctx context.Context, args []string) error {
-	devPodConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
+	devSpaceConfig, err := config.LoadConfig(cmd.Context, cmd.Provider)
 	if err != nil {
 		return err
 	}
 
-	machineClient, err := workspace.GetMachine(devPodConfig, args, log.Default)
+	machineClient, err := workspace.GetMachine(devSpaceConfig, args, log.Default)
 	if err != nil {
 		return err
 	}
-	p, err := provider.LoadProviderConfig(devPodConfig.DefaultContext, machineClient.Provider())
+	p, err := provider.LoadProviderConfig(devSpaceConfig.DefaultContext, machineClient.Provider())
 	if err != nil {
 		return err
 	}

@@ -31,7 +31,7 @@ var globalFlags *flags.GlobalFlags
 func NewRootCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:           "devspace",
-		Short:         "DevPod",
+		Short:         "DevSpace",
 		SilenceUsage:  true,
 		SilenceErrors: true,
 		PersistentPreRunE: func(cobraCmd *cobra.Command, args []string) error {
@@ -47,24 +47,24 @@ func NewRootCmd() *cobra.Command {
 				log2.Default.SetLevel(logrus.FatalLevel)
 			} else if globalFlags.Debug {
 				log2.Default.SetLevel(logrus.DebugLevel)
-			} else if os.Getenv(clientimplementation.DevPodDebug) == "true" {
+			} else if os.Getenv(clientimplementation.DevSpaceDebug) == "true" {
 				log2.Default.SetLevel(logrus.DebugLevel)
 			}
 
-			if globalFlags.DevPodHome != "" {
-				_ = os.Setenv(config.DEVPOD_HOME, globalFlags.DevPodHome)
+			if globalFlags.DevSpaceHome != "" {
+				_ = os.Setenv(config.DEVSPACE_HOME, globalFlags.DevSpaceHome)
 			}
 
-			devPodConfig, err := config.LoadConfig(globalFlags.Context, globalFlags.Provider)
+			devSpaceConfig, err := config.LoadConfig(globalFlags.Context, globalFlags.Provider)
 			if err == nil {
-				telemetry.StartCLI(devPodConfig, cobraCmd)
+				telemetry.StartCLI(devSpaceConfig, cobraCmd)
 			}
 
 			return nil
 		},
 		PersistentPostRunE: func(cmd *cobra.Command, args []string) error {
-			if globalFlags.DevPodHome != "" {
-				_ = os.Unsetenv(config.DEVPOD_HOME)
+			if globalFlags.DevSpaceHome != "" {
+				_ = os.Unsetenv(config.DEVSPACE_HOME)
 			}
 
 			return nil

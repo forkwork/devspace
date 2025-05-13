@@ -23,7 +23,7 @@ import (
 func NewProProviderCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 	c := &cobra.Command{
 		Use:    "provider",
-		Short:  "DevPod Pro provider commands",
+		Short:  "DevSpace Pro provider commands",
 		Args:   cobra.NoArgs,
 		Hidden: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
@@ -33,11 +33,11 @@ func NewProProviderCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 
 			log.Default.SetFormat(log.JSONFormat)
 
-			if os.Getenv(clientimplementation.DevPodDebug) == "true" {
+			if os.Getenv(clientimplementation.DevSpaceDebug) == "true" {
 				globalFlags.Debug = true
 			}
 
-			// Disable debug hints if we execute pro commands from DevPod Desktop
+			// Disable debug hints if we execute pro commands from DevSpace Desktop
 			// We're reusing the agent.AgentExecutedAnnotation for simplicity, could rename in the future
 			if os.Getenv(telemetry.UIEnvVar) == "true" {
 				cmd.VisitParents(func(c *cobra.Command) {

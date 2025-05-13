@@ -7,7 +7,7 @@ type ProductName string
 const (
 	ProductNameLoft        ProductName = "Loft"
 	ProductNameVClusterPro ProductName = "vCluster Platform"
-	ProductNameDevPodPro   ProductName = "DevPod.Pro"
+	ProductNameDevSpacePro   ProductName = "DevSpace.Pro"
 )
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

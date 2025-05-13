@@ -42,7 +42,7 @@ func NewDaemonCmd() *cobra.Command {
 	}
 	daemonCmd := &cobra.Command{
 		Use:   "daemon",
-		Short: "Starts the DevPod network daemon, SSH server and monitors container activity if timeout is set",
+		Short: "Starts the DevSpace network daemon, SSH server and monitors container activity if timeout is set",
 		Args:  cobra.NoArgs,
 		RunE:  cmd.Run,
 	}

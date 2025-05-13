@@ -22,25 +22,25 @@ type ClusterAccessListerExpansion interface{}
 // ClusterRoleTemplateLister.
 type ClusterRoleTemplateListerExpansion interface{}
 
-// DevPodEnvironmentTemplateListerExpansion allows custom methods to be added to
-// DevPodEnvironmentTemplateLister.
-type DevPodEnvironmentTemplateListerExpansion interface{}
+// DevSpaceEnvironmentTemplateListerExpansion allows custom methods to be added to
+// DevSpaceEnvironmentTemplateLister.
+type DevSpaceEnvironmentTemplateListerExpansion interface{}
 
-// DevPodWorkspaceInstanceListerExpansion allows custom methods to be added to
-// DevPodWorkspaceInstanceLister.
-type DevPodWorkspaceInstanceListerExpansion interface{}
+// DevSpaceWorkspaceInstanceListerExpansion allows custom methods to be added to
+// DevSpaceWorkspaceInstanceLister.
+type DevSpaceWorkspaceInstanceListerExpansion interface{}
 
-// DevPodWorkspaceInstanceNamespaceListerExpansion allows custom methods to be added to
-// DevPodWorkspaceInstanceNamespaceLister.
-type DevPodWorkspaceInstanceNamespaceListerExpansion interface{}
+// DevSpaceWorkspaceInstanceNamespaceListerExpansion allows custom methods to be added to
+// DevSpaceWorkspaceInstanceNamespaceLister.
+type DevSpaceWorkspaceInstanceNamespaceListerExpansion interface{}
 
-// DevPodWorkspacePresetListerExpansion allows custom methods to be added to
-// DevPodWorkspacePresetLister.
-type DevPodWorkspacePresetListerExpansion interface{}
+// DevSpaceWorkspacePresetListerExpansion allows custom methods to be added to
+// DevSpaceWorkspacePresetLister.
+type DevSpaceWorkspacePresetListerExpansion interface{}
 
-// DevPodWorkspaceTemplateListerExpansion allows custom methods to be added to
-// DevPodWorkspaceTemplateLister.
-type DevPodWorkspaceTemplateListerExpansion interface{}
+// DevSpaceWorkspaceTemplateListerExpansion allows custom methods to be added to
+// DevSpaceWorkspaceTemplateLister.
+type DevSpaceWorkspaceTemplateListerExpansion interface{}
 
 // NetworkPeerListerExpansion allows custom methods to be added to
 // NetworkPeerLister.

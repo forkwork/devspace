@@ -6,8 +6,8 @@
 HIDE_STEREOTYPE()
 LAYOUT_TOP_DOWN()
 
-Person(user, "DevPod", "Uses kubectl")
-System(prov, "Kubernetes Provider", "Devpod Provider")
+Person(user, "DevSpace", "Uses kubectl")
+System(prov, "Kubernetes Provider", "Devspace Provider")
 
 System_Boundary(host, "Kubernetes Cluster") {
     System(controlPlane, "kube API server", "Manages the cluster")

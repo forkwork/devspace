@@ -9,21 +9,21 @@ import (
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodWorkspaceEnvironmentSource
+// DevSpaceWorkspaceEnvironmentSource
 // +k8s:openapi-gen=true
-type DevPodEnvironmentTemplate struct {
+type DevSpaceEnvironmentTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   DevPodEnvironmentTemplateSpec   `json:"spec,omitempty"`
-	Status DevPodEnvironmentTemplateStatus `json:"status,omitempty"`
+	Spec   DevSpaceEnvironmentTemplateSpec   `json:"spec,omitempty"`
+	Status DevSpaceEnvironmentTemplateStatus `json:"status,omitempty"`
 }
 
-// DevPodEnvironmentTemplateStatus holds the status
-type DevPodEnvironmentTemplateStatus struct {
+// DevSpaceEnvironmentTemplateStatus holds the status
+type DevSpaceEnvironmentTemplateStatus struct {
 }
 
-func (a *DevPodEnvironmentTemplate) GetVersions() []VersionAccessor {
+func (a *DevSpaceEnvironmentTemplate) GetVersions() []VersionAccessor {
 	var retVersions []VersionAccessor
 	for _, v := range a.Spec.Versions {
 		b := v
@@ -33,27 +33,27 @@ func (a *DevPodEnvironmentTemplate) GetVersions() []VersionAccessor {
 	return retVersions
 }
 
-func (a *DevPodEnvironmentTemplateVersion) GetVersion() string {
+func (a *DevSpaceEnvironmentTemplateVersion) GetVersion() string {
 	return a.Version
 }
 
-func (a *DevPodEnvironmentTemplate) GetOwner() *UserOrTeam {
+func (a *DevSpaceEnvironmentTemplate) GetOwner() *UserOrTeam {
 	return a.Spec.Owner
 }
 
-func (a *DevPodEnvironmentTemplate) SetOwner(userOrTeam *UserOrTeam) {
+func (a *DevSpaceEnvironmentTemplate) SetOwner(userOrTeam *UserOrTeam) {
 	a.Spec.Owner = userOrTeam
 }
 
-func (a *DevPodEnvironmentTemplate) GetAccess() []Access {
+func (a *DevSpaceEnvironmentTemplate) GetAccess() []Access {
 	return a.Spec.Access
 }
 
-func (a *DevPodEnvironmentTemplate) SetAccess(access []Access) {
+func (a *DevSpaceEnvironmentTemplate) SetAccess(access []Access) {
 	a.Spec.Access = access
 }
 
-type DevPodEnvironmentTemplateSpec struct {
+type DevSpaceEnvironmentTemplateSpec struct {
 	// DisplayName is the name that should be displayed in the UI
 	// +optional
 	DisplayName string `json:"displayName,omitempty"`
@@ -66,20 +66,20 @@ type DevPodEnvironmentTemplateSpec struct {
 	// +optional
 	Owner *UserOrTeam `json:"owner,omitempty"`
 
-	// Access to the DevPod machine instance object itself
+	// Access to the DevSpace machine instance object itself
 	// +optional
 	Access []Access `json:"access,omitempty"`
 
-	// Template is the inline template to use for DevPod environments
+	// Template is the inline template to use for DevSpace environments
 	// +optional
-	Template *DevPodEnvironmentTemplateDefinition `json:"template,omitempty"`
+	Template *DevSpaceEnvironmentTemplateDefinition `json:"template,omitempty"`
 
 	// Versions are different versions of the template that can be referenced as well
 	// +optional
-	Versions []DevPodEnvironmentTemplateVersion `json:"versions,omitempty"`
+	Versions []DevSpaceEnvironmentTemplateVersion `json:"versions,omitempty"`
 }
 
-type DevPodEnvironmentTemplateDefinition struct {
+type DevSpaceEnvironmentTemplateDefinition struct {
 	// Git holds configuration for git environment spec source
 	// +optional
 	Git *GitEnvironmentTemplate `json:"git,omitempty"`
@@ -107,10 +107,10 @@ type GitEnvironmentTemplate struct {
 	UseProjectGitCredentials bool `json:"useProjectGitCredentials,omitempty"`
 }
 
-type DevPodEnvironmentTemplateVersion struct {
+type DevSpaceEnvironmentTemplateVersion struct {
 	// Template holds the environment template definition
 	// +optional
-	Template DevPodEnvironmentTemplateDefinition `json:"template,omitempty"`
+	Template DevSpaceEnvironmentTemplateDefinition `json:"template,omitempty"`
 
 	// Version is the version. Needs to be in X.X.X format.
 	// +optional
@@ -119,13 +119,13 @@ type DevPodEnvironmentTemplateVersion struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodEnvironmentTemplateList contains a list of DevPodEnvironmentTemplate objects
-type DevPodEnvironmentTemplateList struct {
+// DevSpaceEnvironmentTemplateList contains a list of DevSpaceEnvironmentTemplate objects
+type DevSpaceEnvironmentTemplateList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []DevPodEnvironmentTemplate `json:"items"`
+	Items           []DevSpaceEnvironmentTemplate `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&DevPodEnvironmentTemplate{}, &DevPodEnvironmentTemplateList{})
+	SchemeBuilder.Register(&DevSpaceEnvironmentTemplate{}, &DevSpaceEnvironmentTemplateList{})
 }

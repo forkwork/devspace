@@ -28,6 +28,6 @@ export interface Settings {
   experimental_positron: boolean
   experimental_rstudio: boolean
   experimental_windsurf: boolean
-  experimental_devPodPro: boolean
+  experimental_devSpacePro: boolean
   experimental_colorMode: ColorMode
 }

@@ -9,17 +9,17 @@ import (
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodWorkspaceTemplate holds the DevPodWorkspaceTemplate information
+// DevSpaceWorkspaceTemplate holds the DevSpaceWorkspaceTemplate information
 // +k8s:openapi-gen=true
-type DevPodWorkspaceTemplate struct {
+type DevSpaceWorkspaceTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   DevPodWorkspaceTemplateSpec   `json:"spec,omitempty"`
-	Status DevPodWorkspaceTemplateStatus `json:"status,omitempty"`
+	Spec   DevSpaceWorkspaceTemplateSpec   `json:"spec,omitempty"`
+	Status DevSpaceWorkspaceTemplateStatus `json:"status,omitempty"`
 }
 
-func (a *DevPodWorkspaceTemplate) GetVersions() []VersionAccessor {
+func (a *DevSpaceWorkspaceTemplate) GetVersions() []VersionAccessor {
 	var retVersions []VersionAccessor
 	for _, v := range a.Spec.Versions {
 		b := v
@@ -29,28 +29,28 @@ func (a *DevPodWorkspaceTemplate) GetVersions() []VersionAccessor {
 	return retVersions
 }
 
-func (a *DevPodWorkspaceTemplateVersion) GetVersion() string {
+func (a *DevSpaceWorkspaceTemplateVersion) GetVersion() string {
 	return a.Version
 }
 
-func (a *DevPodWorkspaceTemplate) GetOwner() *UserOrTeam {
+func (a *DevSpaceWorkspaceTemplate) GetOwner() *UserOrTeam {
 	return a.Spec.Owner
 }
 
-func (a *DevPodWorkspaceTemplate) SetOwner(userOrTeam *UserOrTeam) {
+func (a *DevSpaceWorkspaceTemplate) SetOwner(userOrTeam *UserOrTeam) {
 	a.Spec.Owner = userOrTeam
 }
 
-func (a *DevPodWorkspaceTemplate) GetAccess() []Access {
+func (a *DevSpaceWorkspaceTemplate) GetAccess() []Access {
 	return a.Spec.Access
 }
 
-func (a *DevPodWorkspaceTemplate) SetAccess(access []Access) {
+func (a *DevSpaceWorkspaceTemplate) SetAccess(access []Access) {
 	a.Spec.Access = access
 }
 
-// DevPodWorkspaceTemplateSpec holds the specification
-type DevPodWorkspaceTemplateSpec struct {
+// DevSpaceWorkspaceTemplateSpec holds the specification
+type DevSpaceWorkspaceTemplateSpec struct {
 	// DisplayName is the name that is shown in the UI
 	// +optional
 	DisplayName string `json:"displayName,omitempty"`
@@ -67,53 +67,53 @@ type DevPodWorkspaceTemplateSpec struct {
 	// +optional
 	Parameters []AppParameter `json:"parameters,omitempty"`
 
-	// Template holds the DevPod workspace template
-	Template DevPodWorkspaceTemplateDefinition `json:"template,omitempty"`
+	// Template holds the DevSpace workspace template
+	Template DevSpaceWorkspaceTemplateDefinition `json:"template,omitempty"`
 
 	// Versions are different versions of the template that can be referenced as well
 	// +optional
-	Versions []DevPodWorkspaceTemplateVersion `json:"versions,omitempty"`
+	Versions []DevSpaceWorkspaceTemplateVersion `json:"versions,omitempty"`
 
 	// Access holds the access rights for users and teams
 	// +optional
 	Access []Access `json:"access,omitempty"`
 }
 
-type DevPodWorkspaceTemplateDefinition struct {
-	// Provider holds the DevPod provider configuration
-	Provider DevPodWorkspaceProvider `json:"provider"`
+type DevSpaceWorkspaceTemplateDefinition struct {
+	// Provider holds the DevSpace provider configuration
+	Provider DevSpaceWorkspaceProvider `json:"provider"`
 
-	// SpaceTemplateRef is a reference to the space that should get created for this DevPod.
+	// SpaceTemplateRef is a reference to the space that should get created for this DevSpace.
 	// If this is specified, the kubernetes provider will be selected automatically.
 	// +optional
 	SpaceTemplateRef *TemplateRef `json:"spaceTemplateRef,omitempty"`
 
-	// SpaceTemplate is the inline template for a space that should get created for this DevPod.
+	// SpaceTemplate is the inline template for a space that should get created for this DevSpace.
 	// If this is specified, the kubernetes provider will be selected automatically.
 	// +optional
 	SpaceTemplate *SpaceTemplateDefinition `json:"spaceTemplate,omitempty"`
 
-	// VirtualClusterTemplateRef is a reference to the virtual cluster that should get created for this DevPod.
+	// VirtualClusterTemplateRef is a reference to the virtual cluster that should get created for this DevSpace.
 	// If this is specified, the kubernetes provider will be selected automatically.
 	// +optional
 	VirtualClusterTemplateRef *TemplateRef `json:"virtualClusterTemplateRef,omitempty"`
 
-	// VirtualClusterTemplate is the inline template for a virtual cluster that should get created for this DevPod.
+	// VirtualClusterTemplate is the inline template for a virtual cluster that should get created for this DevSpace.
 	// If this is specified, the kubernetes provider will be selected automatically.
 	// +optional
 	VirtualClusterTemplate *VirtualClusterTemplateDefinition `json:"virtualClusterTemplate,omitempty"`
 
 	// WorkspaceEnv are environment variables that should be available within the created workspace.
 	// +optional
-	WorkspaceEnv map[string]DevPodProviderOption `json:"workspaceEnv,omitempty"`
+	WorkspaceEnv map[string]DevSpaceProviderOption `json:"workspaceEnv,omitempty"`
 
 	// InitEnv are environment variables that should be available during the initialization phase of the created workspace.
 	// +optional
-	InitEnv map[string]DevPodProviderOption `json:"initEnv,omitempty"`
+	InitEnv map[string]DevSpaceProviderOption `json:"initEnv,omitempty"`
 
 	// InstanceTemplate holds the workspace instance template
 	// +optional
-	InstanceTemplate DevPodWorkspaceInstanceTemplateDefinition `json:"instanceTemplate,omitempty"`
+	InstanceTemplate DevSpaceWorkspaceInstanceTemplateDefinition `json:"instanceTemplate,omitempty"`
 
 	// UseProjectGitCredentials specifies if the project git credentials should be used instead of local ones for this workspace
 	// +optional
@@ -169,37 +169,37 @@ type GitCredentialForwarding struct {
 	Disabled bool `json:"disabled,omitempty"`
 }
 
-type DevPodWorkspaceProvider struct {
+type DevSpaceWorkspaceProvider struct {
 	// Name is the name of the provider. This can also be an url.
 	Name string `json:"name"`
 
 	// Options are the provider option values
 	// +optional
-	Options map[string]DevPodProviderOption `json:"options,omitempty"`
+	Options map[string]DevSpaceProviderOption `json:"options,omitempty"`
 
 	// Env are environment options to set when using the provider.
 	// +optional
-	Env map[string]DevPodProviderOption `json:"env,omitempty"`
+	Env map[string]DevSpaceProviderOption `json:"env,omitempty"`
 }
 
-type DevPodWorkspaceInstanceTemplateDefinition struct {
+type DevSpaceWorkspaceInstanceTemplateDefinition struct {
 	// The virtual cluster instance metadata
 	// +kubebuilder:pruning:PreserveUnknownFields
 	// +optional
 	TemplateMetadata `json:"metadata,omitempty"`
 }
 
-type DevPodProviderOption struct {
+type DevSpaceProviderOption struct {
 	// Value of this option.
 	// +optional
 	Value string `json:"value,omitempty"`
 
 	// ValueFrom specifies a secret where this value should be taken from.
 	// +optional
-	ValueFrom *DevPodProviderOptionFrom `json:"valueFrom,omitempty"`
+	ValueFrom *DevSpaceProviderOptionFrom `json:"valueFrom,omitempty"`
 }
 
-type DevPodProviderOptionFrom struct {
+type DevSpaceProviderOptionFrom struct {
 	// ProjectSecretRef is the project secret to use for this value.
 	// +optional
 	ProjectSecretRef *corev1.SecretKeySelector `json:"projectSecretRef,omitempty"`
@@ -209,7 +209,7 @@ type DevPodProviderOptionFrom struct {
 	SharedSecretRef *corev1.SecretKeySelector `json:"sharedSecretRef,omitempty"`
 }
 
-type DevPodProviderSource struct {
+type DevSpaceProviderSource struct {
 	// Github source for the provider
 	Github string `json:"github,omitempty"`
 
@@ -220,10 +220,10 @@ type DevPodProviderSource struct {
 	URL string `json:"url,omitempty"`
 }
 
-type DevPodWorkspaceTemplateVersion struct {
-	// Template holds the DevPod template
+type DevSpaceWorkspaceTemplateVersion struct {
+	// Template holds the DevSpace template
 	// +optional
-	Template DevPodWorkspaceTemplateDefinition `json:"template,omitempty"`
+	Template DevSpaceWorkspaceTemplateDefinition `json:"template,omitempty"`
 
 	// Parameters define additional app parameters that will set provider values
 	// +optional
@@ -234,19 +234,19 @@ type DevPodWorkspaceTemplateVersion struct {
 	Version string `json:"version,omitempty"`
 }
 
-// DevPodWorkspaceTemplateStatus holds the status
-type DevPodWorkspaceTemplateStatus struct {
+// DevSpaceWorkspaceTemplateStatus holds the status
+type DevSpaceWorkspaceTemplateStatus struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// DevPodWorkspaceTemplateList contains a list of DevPodWorkspaceTemplate
-type DevPodWorkspaceTemplateList struct {
+// DevSpaceWorkspaceTemplateList contains a list of DevSpaceWorkspaceTemplate
+type DevSpaceWorkspaceTemplateList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []DevPodWorkspaceTemplate `json:"items"`
+	Items           []DevSpaceWorkspaceTemplate `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&DevPodWorkspaceTemplate{}, &DevPodWorkspaceTemplateList{})
+	SchemeBuilder.Register(&DevSpaceWorkspaceTemplate{}, &DevSpaceWorkspaceTemplateList{})
 }

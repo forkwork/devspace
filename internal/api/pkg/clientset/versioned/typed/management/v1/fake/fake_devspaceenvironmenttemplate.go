@@ -13,29 +13,29 @@ import (
 	testing "k8s.io/client-go/testing"
 )
 
-// FakeDevPodEnvironmentTemplates implements DevPodEnvironmentTemplateInterface
-type FakeDevPodEnvironmentTemplates struct {
+// FakeDevSpaceEnvironmentTemplates implements DevSpaceEnvironmentTemplateInterface
+type FakeDevSpaceEnvironmentTemplates struct {
 	Fake *FakeManagementV1
 }
 
 var devspaceenvironmenttemplatesResource = v1.SchemeGroupVersion.WithResource("devspaceenvironmenttemplates")
 
-var devspaceenvironmenttemplatesKind = v1.SchemeGroupVersion.WithKind("DevPodEnvironmentTemplate")
+var devspaceenvironmenttemplatesKind = v1.SchemeGroupVersion.WithKind("DevSpaceEnvironmentTemplate")
 
-// Get takes name of the devPodEnvironmentTemplate, and returns the corresponding devPodEnvironmentTemplate object, and an error if there is any.
-func (c *FakeDevPodEnvironmentTemplates) Get(ctx context.Context, name string, options metav1.GetOptions) (result *v1.DevPodEnvironmentTemplate, err error) {
-	emptyResult := &v1.DevPodEnvironmentTemplate{}
+// Get takes name of the devSpaceEnvironmentTemplate, and returns the corresponding devSpaceEnvironmentTemplate object, and an error if there is any.
+func (c *FakeDevSpaceEnvironmentTemplates) Get(ctx context.Context, name string, options metav1.GetOptions) (result *v1.DevSpaceEnvironmentTemplate, err error) {
+	emptyResult := &v1.DevSpaceEnvironmentTemplate{}
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetActionWithOptions(devspaceenvironmenttemplatesResource, name, options), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodEnvironmentTemplate), err
+	return obj.(*v1.DevSpaceEnvironmentTemplate), err
 }
 
-// List takes label and field selectors, and returns the list of DevPodEnvironmentTemplates that match those selectors.
-func (c *FakeDevPodEnvironmentTemplates) List(ctx context.Context, opts metav1.ListOptions) (result *v1.DevPodEnvironmentTemplateList, err error) {
-	emptyResult := &v1.DevPodEnvironmentTemplateList{}
+// List takes label and field selectors, and returns the list of DevSpaceEnvironmentTemplates that match those selectors.
+func (c *FakeDevSpaceEnvironmentTemplates) List(ctx context.Context, opts metav1.ListOptions) (result *v1.DevSpaceEnvironmentTemplateList, err error) {
+	emptyResult := &v1.DevSpaceEnvironmentTemplateList{}
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListActionWithOptions(devspaceenvironmenttemplatesResource, devspaceenvironmenttemplatesKind, opts), emptyResult)
 	if obj == nil {
@@ -46,8 +46,8 @@ func (c *FakeDevPodEnvironmentTemplates) List(ctx context.Context, opts metav1.L
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1.DevPodEnvironmentTemplateList{ListMeta: obj.(*v1.DevPodEnvironmentTemplateList).ListMeta}
-	for _, item := range obj.(*v1.DevPodEnvironmentTemplateList).Items {
+	list := &v1.DevSpaceEnvironmentTemplateList{ListMeta: obj.(*v1.DevSpaceEnvironmentTemplateList).ListMeta}
+	for _, item := range obj.(*v1.DevSpaceEnvironmentTemplateList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -55,56 +55,56 @@ func (c *FakeDevPodEnvironmentTemplates) List(ctx context.Context, opts metav1.L
 	return list, err
 }
 
-// Watch returns a watch.Interface that watches the requested devPodEnvironmentTemplates.
-func (c *FakeDevPodEnvironmentTemplates) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
+// Watch returns a watch.Interface that watches the requested devSpaceEnvironmentTemplates.
+func (c *FakeDevSpaceEnvironmentTemplates) Watch(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchActionWithOptions(devspaceenvironmenttemplatesResource, opts))
 }
 
-// Create takes the representation of a devPodEnvironmentTemplate and creates it.  Returns the server's representation of the devPodEnvironmentTemplate, and an error, if there is any.
-func (c *FakeDevPodEnvironmentTemplates) Create(ctx context.Context, devPodEnvironmentTemplate *v1.DevPodEnvironmentTemplate, opts metav1.CreateOptions) (result *v1.DevPodEnvironmentTemplate, err error) {
-	emptyResult := &v1.DevPodEnvironmentTemplate{}
+// Create takes the representation of a devSpaceEnvironmentTemplate and creates it.  Returns the server's representation of the devSpaceEnvironmentTemplate, and an error, if there is any.
+func (c *FakeDevSpaceEnvironmentTemplates) Create(ctx context.Context, devSpaceEnvironmentTemplate *v1.DevSpaceEnvironmentTemplate, opts metav1.CreateOptions) (result *v1.DevSpaceEnvironmentTemplate, err error) {
+	emptyResult := &v1.DevSpaceEnvironmentTemplate{}
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateActionWithOptions(devspaceenvironmenttemplatesResource, devPodEnvironmentTemplate, opts), emptyResult)
+		Invokes(testing.NewRootCreateActionWithOptions(devspaceenvironmenttemplatesResource, devSpaceEnvironmentTemplate, opts), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodEnvironmentTemplate), err
+	return obj.(*v1.DevSpaceEnvironmentTemplate), err
 }
 
-// Update takes the representation of a devPodEnvironmentTemplate and updates it. Returns the server's representation of the devPodEnvironmentTemplate, and an error, if there is any.
-func (c *FakeDevPodEnvironmentTemplates) Update(ctx context.Context, devPodEnvironmentTemplate *v1.DevPodEnvironmentTemplate, opts metav1.UpdateOptions) (result *v1.DevPodEnvironmentTemplate, err error) {
-	emptyResult := &v1.DevPodEnvironmentTemplate{}
+// Update takes the representation of a devSpaceEnvironmentTemplate and updates it. Returns the server's representation of the devSpaceEnvironmentTemplate, and an error, if there is any.
+func (c *FakeDevSpaceEnvironmentTemplates) Update(ctx context.Context, devSpaceEnvironmentTemplate *v1.DevSpaceEnvironmentTemplate, opts metav1.UpdateOptions) (result *v1.DevSpaceEnvironmentTemplate, err error) {
+	emptyResult := &v1.DevSpaceEnvironmentTemplate{}
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateActionWithOptions(devspaceenvironmenttemplatesResource, devPodEnvironmentTemplate, opts), emptyResult)
+		Invokes(testing.NewRootUpdateActionWithOptions(devspaceenvironmenttemplatesResource, devSpaceEnvironmentTemplate, opts), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodEnvironmentTemplate), err
+	return obj.(*v1.DevSpaceEnvironmentTemplate), err
 }
 
-// Delete takes name of the devPodEnvironmentTemplate and deletes it. Returns an error if one occurs.
-func (c *FakeDevPodEnvironmentTemplates) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
+// Delete takes name of the devSpaceEnvironmentTemplate and deletes it. Returns an error if one occurs.
+func (c *FakeDevSpaceEnvironmentTemplates) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteActionWithOptions(devspaceenvironmenttemplatesResource, name, opts), &v1.DevPodEnvironmentTemplate{})
+		Invokes(testing.NewRootDeleteActionWithOptions(devspaceenvironmenttemplatesResource, name, opts), &v1.DevSpaceEnvironmentTemplate{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeDevPodEnvironmentTemplates) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
+func (c *FakeDevSpaceEnvironmentTemplates) DeleteCollection(ctx context.Context, opts metav1.DeleteOptions, listOpts metav1.ListOptions) error {
 	action := testing.NewRootDeleteCollectionActionWithOptions(devspaceenvironmenttemplatesResource, opts, listOpts)
 
-	_, err := c.Fake.Invokes(action, &v1.DevPodEnvironmentTemplateList{})
+	_, err := c.Fake.Invokes(action, &v1.DevSpaceEnvironmentTemplateList{})
 	return err
 }
 
-// Patch applies the patch and returns the patched devPodEnvironmentTemplate.
-func (c *FakeDevPodEnvironmentTemplates) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevPodEnvironmentTemplate, err error) {
-	emptyResult := &v1.DevPodEnvironmentTemplate{}
+// Patch applies the patch and returns the patched devSpaceEnvironmentTemplate.
+func (c *FakeDevSpaceEnvironmentTemplates) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.DevSpaceEnvironmentTemplate, err error) {
+	emptyResult := &v1.DevSpaceEnvironmentTemplate{}
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceActionWithOptions(devspaceenvironmenttemplatesResource, name, pt, data, opts, subresources...), emptyResult)
 	if obj == nil {
 		return emptyResult, err
 	}
-	return obj.(*v1.DevPodEnvironmentTemplate), err
+	return obj.(*v1.DevSpaceEnvironmentTemplate), err
 }

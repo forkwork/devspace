@@ -13,10 +13,10 @@ import (
 
 const (
 	// general
-	DEVPOD           = "DEVPOD"
-	DEVPOD_OS        = "DEVPOD_OS"
-	DEVPOD_ARCH      = "DEVPOD_ARCH"
-	DEVPOD_LOG_LEVEL = "DEVPOD_LOG_LEVEL"
+	DEVSPACE           = "DEVSPACE"
+	DEVSPACE_OS        = "DEVSPACE_OS"
+	DEVSPACE_ARCH      = "DEVSPACE_ARCH"
+	DEVSPACE_LOG_LEVEL = "DEVSPACE_LOG_LEVEL"
 
 	// workspace
 	WORKSPACE_ID       = "WORKSPACE_ID"
@@ -177,15 +177,15 @@ func GetBaseEnvironment(context, provider string) map[string]string {
 	retVars := map[string]string{}
 
 	// devspace binary
-	devPodBinary, _ := os.Executable()
-	retVars[DEVPOD] = filepath.ToSlash(devPodBinary)
-	retVars[DEVPOD_OS] = runtime.GOOS
-	retVars[DEVPOD_ARCH] = runtime.GOARCH
+	devSpaceBinary, _ := os.Executable()
+	retVars[DEVSPACE] = filepath.ToSlash(devSpaceBinary)
+	retVars[DEVSPACE_OS] = runtime.GOOS
+	retVars[DEVSPACE_ARCH] = runtime.GOARCH
 	retVars[PROVIDER_ID] = provider
 	retVars[PROVIDER_CONTEXT] = context
 	providerFolder, _ := GetProviderDir(context, provider)
 	retVars[PROVIDER_FOLDER] = filepath.ToSlash(providerFolder)
-	retVars[DEVPOD_LOG_LEVEL] = log2.Default.GetLevel().String()
+	retVars[DEVSPACE_LOG_LEVEL] = log2.Default.GetLevel().String()
 	return retVars
 }
 

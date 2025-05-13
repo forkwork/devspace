@@ -1,5 +1,5 @@
 import { client } from "@/client"
-import { TActionObj } from "@/contexts/DevPodContext/action"
+import { TActionObj } from "@/contexts/DevSpaceContext/action"
 import { TWorkspace } from "@/types"
 import { useToast } from "@chakra-ui/react"
 import { useMutation } from "@tanstack/react-query"

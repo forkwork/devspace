@@ -1,7 +1,7 @@
 use crate::{
     commands::{
         list_pro_instances::ListProInstancesCommand, list_workspaces::ListWorkspacesCommand,
-        start_daemon::StartDaemonCommand, DevpodCommandError,
+        start_daemon::StartDaemonCommand, DevspaceCommandError,
     },
     daemon,
     system_tray::{ToSystemTraySubmenu, SYSTEM_TRAY_ICON_BYTES, WARNING_SYSTEM_TRAY_ICON_BYTES},
@@ -75,7 +75,7 @@ impl WorkspacesState {
 
     pub async fn load_workspaces(
         app_handle: &AppHandle,
-    ) -> Result<Vec<Workspace>, DevpodCommandError> {
+    ) -> Result<Vec<Workspace>, DevspaceCommandError> {
         let list_workspaces_cmd = ListWorkspacesCommand::new();
 
         return list_workspaces_cmd.exec(app_handle).await;
@@ -130,7 +130,7 @@ impl ProState {
 
     pub async fn load_pro_instances(
         app_handle: &AppHandle,
-    ) -> Result<Vec<ProInstance>, DevpodCommandError> {
+    ) -> Result<Vec<ProInstance>, DevspaceCommandError> {
         let cmd = ListProInstancesCommand::new();
         let pro_instances = cmd.exec(app_handle).await?;
 
@@ -230,8 +230,8 @@ impl Daemon {
 
     fn get_socket_addr(
         provider: Option<String>,
-    ) -> Result<String, DevpodCommandError> {
-        let provider = provider.clone().ok_or(DevpodCommandError::Any(anyhow!(
+    ) -> Result<String, DevspaceCommandError> {
+        let provider = provider.clone().ok_or(DevspaceCommandError::Any(anyhow!(
             "provider not set for pro instance"
         )))?;
         #[cfg(unix)]
@@ -308,7 +308,7 @@ impl Daemon {
         &mut self,
         host: String,
         app_handle: &AppHandle,
-    ) -> Result<(Receiver<CommandEvent>, CommandChild), DevpodCommandError> {
+    ) -> Result<(Receiver<CommandEvent>, CommandChild), DevspaceCommandError> {
         let (mut rx, child) = StartDaemonCommand::new(host.clone(), self.should_debug())
             .command(app_handle)?
             .spawn()?;
@@ -323,7 +323,7 @@ impl Daemon {
                 }
             },
             _ = tokio::time::sleep(tokio::time::Duration::from_secs(30)) => {
-                return Err(DevpodCommandError::Any(anyhow!("Timed out waiting for daemon to start")));
+                return Err(DevspaceCommandError::Any(anyhow!("Timed out waiting for daemon to start")));
             }
         }
 

@@ -141,7 +141,7 @@ type UserQuotasOptions struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +subresource-request
-type DevPodUpOptions struct {
+type DevSpaceUpOptions struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// WebMode executes the up command directly.
@@ -165,7 +165,7 @@ type DevPodUpOptions struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +subresource-request
-type DevPodDeleteOptions struct {
+type DevSpaceDeleteOptions struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Options are the options to pass.
@@ -177,7 +177,7 @@ type DevPodDeleteOptions struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +subresource-request
-type DevPodStopOptions struct {
+type DevSpaceStopOptions struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Options are the options to pass.
@@ -189,7 +189,7 @@ type DevPodStopOptions struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +subresource-request
-type DevPodStatusOptions struct {
+type DevSpaceStatusOptions struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Options are the options to pass.
@@ -201,7 +201,7 @@ type DevPodStatusOptions struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // +subresource-request
-type DevPodSshOptions struct {
+type DevSpaceSshOptions struct {
 	metav1.TypeMeta `json:",inline"`
 
 	// Options are the options to pass.
@@ -229,11 +229,11 @@ func addKnownOptionsTypes(scheme *runtime.Scheme) error {
 		&UserSpacesOptions{},
 		&UserVirtualClustersOptions{},
 		&UserQuotasOptions{},
-		&DevPodUpOptions{},
-		&DevPodDeleteOptions{},
-		&DevPodStopOptions{},
-		&DevPodStatusOptions{},
-		&DevPodSshOptions{},
+		&DevSpaceUpOptions{},
+		&DevSpaceDeleteOptions{},
+		&DevSpaceStopOptions{},
+		&DevSpaceStatusOptions{},
+		&DevSpaceSshOptions{},
 		&BackupApplyOptions{},
 	)
 	return nil

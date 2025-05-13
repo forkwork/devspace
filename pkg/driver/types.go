@@ -7,7 +7,7 @@ import (
 	"dev.khulnasoft.com/pkg/devcontainer/config"
 )
 
-// Driver is the default interface for DevPod drivers
+// Driver is the default interface for DevSpace drivers
 type Driver interface {
 	// FindDevContainer returns a running devcontainer details
 	FindDevContainer(ctx context.Context, workspaceID string) (*config.ContainerDetails, error)

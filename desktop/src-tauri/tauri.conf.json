@@ -62,8 +62,8 @@
     },
     "createUpdaterArtifacts": "v1Compatible"
   },
-  "productName": "DevPod",
-  "mainBinaryName": "DevPod Desktop",
+  "productName": "DevSpace",
+  "mainBinaryName": "DevSpace Desktop",
   "version": "../package.json",
   "identifier": "sh.loft.devspace",
   "plugins": {
@@ -86,7 +86,7 @@
     },
     "windows": [
       {
-        "title": "DevPod",
+        "title": "DevSpace",
         "width": 1200,
         "height": 800,
         "minWidth": 1000,

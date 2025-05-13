@@ -59,7 +59,7 @@ func CalculatePrebuildHash(
 	if err != nil {
 		return "", errors.Errorf("Error reading .dockerignore: %v", err)
 	}
-	excludes = append(excludes, DevPodContextFeatureFolder+"/")
+	excludes = append(excludes, DevSpaceContextFeatureFolder+"/")
 
 	// find exact files to hash
 	// todo pass down target or search all

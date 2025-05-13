@@ -20,7 +20,7 @@ import (
 	"github.com/onsi/gomega"
 )
 
-var _ = DevPodDescribe("devspace up test suite", func() {
+var _ = DevSpaceDescribe("devspace up test suite", func() {
 	ginkgo.Context("testing up command", ginkgo.Label("up-docker-compose"), ginkgo.Ordered, func() {
 		var dockerHelper *docker.DockerHelper
 		var composeHelper *compose.ComposeHelper
@@ -43,13 +43,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -81,13 +81,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -119,13 +119,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -153,13 +153,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -187,13 +187,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -226,13 +226,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -256,13 +256,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -286,13 +286,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -319,13 +319,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -353,13 +353,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -387,13 +387,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -421,13 +421,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -454,13 +454,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -484,13 +484,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir)
+				err = f.DevSpaceUp(ctx, tempDir)
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -539,14 +539,14 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
 				// Check for docker-compose container running
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir, "--debug")
+				err = f.DevSpaceUp(ctx, tempDir, "--debug")
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -584,14 +584,14 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
 				// Check for docker-compose container running
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir, "--debug")
+				err = f.DevSpaceUp(ctx, tempDir, "--debug")
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -609,7 +609,7 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 
 				sshContext, sshCancel := context.WithCancel(context.Background())
 				go func() {
-					cmd := exec.CommandContext(sshContext, filepath.Join(f.DevpodBinDir, f.DevpodBinName), "ssh", projectName, "--command", "sleep 30")
+					cmd := exec.CommandContext(sshContext, filepath.Join(f.DevspaceBinDir, f.DevspaceBinName), "ssh", projectName, "--command", "sleep 30")
 
 					if err := cmd.Start(); err != nil {
 						done <- err
@@ -658,13 +658,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				err = f.DevPodUp(ctx, tempDir, "--debug")
+				err = f.DevSpaceUp(ctx, tempDir, "--debug")
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -689,13 +689,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				devPodUpOutput, _, err := f.ExecCommandCapture(ctx, []string{"up", "--debug", "--ide", "none", tempDir})
+				devSpaceUpOutput, _, err := f.ExecCommandCapture(ctx, []string{"up", "--debug", "--ide", "none", tempDir})
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -707,7 +707,7 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				})
 				framework.ExpectNoError(err)
 				gomega.Expect(ids).To(gomega.HaveLen(1), "1 compose container to be created")
-				gomega.Expect(devPodUpOutput).NotTo(gomega.ContainSubstring("Defaulting to a blank string."))
+				gomega.Expect(devSpaceUpOutput).NotTo(gomega.ContainSubstring("Defaulting to a blank string."))
 			}, ginkgo.SpecTimeout(framework.GetTimeout()))
 
 			ginkgo.It("should restart a workspace", func(ctx context.Context) {
@@ -716,13 +716,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 				f := framework.NewDefaultFramework(initialDir + "/bin")
-				_ = f.DevPodProviderAdd(ctx, "docker")
-				err = f.DevPodProviderUse(ctx, "docker")
+				_ = f.DevSpaceProviderAdd(ctx, "docker")
+				err = f.DevSpaceProviderUse(ctx, "docker")
 				framework.ExpectNoError(err)
 
-				ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-				devPodUpOutput, _, err := f.ExecCommandCapture(ctx, []string{"up", "--debug", "--ide", "none", tempDir})
+				devSpaceUpOutput, _, err := f.ExecCommandCapture(ctx, []string{"up", "--debug", "--ide", "none", tempDir})
 				framework.ExpectNoError(err)
 
 				workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -734,7 +734,7 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				})
 				framework.ExpectNoError(err)
 				gomega.Expect(ids).To(gomega.HaveLen(1), "1 compose container to be created")
-				gomega.Expect(devPodUpOutput).NotTo(gomega.ContainSubstring("Defaulting to a blank string."))
+				gomega.Expect(devSpaceUpOutput).NotTo(gomega.ContainSubstring("Defaulting to a blank string."))
 			}, ginkgo.SpecTimeout(framework.GetTimeout()))
 
 			ginkgo.Context("with lifecycle commands", func() {
@@ -744,13 +744,13 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 					ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 
 					f := framework.NewDefaultFramework(initialDir + "/bin")
-					_ = f.DevPodProviderAdd(ctx, "docker")
-					err = f.DevPodProviderUse(ctx, "docker")
+					_ = f.DevSpaceProviderAdd(ctx, "docker")
+					err = f.DevSpaceProviderUse(ctx, "docker")
 					framework.ExpectNoError(err)
 
-					ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), tempDir)
+					ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
-					err = f.DevPodUp(ctx, tempDir)
+					err = f.DevSpaceUp(ctx, tempDir)
 					framework.ExpectNoError(err)
 
 					workspace, err := f.FindWorkspace(ctx, tempDir)
@@ -795,16 +795,16 @@ var _ = DevPodDescribe("devspace up test suite", func() {
 				//	ginkgo.DeferCleanup(framework.CleanupTempDir, initialDir, tempDir)
 				//
 				//	f := framework.NewDefaultFramework(initialDir + "/bin")
-				//	_ = f.DevPodProviderAdd(ctx, "docker"})
-				//	err = f.DevPodProviderUse(context.Background(), "docker")
+				//	_ = f.DevSpaceProviderAdd(ctx, "docker"})
+				//	err = f.DevSpaceProviderUse(context.Background(), "docker")
 				//	framework.ExpectNoError(err)
 				//
-				//	err = f.DevPodUp(ctx, tempDir)
+				//	err = f.DevSpaceUp(ctx, tempDir)
 				//	framework.ExpectNoError(err)
 				//
 				//	// Check for docker-compose container running
 				//	projectName := composeHelper.ToProjectName(filepath.Base(tempDir))
-				//	ginkgo.DeferCleanup(f.DevPodWorkspaceDelete, context.Background(), projectName)
+				//	ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), projectName)
 				//
 				//	ids, err := dockerHelper.FindContainer(ctx, []string{
 				//		fmt.Sprintf("%s=%s", compose.ProjectLabel, composeHelper.GetProjectName(workspace.UID)),

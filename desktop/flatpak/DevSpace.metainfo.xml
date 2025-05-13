@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>sh.loft.devspace</id>
 
-  <name>Devpod</name>
+  <name>Devspace</name>
   <summary>Codespaces but open-source, client-only and unopinionated: Works with any IDE and lets you use any cloud, kubernetes or just localhost docker.</summary>
   <developer_name>Loft Labs</developer_name>
 
@@ -29,7 +29,7 @@
   <screenshots>
     <screenshot type="default">
       <image>https://dev.khulnasoft.com/docs/media/devspace-architecture-2.png</image>
-      <caption>Devpod Architecture</caption>
+      <caption>Devspace Architecture</caption>
     </screenshot>
     <screenshot>
       <image>https://dev.khulnasoft.com/docs/media/add-provider-2.png</image>
