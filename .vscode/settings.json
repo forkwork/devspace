@@ -1,0 +1,10 @@
+{
+	"cSpell.words": [
+		"devspace",
+		"perrors"
+	],
+	"[mdx]": {
+		"editor.wordWrap": "on"
+	},
+	"rust-analyzer.linkedProjects": ["./desktop/src-tauri/Cargo.toml"],
+}

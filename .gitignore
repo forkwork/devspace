@@ -1,0 +1,12 @@
+/.idea
+.DS_Store
+/test
+/e2e/bin
+/devspace
+/devspace.exe
+/devspace-cli
+# Unit test targets
+/main
+/profile.out
+/package-lock.json
+/tags

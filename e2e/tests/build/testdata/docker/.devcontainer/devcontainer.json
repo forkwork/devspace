@@ -1,0 +1,8 @@
+{
+  "name": "Build Example",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".",
+    "options": ["--label=test=VALUE"]
+  }
+}

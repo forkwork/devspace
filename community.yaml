@@ -1,0 +1,11 @@
+providers:
+  - repository: https://github.com/alexandrevilain/devspace-provider-ovhcloud
+  - repository: https://github.com/dirien/devspace-provider-exoscale
+  - repository: https://github.com/dirien/devspace-provider-scaleway
+  - repository: https://github.com/mrsimonemms/devspace-provider-hetzner
+  - repository: https://github.com/cloudbit-ch/devspace-provider-cloudbit
+  - repository: https://github.com/flowswiss/devspace-provider-flow
+  - repository: https://github.com/navaneeth-dev/devspace-provider-vultr
+  - repository: https://github.com/minhio/devspace-provider-multipass
+  - repository: https://github.com/akyriako/devspace-provider-opentelekomcloud
+  - repository: https://github.com/stackitcloud/devspace-provider-stackit

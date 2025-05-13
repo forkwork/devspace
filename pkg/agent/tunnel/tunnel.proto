@@ -1,0 +1,71 @@
+// protoc -I . tunnel.proto  --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative
+syntax = "proto3";
+
+option go_package = "dev.khulnasoft.com/pkg/agent/tunnel";
+
+package tunnel;
+
+service Tunnel {
+  rpc Ping(Empty) returns (Empty) {}
+  rpc Log(LogMessage) returns (Empty) {}
+  rpc SendResult(Message) returns (Empty) {}
+
+  rpc DockerCredentials(Message) returns (Message) {}
+  rpc GitCredentials(Message) returns (Message) {}
+  rpc GitSSHSignature(Message) returns (Message) {}
+  rpc GitUser(Empty) returns (Message) {}
+  rpc LoftConfig(Message) returns (Message) {}
+  rpc GPGPublicKeys(Message) returns (Message) {}
+  rpc KubeConfig(Message) returns (Message) {}
+
+  rpc ForwardPort(ForwardPortRequest) returns (ForwardPortResponse) {}
+  rpc StopForwardPort(StopForwardPortRequest) returns (StopForwardPortResponse) {}
+
+  rpc StreamWorkspace(Empty) returns (stream Chunk) {}
+  rpc StreamMount(StreamMountRequest) returns (stream Chunk) {}
+}
+
+message StreamMountRequest {
+  string mount = 1;
+}
+
+message StopForwardPortRequest {
+  string port = 1;
+}
+
+message StopForwardPortResponse {
+
+}
+
+message ForwardPortRequest {
+  string port = 1;
+}
+
+message ForwardPortResponse {
+
+}
+
+message Message {
+  string message = 1;
+}
+
+message Chunk {
+  bytes Content = 1;
+}
+
+enum LogLevel {
+  DEBUG = 0;
+  INFO = 1;
+  DONE = 2;
+  WARNING = 3;
+  ERROR = 4;
+}
+
+message LogMessage {
+  LogLevel logLevel = 1;
+  string message = 2;
+}
+
+message Empty {
+
+}

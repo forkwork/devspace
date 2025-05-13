@@ -1,0 +1,66 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "internal/admin-api"
+        },
+        {
+            "path": "internal/api"
+        },
+        {
+            "path": "internal/apiserver"
+        },
+        {
+            "path": "internal/auth"
+        },
+        {
+            "path": "internal/authserver"
+        },
+        {
+            "path": "internal/k8s-apiserver"
+        },
+        {
+            "path": "internal/k8s-authserver"
+        },
+        {
+            "path": "internal/log"
+        },
+        {
+            "path": "internal/metrics"
+        },
+        {
+            "path": "internal/product"
+        },
+        {
+            "path": "internal/server"
+        },
+        {
+            "path": "internal/storage"
+        },
+        {
+            "path": "internal/terminal"
+        },
+        {
+            "path": "internal/websocket"
+        }
+    ],
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
+    "workspace.supportMultiRootWorkspace": true,
+    "launch": {},
+    "files.exclude": {
+        "**/.git": true
+    },
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "-disable",
+        "govet,errcheck,staticcheck",
+        "--allow-parallel-runners",
+        "--timeout",
+        "15m"
+    ],
+    "gopls": {},
+    "prettier.configPath": "/workspace/gitpod/.prettierrc.json"
+}

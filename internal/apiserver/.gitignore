@@ -1,0 +1,6 @@
+.idea/
+/test
+/example/src/dev.khulnasoft.com/test/vendor
+/generator
+apiserver.local.config/
+violations.report

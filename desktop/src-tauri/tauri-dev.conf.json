@@ -1,0 +1,8 @@
+{
+  "identifier": "sh.loft.devspace.for.devspace.devs",
+  "plugins": {
+    "updater": {
+      "active": false
+    }
+  }
+}

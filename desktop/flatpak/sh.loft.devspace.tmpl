@@ -1,0 +1,52 @@
+id: sh.loft.devspace
+
+runtime: org.gnome.Platform
+runtime-version: '47'
+sdk: org.gnome.Sdk
+
+command: "sh.loft.devspace"
+finish-args:
+  - --socket=wayland # Permission needed to show the window
+  - --socket=fallback-x11 # Permission needed to show the window
+  - --device=dri # OpenGL, not necessary for all projects
+  - --share=ipc
+  - --share=network
+  - --socket=ssh-auth
+  - --socket=gpg-agent
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Flatpak
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --filesystem=xdg-run/keyring
+
+modules:
+  - shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json
+  - name: devspace
+    buildsystem: simple
+    sources:
+      - type: file
+        url: https://dev.khulnasoft.com/releases/download/v${VERSION}/DevPod_${VERSION}_amd64.deb
+        sha256: ${SHA256}
+        only-arches: [x86_64]
+      - type: file
+        url: https://dev.khulnasoft.com/releases/download/v${VERSION}/DevPod.desktop
+        sha256: ${DESKTOP_SHA256}
+      - type: file
+        url: https://dev.khulnasoft.com/releases/download/v${VERSION}/DevPod.metainfo.xml
+        sha256: ${META_SHA256}
+      - type: file
+        path: devspace-wrapper
+    build-commands:
+      - ar -x *.deb
+      - tar -xf data.tar.gz
+      - cp devspace-wrapper /app/bin/devspace-cli
+      - chmod +x /app/bin/devspace-cli
+      - install -Dm755 usr/bin/devspace-cli /app/bin/devspace-bin
+      - install -Dm755 usr/bin/DevPod\ Desktop /app/bin/sh.loft.devspace
+      - install -Dm644 DevPod.desktop /app/share/applications/sh.loft.devspace.desktop
+      - desktop-file-edit --set-key Exec --set-value sh.loft.devspace /app/share/applications/sh.loft.devspace.desktop
+      - desktop-file-edit --set-icon sh.loft.devspace /app/share/applications/sh.loft.devspace.desktop
+      - install -Dm644 usr/share/icons/hicolor/128x128/apps/DevPod\ Desktop.png /app/share/icons/hicolor/128x128/apps/sh.loft.devspace.png
+      - install -Dm644 usr/share/icons/hicolor/32x32/apps/DevPod\ Desktop.png /app/share/icons/hicolor/32x32/apps/sh.loft.devspace.png
+      - install -Dm644 usr/share/icons/hicolor/256x256@2/apps/DevPod\ Desktop.png /app/share/icons/hicolor/256x256@2/apps/sh.loft.devspace.png
+      - install -Dm644 DevPod.metainfo.xml /app/share/metainfo/sh.loft.devspace.metainfo.xml
