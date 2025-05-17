@@ -547,7 +547,10 @@ function mapCommunityProviderInfo(
 
     // probably $ORG/$REPO
     if (segments.length === 2 && segments[0] !== undefined && segments[1] !== undefined) {
-      return { title: { org: segments[0], name: stripDevspacePrefix(segments[1]) }, repository: repo }
+      return {
+        title: { org: segments[0], name: stripDevspacePrefix(segments[1]) },
+        repository: repo,
+      }
     }
 
     const last = segments.pop()

@@ -93,8 +93,8 @@ export function useWelcomeModal() {
                   </Text>
                   <Text>
                     Each developer environment runs in a separate container and is specified through
-                    a devcontainer.json. Through DevSpace providers these containers can be created on
-                    the local computer, any reachable remote machine or in a public or private
+                    a devcontainer.json. Through DevSpace providers these containers can be created
+                    on the local computer, any reachable remote machine or in a public or private
                     cloud. It&apos;s also possible to extend DevSpace and write your own custom
                     providers. <br />
                     For more information, head over to our{" "}

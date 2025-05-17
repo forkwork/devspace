@@ -321,8 +321,8 @@ export function CreateWorkspace() {
                   <FormErrorMessage>{defaultIDEError.message ?? "Error"}</FormErrorMessage>
                 ) : (
                   <FormHelperText>
-                    DevSpace will open this workspace with the selected IDE by default. You can still
-                    change your default IDE later.
+                    DevSpace will open this workspace with the selected IDE by default. You can
+                    still change your default IDE later.
                   </FormHelperText>
                 )}
               </FormControl>
@@ -399,8 +399,8 @@ export function CreateWorkspace() {
                   <FormErrorMessage>{devcontainerPathError.message ?? "Error"}</FormErrorMessage>
                 ) : (
                   <FormHelperText>
-                    DevSpace will use this path to create the dev container for this workspace. If not
-                    specified it&apos;ll use <Code>.devcontainer.json</Code> or{" "}
+                    DevSpace will use this path to create the dev container for this workspace. If
+                    not specified it&apos;ll use <Code>.devcontainer.json</Code> or{" "}
                     <Code>.devcontainer/devcontainer.json</Code>. <br />
                     Example: <Code>.devcontainer/service/devcontainer.json</Code>
                   </FormHelperText>

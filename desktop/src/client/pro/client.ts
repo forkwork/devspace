@@ -254,7 +254,12 @@ export class DaemonClient extends ProClient {
       details.push("Platform is offline")
     }
 
-    return Return.Value({ healthy, details, loginRequired: status.loginRequired, online: status.online })
+    return Return.Value({
+      healthy,
+      details,
+      loginRequired: status.loginRequired,
+      online: status.online,
+    })
   }
 
   public watchWorkspaces(
@@ -369,7 +374,7 @@ class WorkspaceWatcher {
       this.reader?.cancel().catch((err) => {
         console.debug("cancel failed", err)
       })
-    } catch(err) {
+    } catch (err) {
       console.error(err)
     }
     this.reader = undefined
@@ -405,7 +410,7 @@ class WorkspaceWatcher {
             this.buffer = ""
             this.watch()
           }
-          
+
           // Otherwise caller is responsible for reestablishing connection
         })
       return this.cancel.bind(this)
