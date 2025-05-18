@@ -4,7 +4,7 @@
             "path": "."
         },
         {
-            "path": "internal/admin-api"
+            "path": "internal/admin-apis"
         },
         {
             "path": "internal/api"
@@ -13,37 +13,28 @@
             "path": "internal/apiserver"
         },
         {
-            "path": "internal/auth"
+            "path": "internal/tailscale"
         },
         {
-            "path": "internal/authserver"
+            "path": "internal/ssh"
+        },
+        {
+            "path": "internal/programming-language-detection"
         },
         {
             "path": "internal/k8s-apiserver"
         },
         {
-            "path": "internal/k8s-authserver"
+            "path": "internal/k8s-client-go"
         },
         {
             "path": "internal/log"
         },
         {
-            "path": "internal/metrics"
+            "path": "internal/analytics-client"
         },
         {
-            "path": "internal/product"
-        },
-        {
-            "path": "internal/server"
-        },
-        {
-            "path": "internal/storage"
-        },
-        {
-            "path": "internal/terminal"
-        },
-        {
-            "path": "internal/websocket"
+            "path": "internal/agentapi"
         }
     ],
     "go.formatTool": "goimports",
@@ -62,5 +53,5 @@
         "15m"
     ],
     "gopls": {},
-    "prettier.configPath": "/workspace/gitpod/.prettierrc.json"
+    "prettier.configPath": "/workspace/devspace/.prettierrc.json"
 }
