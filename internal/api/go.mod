@@ -3,9 +3,9 @@ module dev.khulnasoft.com/api/v4
 go 1.22.5
 
 replace (
-	dev.khulnasoft.com/admin-apis ./admin-apis
-	dev.khulnasoft.com/agentapi/v4 ./agentapi
-	dev.khulnasoft.com/apiserver ./apiserver
+	dev.khulnasoft.com/admin-apis => ./admin-apis
+	dev.khulnasoft.com/agentapi/v4 => ./agentapi
+	dev.khulnasoft.com/apiserver => ./apiserver
 )
 
 require (

@@ -199,6 +199,7 @@ export class DaemonClient extends ProClient {
       }
 
       const json: T = await res.json().catch(() => "")
+
       return Return.Value(json)
     } catch (e) {
       return this.handleError(e, "unable to get resource")
@@ -413,6 +414,7 @@ class WorkspaceWatcher {
 
           // Otherwise caller is responsible for reestablishing connection
         })
+
       return this.cancel.bind(this)
     } catch {
       return this.cancel.bind(this)
