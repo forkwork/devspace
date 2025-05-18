@@ -111,14 +111,14 @@ export function WorkspaceInstanceCard({
   }
 
   const cluster = useMemo(() => {
-    if (instance?.spec?.runnerRef?.runner) {
+    if (instance.spec?.runnerRef?.runner) {
       return projectClusters?.runners?.find(
-        (runner) => runner.metadata?.name === instance?.spec?.runnerRef?.runner
+        (runner) => runner.metadata?.name === instance.spec?.runnerRef?.runner
       )
     }
 
     return projectClusters?.clusters?.find(
-      (cluster) => cluster.metadata?.name === instance?.spec?.target?.cluster?.name
+      (cluster) => cluster.metadata?.name === instance.spec?.target?.cluster?.name
     )
   }, [projectClusters, instance])
 

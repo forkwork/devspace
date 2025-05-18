@@ -31,8 +31,14 @@ import dayjs from "dayjs"
 import { ReactElement, ReactNode, cloneElement, useMemo } from "react"
 import { WorkspaceStatus } from "./WorkspaceStatus"
 import { ManagementV1DevSpaceWorkspaceInstanceKubernetesStatus } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstanceKubernetesStatus"
-import { ManagementV1DevSpaceWorkspaceInstancePodStatus, ManagementV1DevSpaceWorkspaceInstancePodStatusPhaseEnum } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstancePodStatus"
-import { ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatus, ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatus"
+import {
+  ManagementV1DevSpaceWorkspaceInstancePodStatus,
+  ManagementV1DevSpaceWorkspaceInstancePodStatusPhaseEnum,
+} from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstancePodStatus"
+import {
+  ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatus,
+  ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum,
+} from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatus"
 import { quantityToScalar } from "@kubernetes/client-node/dist/util"
 
 type TWorkspaceDetailsProps = Readonly<{
@@ -53,12 +59,12 @@ export function WorkspaceDetails({
     Source.fromRaw(instance.metadata?.annotations?.[Annotations.WorkspaceSource])
   )
   const owner = useMemo(() => {
-    return instance?.spec?.owner?.user ?? instance?.spec?.owner?.team ?? "unknown"
+    return instance.spec?.owner?.user ?? instance.spec?.owner?.team ?? "unknown"
   }, [instance])
 
   const mainContainerImage = useMemo(
     () =>
-      instance?.status?.kubernetes?.podStatus?.containerStatuses?.find(
+      instance.status?.kubernetes?.podStatus?.containerStatuses?.find(
         ({ name }) => name === "devspace"
       )?.image,
     [instance.status?.kubernetes]
@@ -169,7 +175,7 @@ export function WorkspaceDetails({
           <StackedWorkspaceInfoDetail icon={Dashboard} label={<Text>Avg. Latency</Text>}>
             <Text>
               {instance.status?.metrics?.latencyMs
-                ? instance.status.metrics.latencyMs?.toFixed(2) + "ms"
+                ? instance.status.metrics.latencyMs.toFixed(2) + "ms"
                 : "-"}
             </Text>
           </StackedWorkspaceInfoDetail>
@@ -370,7 +376,7 @@ function KubernetesDetails({ status }: TKubernetesDetailsProps) {
     return Object.entries(mainContainerResources.resources?.limits ?? {}).map(
       ([type, quantity]) => {
         const used = indexedMetrics[type]
-        let usagePercentage = calculateUsagePercentage(
+        const usagePercentage = calculateUsagePercentage(
           quantityToScalarBigInt(used),
           quantityToScalarBigInt(quantity)
         )
@@ -389,7 +395,9 @@ function KubernetesDetails({ status }: TKubernetesDetailsProps) {
       )}
 
       {status.podStatus && <PodStatus podStatus={status.podStatus} />}
-      {status.persistentVolumeClaimStatus && <PvcStatus pvcStatus={status.persistentVolumeClaimStatus} />}
+      {status.persistentVolumeClaimStatus && (
+        <PvcStatus pvcStatus={status.persistentVolumeClaimStatus} />
+      )}
 
       {resources.map((resource) => {
         return (
@@ -434,7 +442,11 @@ function PodStatus({ podStatus }: { podStatus: ManagementV1DevSpaceWorkspaceInst
   let message = podStatus.message
   if (phase !== ManagementV1DevSpaceWorkspaceInstancePodStatusPhaseEnum.Running) {
     // check container status first
-    const containerStatus = podStatus.containerStatuses?.find((container) => container.name === "devspace" && (container.state?.waiting?.reason || container.state?.terminated?.reason))
+    const containerStatus = podStatus.containerStatuses?.find(
+      (container) =>
+        container.name === "devspace" &&
+        (container.state?.waiting?.reason || container.state?.terminated?.reason)
+    )
     if (containerStatus) {
       if (containerStatus.state?.waiting) {
         reason = containerStatus.state.waiting.reason
@@ -442,7 +454,10 @@ function PodStatus({ podStatus }: { podStatus: ManagementV1DevSpaceWorkspaceInst
       } else if (containerStatus.state?.terminated) {
         reason = containerStatus.state.terminated.reason
         message = containerStatus.state.terminated.message
-        if (!containerStatus.state.terminated.message && containerStatus.state.terminated.exitCode != 0) {
+        if (
+          !containerStatus.state.terminated.message &&
+          containerStatus.state.terminated.exitCode != 0
+        ) {
           message = "Exit code: " + containerStatus.state.terminated.exitCode
         }
       }
@@ -450,7 +465,9 @@ function PodStatus({ podStatus }: { podStatus: ManagementV1DevSpaceWorkspaceInst
 
     // check pod conditions
     if (!reason && !message) {
-      const podCondition = podStatus.conditions?.find((condition) => condition.status === "False" && condition.reason)
+      const podCondition = podStatus.conditions?.find(
+        (condition) => condition.status === "False" && condition.reason
+      )
       if (podCondition) {
         reason = podCondition.reason
         message = podCondition.message
@@ -470,8 +487,8 @@ function PodStatus({ podStatus }: { podStatus: ManagementV1DevSpaceWorkspaceInst
     if (!reason && !message) {
       const normalEvent = podStatus.events?.find((event) => event.type === "Normal")
       if (normalEvent) {
-            reason = normalEvent.reason
-            message = normalEvent.message
+        reason = normalEvent.reason
+        message = normalEvent.message
       }
     }
   }
@@ -479,24 +496,38 @@ function PodStatus({ podStatus }: { podStatus: ManagementV1DevSpaceWorkspaceInst
   return (
     <StackedWorkspaceInfoDetail icon={Dashboard} label={<Text>Pod</Text>}>
       <Text color={phase ? phaseColor[phase] : "gray.500"}>
-        {phase === ManagementV1DevSpaceWorkspaceInstancePodStatusPhaseEnum.Running ? podStatus.phase : (
-          (reason && message) ? <Tooltip label={message}>
-            <Text>{podStatus.phase} ({reason})</Text>
-          </Tooltip> : (reason ? <Text>{podStatus.phase} ({reason})</Text> : podStatus.phase)
+        {phase === ManagementV1DevSpaceWorkspaceInstancePodStatusPhaseEnum.Running ? (
+          podStatus.phase
+        ) : reason && message ? (
+          <Tooltip label={message}>
+            <Text>
+              {podStatus.phase} ({reason})
+            </Text>
+          </Tooltip>
+        ) : reason ? (
+          <Text>
+            {podStatus.phase} ({reason})
+          </Text>
+        ) : (
+          podStatus.phase
         )}
       </Text>
     </StackedWorkspaceInfoDetail>
   )
 }
 
-
-function PvcStatus({ pvcStatus }: { pvcStatus: ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatus }) {
+function PvcStatus({
+  pvcStatus,
+}: {
+  pvcStatus: ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatus
+}) {
   const phase = pvcStatus.phase
   const phaseColor = {
-    [ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum.Pending]: "yellow.500",
+    [ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum.Pending]:
+      "yellow.500",
     [ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum.Bound]: "",
     [ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum.Lost]: "red.400",
-  } 
+  }
 
   let reason: string | undefined = ""
   let message: string | undefined = ""
@@ -526,9 +557,22 @@ function PvcStatus({ pvcStatus }: { pvcStatus: ManagementV1DevSpaceWorkspaceInst
   return (
     <StackedWorkspaceInfoDetail icon={Dashboard} label={<Text>Volume</Text>}>
       <Text color={phase ? phaseColor[phase] : "gray.500"}>
-        {phase === ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum.Bound ? pvcStatus.phase : ((reason && message) ? <Tooltip label={message}>
-          <Text>{pvcStatus.phase} ({reason})</Text>
-        </Tooltip> : reason ? <Text>{pvcStatus.phase} ({reason})</Text> : pvcStatus.phase) }
+        {phase ===
+        ManagementV1DevSpaceWorkspaceInstancePersistentVolumeClaimStatusPhaseEnum.Bound ? (
+          pvcStatus.phase
+        ) : reason && message ? (
+          <Tooltip label={message}>
+            <Text>
+              {pvcStatus.phase} ({reason})
+            </Text>
+          </Tooltip>
+        ) : reason ? (
+          <Text>
+            {pvcStatus.phase} ({reason})
+          </Text>
+        ) : (
+          pvcStatus.phase
+        )}
       </Text>
     </StackedWorkspaceInfoDetail>
   )
@@ -638,6 +682,7 @@ function formatContainerImage(fullImageName: string): string {
     if (path.startsWith("/")) {
       return path.substring(1, path.length)
     }
+
     return path
   } catch {
     return fullImageName

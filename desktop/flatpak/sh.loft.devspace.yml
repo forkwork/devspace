@@ -1,0 +1,43 @@
+app-id: sh.loft.devspace
+runtime: org.gnome.Platform
+runtime-version: "44"
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: devspace
+finish-args:
+  - --share=network
+  - --socket=wayland
+  - --socket=x11
+  - --device=dri
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Flatpak
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
+  env:
+    PKG_CONFIG_PATH: /app/lib/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig
+modules:
+  - name: gtk3
+    buildsystem: meson
+    config-opts:
+      - -Dgtk_doc=false
+      - -Ddemos=false
+      - -Dexamples=false
+      - -Dtests=false
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.38.tar.xz
+        sha256: 6fa2ed9c8a50ae0be701d9b0a7c1c294af13a10fc5e8a03d9aa8c18022c5f067
+
+  - name: devspace
+    buildsystem: simple
+    build-commands:
+      - cd desktop && npm install
+      - cd desktop && npm run tauri build
+      - install -Dm755 desktop/src-tauri/target/release/devspace /app/bin/devspace
+      - install -Dm644 desktop/flatpak/DevSpace.metainfo.xml /app/share/metainfo/sh.loft.devspace.metainfo.xml
+      - install -Dm644 desktop/flatpak/sh.loft.devspace.desktop /app/share/applications/sh.loft.devspace.desktop
+      - install -Dm644 desktop/flatpak/sh.loft.devspace.png /app/share/icons/hicolor/512x512/apps/sh.loft.devspace.png
+    sources:
+      - type: dir
+        path: ../

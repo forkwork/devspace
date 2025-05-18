@@ -493,7 +493,9 @@ function ExperimentalSettings() {
         {extraEnvVarsInput}
       </SettingSection>
 
-      <SettingSection title="DevSpace Pro (beta)" description="Enable DevSpace Pro login and creation">
+      <SettingSection
+        title="DevSpace Pro (beta)"
+        description="Enable DevSpace Pro login and creation">
         <Switch
           isChecked={settings.experimental_devSpacePro}
           onChange={(e) => set("experimental_devSpacePro", e.target.checked)}

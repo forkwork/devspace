@@ -24,7 +24,8 @@ export function useTemplates(): UseQueryResult<TTemplates> {
       let defaultTemplate: ManagementV1DevSpaceWorkspaceTemplate | undefined = undefined
       if (projectTemplates?.defaultDevSpaceWorkspaceTemplate) {
         defaultTemplate = projectTemplates.devSpaceWorkspaceTemplates?.find(
-          (template) => template.metadata?.name === projectTemplates.defaultDevSpaceWorkspaceTemplate
+          (template) =>
+            template.metadata?.name === projectTemplates.defaultDevSpaceWorkspaceTemplate
         )
       }
 
